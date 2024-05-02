@@ -59,7 +59,7 @@ Window {
         Rectangle {
             id: footer
             Layout.fillWidth: true
-            Layout.preferredHeight: 30
+            Layout.preferredHeight: 25
             color: "#00BCD4"
         }
     }
