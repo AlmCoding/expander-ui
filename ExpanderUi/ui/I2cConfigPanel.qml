@@ -5,6 +5,7 @@ import QtQuick.Controls.Material
 
 
 Rectangle {
+    id: root
     color: "white"
 
     ColumnLayout {
@@ -13,14 +14,14 @@ Rectangle {
 
         I2cConfigInterfacePanel {
             Layout.fillWidth: true
-            Layout.preferredHeight: (parent.height - parent.spacing) / 4
-            Layout.minimumHeight: 330
+            Layout.preferredHeight: (root.height - parent.spacing) / 4
+            Layout.minimumHeight: 320
             Layout.leftMargin: 10
         }
 
         I2cConfigRequestPanel {
             Layout.fillWidth: true
-            Layout.preferredHeight: (parent.height - parent.spacing) * 3 / 4
+            Layout.preferredHeight: (root.height - parent.spacing) * 3 / 4
             // Layout.leftMargin: 10
         }
     }

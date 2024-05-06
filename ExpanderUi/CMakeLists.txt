@@ -26,6 +26,9 @@ qt_add_qml_module(appExpanderUi
         ui/I2cConfigRequestPanel.qml
         ui/I2cRequestListComponent.qml
         ui/RequestModel.qml
+    RESOURCES
+        ui/resources/images/edit_button.png
+        ui/resources/images/play_button.png
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

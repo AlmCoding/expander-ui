@@ -10,7 +10,7 @@ RowLayout {
     I2cConfigPanel {
         Layout.fillHeight: true
         Layout.preferredWidth: (parent.width - parent.spacing) / 3
-        Layout.minimumWidth: 300
+        Layout.minimumWidth: 320
     }
 
     I2cLogPanel {

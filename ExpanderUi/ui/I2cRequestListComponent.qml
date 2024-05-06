@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 
 Item {
     width: requestList.width  // TODO: Is this ok?
-    height: 50
+    height: 60
 
     ColumnLayout {
         anchors.fill: parent
@@ -15,11 +15,13 @@ Item {
         RowLayout {
             id: firstRow
             Layout.fillWidth: true
+            Layout.preferredHeight: parent.height / 2
 
             Rectangle {
-                color: "red"
+                Layout.fillHeight: true
                 Layout.preferredWidth: 20
-                Text { text: req_type}
+                color: "red"
+                // Text { text: req_type}
             }
             Rectangle {
                 color: "green"
@@ -38,17 +40,37 @@ Item {
             }
         }
 
-        RowLayout {
+        Rectangle {
             id: secondRow
-            Layout.fillWidth: true
-            Text { text: '<b>Data:</b> ' + write_data }
-
-            // Image {
-            //     Layout.preferredHeight: 10
-            //     fillMode: Image.PreserveAspectFit
-            //     source: "ExpanderUi/ui/resources/images/play_button.png"
-            // }
+            //Layout.fillWidth: true
+            Layout.preferredWidth: parent.width - 20
+            Layout.preferredHeight: parent.height / 2
+            color: "green"
         }
+
+        // RowLayout {
+        //     id: secondRow
+        //     Layout.fillWidth: true
+        //     Layout.preferredHeight: parent.height / 2
+
+        //     // Text {
+        //     //     Layout.preferredWidth: 100 // parent.width - playImage.width
+        //     //     text: '<b>Data:</b> ' + write_data
+        //     // }
+
+        //     Rectangle {
+        //         Layout.fillHeight: true
+        //         Layout.preferredWidth: 100
+        //         color: "green"
+        //     }
+
+        //     Image {
+        //         id: playImage
+        //         Layout.preferredHeight: 20
+        //         fillMode: Image.PreserveAspectFit
+        //         source: "/ExpanderUi/ui/resources/images/play_button.png"
+        //     }
+        // }
     }
 
     MouseArea {
