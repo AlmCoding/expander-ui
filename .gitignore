@@ -1,3 +1,5 @@
 build-ExpanderUi-Desktop*/
 
 *.drawio.bkp
+
+ExpanderUi/CMakeLists.txt.user
