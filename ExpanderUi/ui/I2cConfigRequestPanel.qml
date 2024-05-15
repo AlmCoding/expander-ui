@@ -11,7 +11,7 @@ ColumnLayout {
     Rectangle {
         id: scrollRectangle
         Layout.fillWidth: true
-        Layout.preferredHeight: parent.height - newButton.height
+        Layout.preferredHeight: parent.height - buttonRow.height
         color: "lightgray"
 
         // Component {
@@ -93,16 +93,33 @@ ColumnLayout {
                 anchors.fill: parent
                 model: RequestModel {}
                 delegate: I2cRequestListComponent {}
-                highlight: Rectangle { color: "lightblue"; radius: 5 }
+                highlight: Rectangle { color: "#00BCD4"; radius: 0 }
                 focus: true
             }
         }
     }
 
-    Button {
-        id: newButton
-        Layout.preferredWidth: scrollRectangle.width - 20
+    RowLayout {
+        id: buttonRow
         Layout.alignment: Qt.AlignHCenter
-        text: "New"
+        // Layout.fillWidth: true
+        // Layout.preferredHeight: parent.height / 2
+        spacing: 10
+
+        Button {
+            id: loadButton
+            Layout.preferredWidth: 90
+            text: "Load"
+        }
+        Button {
+            id: saveButton
+            Layout.preferredWidth: 90
+            text: "Save"
+        }
+        Button {
+            id: newButton
+            Layout.preferredWidth: 90
+            text: "New"
+        }
     }
 }

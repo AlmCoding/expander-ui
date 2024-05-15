@@ -15,7 +15,7 @@ Rectangle {
         I2cConfigInterfacePanel {
             Layout.fillWidth: true
             Layout.preferredHeight: (root.height - parent.spacing) / 4
-            Layout.minimumHeight: 320
+            Layout.minimumHeight: 300
             Layout.leftMargin: 10
         }
 

@@ -46,7 +46,6 @@ ColumnLayout {
             }
         }
 
-
         Label {
             Layout.preferredWidth: labelWidth
             text: "Slave address"
@@ -54,12 +53,10 @@ ColumnLayout {
             font.bold: true
         }
 
-        GroupBox {
+        TextField {
             Layout.preferredWidth: 150
-            TextInput {
-                width: parent.width
-                text: "0x01"
-            }
+            Layout.preferredHeight: 40
+            text: "0x01"
         }
 
         Label {
@@ -71,6 +68,7 @@ ColumnLayout {
 
         ComboBox {
             Layout.preferredWidth: 150
+            Layout.preferredHeight: 40
             model: ["1 MHz", "400 kHz", "100 kHz", "10 kHz"]
         }
     }

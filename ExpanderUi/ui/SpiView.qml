@@ -8,9 +8,9 @@ Rectangle {
     anchors.fill: parent
     color: "lightgray"
 
-    Image {
-        height: 30
-        fillMode: Image.PreserveAspectFit
-        source: "/ExpanderUi/ui/resources/images/play_button.png"
-    }
+    // Image {
+    //     height: 30
+    //     fillMode: Image.PreserveAspectFit
+    //     source: "/ExpanderUi/ui/resources/images/play_button.png"
+    // }
 }
