@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 
+import "../panels"
+
 
 RowLayout {
     spacing: 5

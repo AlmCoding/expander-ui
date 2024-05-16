@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 
+import "views"
+
 
 Window {
     id: root
@@ -28,6 +30,9 @@ Window {
             TabButton {
                 text: qsTr("SPI")
             }
+            TabButton {
+                text: qsTr("Settings")
+            }
         }
 
         Rectangle {
@@ -50,6 +55,12 @@ Window {
                 Item {
                     id: spiTab
                     SpiView {
+                        anchors.fill: parent
+                    }
+                }
+                Item {
+                    id: settingsTab
+                    SettingsView {
                         anchors.fill: parent
                     }
                 }

@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 
 Item {
     id: root
-    width: requestList.width  // TODO: Is this ok?
+    width: requestList.width
     height: 60
 
     Rectangle {

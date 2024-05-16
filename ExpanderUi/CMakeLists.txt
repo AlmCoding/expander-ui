@@ -17,15 +17,16 @@ qt_add_qml_module(appExpanderUi
     VERSION 1.0
     QML_FILES
         ui/Main.qml
-        ui/I2cView.qml
-        ui/SpiView.qml
-        ui/I2cConfigPanel.qml
-        ui/I2cLogPanel.qml
-        ui/I2cConfigInterfacePanel.qml
-        ui/I2cConfigInterfacePanelTab.qml
-        ui/I2cConfigRequestPanel.qml
-        ui/I2cRequestListComponent.qml
-        ui/RequestModel.qml
+        ui/views/I2cView.qml
+        ui/views/SpiView.qml
+        ui/views/SettingsView.qml
+        ui/panels/I2cConfigPanel.qml
+        ui/panels/I2cLogPanel.qml
+        ui/panels/I2cConfigInterfacePanel.qml
+        ui/panels/I2cConfigInterfacePanelTab.qml
+        ui/panels/I2cConfigRequestPanel.qml
+        ui/panels/I2cRequestListComponent.qml
+        ui/panels/RequestModel.qml
     RESOURCES
         ui/resources/images/edit_button.png
         ui/resources/images/play_button.png
