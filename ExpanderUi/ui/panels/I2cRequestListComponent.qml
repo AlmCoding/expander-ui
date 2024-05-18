@@ -43,7 +43,7 @@ Item {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
-                            text: "<b>" + req_name + "</b>"
+                            text: "<b>" + model.name + "</b>"
                         }
                     }
                     Rectangle {
@@ -52,7 +52,7 @@ Item {
                         // color: "red"
                         Text {
                             anchors.centerIn: parent
-                            text: "<b>" + req_type + "</b>"
+                            text: "<b>" + model.rw + "</b>"
                         }
                     }
                     Rectangle {
@@ -61,7 +61,7 @@ Item {
                         // color: "blue"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Slave:</b> " + slave_addr
+                            text: "<b>Slave:</b> " + model.slaveAddr
                         }
                     }
                 }
@@ -75,11 +75,12 @@ Item {
                     Rectangle {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 80
+                        radius: 5
                         // color: "red"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 8
-                            text: "<b>Addr:</b> " + mem_addr
+                            text: "<b>Addr:</b> " + model.memAddr
                         }
                     }
                     Rectangle {
@@ -93,7 +94,7 @@ Item {
                         // color: "blue"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            Text { text: "<b>Size:</b> " + data_size }
+                            text: "<b>Size:</b> " + model.size
                         }
                     }
                 }

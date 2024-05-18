@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 
 import "views"
+import "stores"
 
 
 Window {
@@ -16,6 +17,10 @@ Window {
     visible: true
     title: qsTr("Interface Expander")
 
+    RootStore {
+        id: rootStore
+    }
+
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
@@ -27,9 +32,9 @@ Window {
             TabButton {
                 text: qsTr("I2C")
             }
-            TabButton {
-                text: qsTr("SPI")
-            }
+            // TabButton {
+            //     text: qsTr("SPI")
+            // }
             TabButton {
                 text: qsTr("Settings")
             }
@@ -52,12 +57,12 @@ Window {
                         anchors.fill: parent
                     }
                 }
-                Item {
-                    id: spiTab
-                    SpiView {
-                        anchors.fill: parent
-                    }
-                }
+                // Item {
+                //     id: spiTab
+                //     SpiView {
+                //         anchors.fill: parent
+                //     }
+                // }
                 Item {
                     id: settingsTab
                     SettingsView {
