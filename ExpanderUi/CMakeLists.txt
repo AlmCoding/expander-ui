@@ -26,7 +26,8 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cConfigInterfacePanelTab.qml
         ui/panels/I2cConfigRequestPanel.qml
         ui/panels/I2cRequestListComponent.qml
-        ui/panels/RequestModel.qml
+        ui/panels/I2cRequestFormPanel.qml
+        ui/panels/I2cRequestFormMasterTab.qml
         # stores
         ui/stores/RootStore.qml
     RESOURCES

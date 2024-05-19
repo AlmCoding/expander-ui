@@ -17,7 +17,7 @@ ColumnLayout {
 
         Label {
             Layout.preferredWidth: labelWidth
-            text: "Memory address width"
+            text: "Memory Address Width"
             font.pixelSize: 12
             font.bold: true
         }
@@ -37,7 +37,7 @@ ColumnLayout {
 
         Label {
             Layout.preferredWidth: labelWidth
-            text: "Slave address width"
+            text: "Slave Address Width"
             font.pixelSize: 12
             font.bold: true
         }
@@ -57,7 +57,7 @@ ColumnLayout {
 
         Label {
             Layout.preferredWidth: labelWidth
-            text: "Slave address"
+            text: "Slave Address"
             font.pixelSize: 12
             font.bold: true
         }
@@ -69,13 +69,12 @@ ColumnLayout {
             validator: RegularExpressionValidator {
                 // Allow only hex numbers no larger than 10 bits
                 regularExpression: /^0x[0-3][0-9A-Fa-f]{2}$|^0x[0-9A-Fa-f]{2}$/
-                // regularExpression: /^0x[0-9A-Fa-f]{3}$/
             }
         }
 
         Label {
             Layout.preferredWidth: labelWidth
-            text: "Clock frequency"
+            text: "Clock Frequency"
             font.pixelSize: 12
             font.bold: true
         }
@@ -98,12 +97,6 @@ ColumnLayout {
             }
         }
     }
-
-    // Button {
-    //     Layout.fillWidth: true
-    //     Layout.margins: 10
-    //     text: "Apply"
-    // }
 }
 
 

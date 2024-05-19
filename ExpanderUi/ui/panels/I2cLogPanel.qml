@@ -9,39 +9,24 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
+        spacing: 5
 
-        // StackLayout {
-        //     Layout.fillWidth: true
-        //     Layout.preferredHeight: parent.height - tabBar.height
-        //     currentIndex: tabBar.currentIndex
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height - requestForm.visible * (requestForm.height + parent.spacing) - (buttonRow.height + parent.spacing)
+            color: "light yellow"
+        }
 
-        //     Item {
-        //         id: i2c12Tab
-
-        //     }
-        //     Item {
-        //         id: i2c1Tab
-
-        //     }
-        //     Item {
-        //         id: i2c2Tab
-        //     }
-        // }
-
-        // TabBar {
-        //     id: tabBar
-        //     Layout.fillWidth: true
-
-        //     TabButton {
-        //         text: qsTr("I2C (1+2)")
-        //     }
-        //     TabButton {
-        //         text: qsTr("I2C (1)")
-        //     }
-        //     TabButton {
-        //         text: qsTr("I2C (2)")
-        //     }
-        // }
+        I2cRequestFormPanel {
+            id: requestForm
+            Layout.fillWidth: true
+            Layout.preferredHeight: 350
+            // Layout.leftMargin: 10
+            // Layout.rightMargin: 20
+            // Layout.alignment: Qt.AlignBottom
+            // Layout.preferredWidth: 600
+            visible: true
+        }
 
         Rectangle {
             Layout.fillWidth: true
