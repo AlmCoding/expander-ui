@@ -23,79 +23,92 @@ Item {
             anchors.fill: parent
             anchors.leftMargin: 0
 
-            ColumnLayout {
+            Item {
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: parent.width - sendButton.width
-                spacing: 0
 
-                RowLayout {
-                    id: firstRow
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
+                ColumnLayout {
+                    anchors.fill: parent
                     spacing: 0
 
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 140
-                        Layout.margins: 3
-                        radius: 5
-                        color: "lightgray"
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            leftPadding: 5
-                            text: "<b>" + model.name + "</b>"
+                    RowLayout {
+                        id: firstRow
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: parent.height / 2
+                        spacing: 0
+
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 140
+                            Layout.margins: 3
+                            radius: 5
+                            color: "lightgray"
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                leftPadding: 5
+                                text: "<b>" + model.name + "</b>"
+                            }
+                        }
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 30
+                            // color: "red"
+                            Text {
+                                anchors.centerIn: parent
+                                text: "<b>" + model.rw + "</b>"
+                            }
+                        }
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 60
+                            // color: "blue"
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: "<b>Slave:</b> " + model.slaveAddr
+                            }
                         }
                     }
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 30
-                        // color: "red"
-                        Text {
-                            anchors.centerIn: parent
-                            text: "<b>" + model.rw + "</b>"
+
+                    RowLayout {
+                        id: secondRow
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: parent.height / 2
+                        spacing: 0
+
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 80
+                            radius: 5
+                            // color: "red"
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                leftPadding: 8
+                                text: "<b>Addr:</b> " + model.memAddr
+                            }
+                        }
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 95
+                            // color: "red"
+                        }
+                        Rectangle {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: 60
+                            // color: "blue"
+                            Text {
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: "<b>Size:</b> " + model.size
+                            }
                         }
                     }
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 60
-                        // color: "blue"
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Slave:</b> " + model.slaveAddr
-                        }
-                    }
+
                 }
 
-                RowLayout {
-                    id: secondRow
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
-                    spacing: 0
-
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 80
-                        radius: 5
-                        // color: "red"
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            leftPadding: 8
-                            text: "<b>Addr:</b> " + model.memAddr
-                        }
-                    }
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 95
-                        // color: "red"
-                    }
-                    Rectangle {
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 60
-                        // color: "blue"
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Size:</b> " + model.size
-                        }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rootStore.i2cRequestModel.selectedRequestIdx = index;
+                        rootStore.i2cRequestForm.visible = true;
                     }
                 }
             }
@@ -114,20 +127,19 @@ Item {
                     anchors.margins: 4
                     source: "/ExpanderUi/ui/resources/images/play_button.png"
 
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: { print("onClicked state: "+state) }
+                    // MouseArea {
+                    //     anchors.fill: parent
+                    //     onClicked: { print("onClicked state: "+state) }
+                    // }
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rootStore.i2cRequestModel.selectedRequestIdx = index;
                     }
                 }
             }
-        }
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            // requestList.currentIndex = index;
-            rootStore.i2cRequestModel.selectedRequestIdx = index;
         }
     }
 }

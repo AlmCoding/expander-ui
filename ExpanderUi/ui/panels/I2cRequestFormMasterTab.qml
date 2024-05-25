@@ -25,12 +25,15 @@ ColumnLayout {
 
         TextField {
             Layout.fillWidth: true
+            Layout.preferredHeight: 40
+            text: rootStore.i2cRequestForm.name
             // Layout.preferredWidth: 250
             // placeholderText: "Name"
         }
 
         TextField {
             Layout.preferredWidth: 100
+            Layout.preferredHeight: 40
             placeholderText: "HEX (0x001)"
         }
 
@@ -50,6 +53,7 @@ ColumnLayout {
 
         TextField {
             Layout.fillWidth: true
+            Layout.preferredHeight: 40
             // Layout.preferredWidth: 250
             placeholderText: "HEX (aa bb cc)"
             validator: RegularExpressionValidator {
@@ -60,6 +64,7 @@ ColumnLayout {
 
         TextField {
             Layout.preferredWidth: 100
+            Layout.preferredHeight: 40
             enabled: false
         }
 
@@ -79,6 +84,7 @@ ColumnLayout {
 
         TextField {
             Layout.preferredWidth: 80
+            Layout.preferredHeight: 40
             placeholderText: "DEC (42)"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers no larger than 10 bits

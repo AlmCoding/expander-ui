@@ -52,11 +52,8 @@ Item {
         }
     }
 
-    // function saveRequest() {
-    // }
-
     function clearRequest() {
+        console.log("Clear request: ", i2cRequestModel.selectedRequestIdx);
         i2cRequestForm.clearRequest();
     }
-
 }

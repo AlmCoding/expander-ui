@@ -20,7 +20,7 @@ Rectangle {
         I2cRequestFormPanel {
             id: requestForm
             Layout.fillWidth: true
-            Layout.preferredHeight: 350
+            Layout.preferredHeight: 300
             // Layout.leftMargin: 10
             // Layout.rightMargin: 20
             // Layout.alignment: Qt.AlignBottom
