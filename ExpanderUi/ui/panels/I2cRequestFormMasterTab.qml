@@ -91,6 +91,12 @@ ColumnLayout {
         spacing: 10
 
         Button {
+            text: "Delete"
+            onClicked: {
+                rootStore.deleteRequest();
+            }
+        }
+        Button {
             text: "Clear"
             onClicked: {
                 rootStore.clearRequest();

@@ -34,19 +34,32 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
 }
 
 void I2cRequestModel::addNewRequest(int template_req_idx) {
-    I2cRequest new_request{};
+    I2cRequest request{};
 
-    if (template_req_idx < requests_.size()) {
-        new_request = requests_.at(template_req_idx);
-        new_request.setName(new_request.getName() + "_copy");
+    if (template_req_idx >= 0 && template_req_idx < requests_.size()) {
+        request = requests_.at(template_req_idx);
+        request.setName(request.getName() + "_copy");
     }
 
     beginInsertRows(QModelIndex(), requests_.size(), requests_.size());
-    requests_.append(new_request);
+    requests_.append(request);
     endInsertRows();
 
     selected_request_idx_ = requests_.size() - 1;
     emit selectedRequestIdxChanged(selected_request_idx_);
+}
+
+void I2cRequestModel::deleteRequest(int request_idx) {
+    if (request_idx >= 0 && request_idx < requests_.size()) {
+        beginRemoveRows(QModelIndex(), request_idx, request_idx);
+        requests_.removeAt(request_idx);
+        endRemoveRows();
+    }
+
+    if (selected_request_idx_ > 0 && selected_request_idx_ >= requests_.size()) {
+        selected_request_idx_ = requests_.size() - 1;
+        emit selectedRequestIdxChanged(selected_request_idx_);
+    }
 }
 
 void I2cRequestModel::setSelectedRequestIdx(int idx) {

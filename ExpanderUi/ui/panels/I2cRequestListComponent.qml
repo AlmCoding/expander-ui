@@ -126,7 +126,8 @@ Item {
     MouseArea {
         anchors.fill: parent
         onClicked: {
-            requestList.currentIndex = index
+            // requestList.currentIndex = index;
+            rootStore.i2cRequestModel.selectedRequestIdx = index;
         }
     }
 }

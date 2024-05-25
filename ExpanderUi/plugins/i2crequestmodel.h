@@ -20,6 +20,9 @@ class I2cRequestModel : public QAbstractListModel {
 
    public slots:
     void addNewRequest(int template_req_idx);
+    void deleteRequest(int request_idx);
+    int getRequestCount() const { return requests_.size(); }
+
     void setSelectedRequestIdx(int idx);
     I2cRequest getSelectedRequest() const { return requests_.at(selected_request_idx_); }
     void updateSelectedRequest(I2cRequest request);
