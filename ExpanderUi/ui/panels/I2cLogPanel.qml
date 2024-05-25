@@ -25,7 +25,7 @@ Rectangle {
             // Layout.rightMargin: 20
             // Layout.alignment: Qt.AlignBottom
             // Layout.preferredWidth: 600
-            visible: true
+            visible: rootStore.i2cRequestForm.visible
         }
 
         Rectangle {

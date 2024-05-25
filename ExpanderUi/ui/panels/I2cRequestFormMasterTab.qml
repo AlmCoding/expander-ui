@@ -30,8 +30,8 @@ ColumnLayout {
         }
 
         TextField {
-            Layout.preferredWidth: 80
-            placeholderText: "HEX (001)"
+            Layout.preferredWidth: 100
+            placeholderText: "HEX (0x001)"
         }
 
         Label {
@@ -59,7 +59,7 @@ ColumnLayout {
         }
 
         TextField {
-            Layout.preferredWidth: 80
+            Layout.preferredWidth: 100
             enabled: false
         }
 
@@ -92,9 +92,16 @@ ColumnLayout {
 
         Button {
             text: "Clear"
+            onClicked: {
+                rootStore.clearRequest();
+            }
         }
         Button {
             text: "Done"
+            onClicked: {
+                // rootStore.saveRequest();
+                rootStore.i2cRequestForm.visible = false;
+            }
         }
     }
 }

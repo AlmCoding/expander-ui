@@ -16,7 +16,17 @@ class I2cConfig : public QObject
 public:
     explicit I2cConfig(QObject *parent = nullptr);
 
+    QString getSlaveAddr() const { return slave_addr_; }
+    int getClockFreq() const { return clock_freq_; }
+    int getMemAddrWidth() const { return mem_addr_width_; }
+    int getSlaveAddrWidth() const { return slave_addr_width_; }
+
 public slots:
+    void setSlaveAddr(const QString &slaveAddr) { slave_addr_ = slaveAddr; emit slaveAddrChanged(); }
+    void setClockFreq(int clockFreq) { clock_freq_ = clockFreq; emit clockFreqChanged(); }
+    void setMemAddrWidth(int memAddrWidth) { mem_addr_width_ = memAddrWidth; emit memAddrWidthChanged(); }
+    void setSlaveAddrWidth(int slaveAddrWidth)  { slave_addr_width_ = slaveAddrWidth; emit slaveAddrWidthChanged(); }
+    
     void applyConfig();
 
 signals:
@@ -26,15 +36,6 @@ signals:
     void slaveAddrWidthChanged();
 
 private:
-    QString getSlaveAddr() const { return slave_addr_; }
-    void setSlaveAddr(const QString &slaveAddr) { slave_addr_ = slaveAddr; emit slaveAddrChanged(); }
-    int getClockFreq() const { return clock_freq_; }
-    void setClockFreq(int clockFreq) { clock_freq_ = clockFreq; emit clockFreqChanged(); }
-    int getMemAddrWidth() const { return mem_addr_width_; }
-    void setMemAddrWidth(int memAddrWidth) { mem_addr_width_ = memAddrWidth; emit memAddrWidthChanged(); }
-    int getSlaveAddrWidth() const { return slave_addr_width_; }
-    void setSlaveAddrWidth(int slaveAddrWidth)  { slave_addr_width_ = slaveAddrWidth; emit slaveAddrWidthChanged(); }
-
     QString slave_addr_;
     int clock_freq_ = 1000;    // 1000 kHz
     int mem_addr_width_ = 1;   // 1 Byte

@@ -36,6 +36,7 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/i2crequest.h plugins/i2crequest.cpp
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
     SOURCES plugins/i2cconfig.h plugins/i2cconfig.cpp
+    SOURCES plugins/i2crequestform.h plugins/i2crequestform.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

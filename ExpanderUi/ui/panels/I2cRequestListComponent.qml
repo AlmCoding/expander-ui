@@ -127,7 +127,6 @@ Item {
         anchors.fill: parent
         onClicked: {
             requestList.currentIndex = index
-            print("Selected: " + index)
         }
     }
 }

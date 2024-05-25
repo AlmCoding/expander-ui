@@ -25,6 +25,7 @@ ColumnLayout {
                 delegate: I2cRequestListComponent {}
                 highlight: Rectangle { color: "#00BCD4"; radius: 0 }
                 focus: true
+                currentIndex: rootStore.i2cRequestModel.selectedRequestIdx
             }
         }
     }
@@ -50,6 +51,9 @@ ColumnLayout {
             id: newButton
             Layout.preferredWidth: 90
             text: "New"
+            onClicked: {
+                rootStore.addNewRequest();
+            }
         }
     }
 }
