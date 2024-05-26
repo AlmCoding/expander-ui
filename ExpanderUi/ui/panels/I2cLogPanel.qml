@@ -5,27 +5,17 @@ import QtQuick.Controls.Material
 
 
 Rectangle {
-    color: "lightgray"
+    color: "#00BCD4"
+    property int formMargin: 5
 
     ColumnLayout {
         anchors.fill: parent
-        spacing: 5
+        spacing: 0
 
         Rectangle {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height - requestForm.visible * (requestForm.height + parent.spacing) - (buttonRow.height + parent.spacing)
+            Layout.preferredHeight: parent.height - requestForm.visible * (requestForm.height + formMargin) - (buttonRow.height + parent.spacing)
             color: "light yellow"
-        }
-
-        I2cRequestFormPanel {
-            id: requestForm
-            Layout.fillWidth: true
-            Layout.preferredHeight: 300
-            // Layout.leftMargin: 10
-            // Layout.rightMargin: 20
-            // Layout.alignment: Qt.AlignBottom
-            // Layout.preferredWidth: 600
-            visible: rootStore.i2cRequestForm.visible
         }
 
         Rectangle {
@@ -51,6 +41,18 @@ Rectangle {
                     text: "Save"
                 }
             }
+        }
+
+        I2cRequestFormPanel {
+            id: requestForm
+            Layout.fillWidth: true
+            Layout.preferredHeight: 270
+            Layout.topMargin: formMargin
+            // Layout.leftMargin: 10
+            // Layout.rightMargin: 20
+            // Layout.alignment: Qt.AlignBottom
+            // Layout.preferredWidth: 600
+            visible: rootStore.i2cRequestForm.visible
         }
     }
 }

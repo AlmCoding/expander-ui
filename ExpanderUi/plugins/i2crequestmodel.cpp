@@ -25,7 +25,7 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
         case MemAddrRole:
             return QVariant{ "0x42" };
         case SizeRole:
-            return QVariant{ 42 };
+            return QVariant{ request.getWriteSize() + "+" + request.getReadSize() };
         case DataRole:
             return QVariant{ "preview" };
         default:

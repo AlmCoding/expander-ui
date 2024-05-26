@@ -40,6 +40,40 @@ Rectangle {
                 }
             }
         }
+
+        Rectangle {
+            Layout.fillWidth: true
+            // Layout.leftMargin: buttonRow.spacing
+            Layout.preferredHeight: buttonRow.height
+            Layout.alignment: Qt.AlignBottom
+            color: "white"
+
+            RowLayout {
+                id: buttonRow
+                anchors.horizontalCenter: parent.horizontalCenter
+                spacing: 10
+
+                Button {
+                    text: "Done"
+                    onClicked: {
+                        // rootStore.saveRequest();
+                        rootStore.i2cRequestForm.visible = false;
+                    }
+                }
+                Button {
+                    text: "Clear"
+                    onClicked: {
+                        rootStore.clearRequest();
+                    }
+                }
+                Button {
+                    text: "Delete"
+                    onClicked: {
+                        rootStore.deleteRequest();
+                    }
+                }
+            }
+        }
     }
 }
 

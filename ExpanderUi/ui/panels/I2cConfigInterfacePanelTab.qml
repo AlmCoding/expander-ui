@@ -68,8 +68,7 @@ ColumnLayout {
             text: i2cConfig.slaveAddr
             placeholderText: "HEX (0x001)"
             validator: RegularExpressionValidator {
-                // Allow only hex numbers no larger than 10 bits
-                regularExpression: /^0x[0-3][0-9A-Fa-f]{2}$|^0x[0-9A-Fa-f]{2}$/
+                regularExpression: constants.regExpSlaveAddress
             }
         }
 

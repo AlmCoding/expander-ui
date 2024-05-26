@@ -17,7 +17,6 @@ ColumnLayout {
         rowSpacing: 10
 
         Label {
-            // Layout.preferredWidth: 40
             text: "Name"
             font.pixelSize: 12
             font.bold: true
@@ -27,25 +26,35 @@ ColumnLayout {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
             text: rootStore.i2cRequestForm.name
-            // Layout.preferredWidth: 250
-            // placeholderText: "Name"
+            onTextChanged: function() {
+                if (rootStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cRequestForm.name = text;
+                }
+            }
         }
 
         TextField {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
+            text: rootStore.i2cRequestForm.slaveAddress
             placeholderText: "HEX (0x001)"
+            validator: RegularExpressionValidator {
+                regularExpression: constants.regExpSlaveAddress
+            }
+            onTextChanged: function() {
+                if (rootStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cRequestForm.slaveAddress = text
+                }
+            }
         }
 
         Label {
-            // Layout.preferredWidth: 60
             text: "Slave Address"
             font.pixelSize: 12
             font.bold: true
         }
 
         Label {
-            // Layout.preferredWidth: 50
             text: "Write Data"
             font.pixelSize: 12
             font.bold: true
@@ -54,29 +63,33 @@ ColumnLayout {
         TextField {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
-            // Layout.preferredWidth: 250
+            text: rootStore.i2cRequestForm.writeData
             placeholderText: "HEX (aa bb cc)"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers
-                regularExpression: /\b([0-9A-Fa-f]{2})(\s[0-9A-Fa-f]{2})*\b/
+                regularExpression: constants.regExpWriteData
+            }
+            onTextChanged: function() {
+                if (rootStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cRequestForm.writeData = text
+                }
             }
         }
 
         TextField {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
+            text: rootStore.i2cRequestForm.writeSize
             enabled: false
         }
 
         Label {
-            // Layout.preferredWidth: 85
             text: "Bytes"
             font.pixelSize: 12
             font.bold: true
         }
 
         Label {
-            // Layout.preferredWidth: 85
             text: "Read Size"
             font.pixelSize: 12
             font.bold: true
@@ -85,34 +98,16 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 80
             Layout.preferredHeight: 40
+            text: rootStore.i2cRequestForm.readSize
             placeholderText: "DEC (42)"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers no larger than 10 bits
-                regularExpression: /^(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/
+                regularExpression: constants.regExpReadSize
             }
-        }
-    }
-
-    RowLayout {
-        spacing: 10
-
-        Button {
-            text: "Delete"
-            onClicked: {
-                rootStore.deleteRequest();
-            }
-        }
-        Button {
-            text: "Clear"
-            onClicked: {
-                rootStore.clearRequest();
-            }
-        }
-        Button {
-            text: "Done"
-            onClicked: {
-                // rootStore.saveRequest();
-                rootStore.i2cRequestForm.visible = false;
+            onTextChanged: function() {
+                if (rootStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cRequestForm.readSize = text
+                }
             }
         }
     }

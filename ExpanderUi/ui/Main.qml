@@ -17,6 +17,10 @@ Window {
     visible: true
     title: qsTr("Interface Expander")
 
+    Constants {
+        id: constants
+    }
+
     RootStore {
         id: rootStore
     }
@@ -75,7 +79,7 @@ Window {
         Rectangle {
             id: footer
             Layout.fillWidth: true
-            Layout.preferredHeight: 25
+            Layout.preferredHeight: 30
             color: "#00BCD4"
         }
     }

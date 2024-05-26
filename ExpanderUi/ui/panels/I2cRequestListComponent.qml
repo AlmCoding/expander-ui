@@ -126,17 +126,13 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     anchors.margins: 4
                     source: "/ExpanderUi/ui/resources/images/play_button.png"
-
-                    // MouseArea {
-                    //     anchors.fill: parent
-                    //     onClicked: { print("onClicked state: "+state) }
-                    // }
                 }
 
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
                         rootStore.i2cRequestModel.selectedRequestIdx = index;
+                        // TODO: Trigger send request
                     }
                 }
             }

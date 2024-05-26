@@ -29,6 +29,7 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cRequestFormPanel.qml
         ui/panels/I2cRequestFormMasterTab.qml
         # stores
+        ui/stores/Constants.qml
         ui/stores/RootStore.qml
     RESOURCES
         ui/resources/images/edit_button.png

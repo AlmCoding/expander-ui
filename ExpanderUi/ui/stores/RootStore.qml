@@ -23,22 +23,22 @@ Item {
         id: i2cRequestModel
         onSelectedRequestIdxChanged: function(idx) {
             console.log("Selected idx: ", idx);
-            if (i2cRequestForm.visible === true) {
-                i2cRequestForm.loadRequest(i2cRequestModel.getSelectedRequest());
-            }
+            i2cRequestForm.externalUpdate = true; // Avoid binding loop
+            i2cRequestForm.loadRequest(i2cRequestModel.getSelectedRequest());
+            i2cRequestForm.externalUpdate = false;
         }
     }
 
     property I2cRequestForm i2cRequestForm: I2cRequestForm {
         id: i2cRequestForm
         onRequestChanged: function(request) {
-            console.log("Save request");
+            console.log("Update request");
             i2cRequestModel.updateSelectedRequest(request);
         }
     }
 
     function addNewRequest() {
-        console.log("Add new request");
+        console.log("Add request");
         i2cRequestModel.addNewRequest(i2cRequestModel.selectedRequestIdx);
         i2cRequestForm.visible = true;
     }
@@ -54,6 +54,8 @@ Item {
 
     function clearRequest() {
         console.log("Clear request: ", i2cRequestModel.selectedRequestIdx);
+        i2cRequestForm.externalUpdate = true; // Avoid binding loop
         i2cRequestForm.clearRequest();
+        i2cRequestForm.externalUpdate = false;
     }
 }
