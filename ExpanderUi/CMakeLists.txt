@@ -24,10 +24,14 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cLogPanel.qml
         ui/panels/I2cConfigInterfacePanel.qml
         ui/panels/I2cConfigInterfacePanelTab.qml
-        ui/panels/I2cConfigRequestPanel.qml
-        ui/panels/I2cRequestListComponent.qml
+        ui/panels/I2cRequestListPanel.qml
         ui/panels/I2cRequestFormPanel.qml
         ui/panels/I2cRequestFormMasterTab.qml
+        ui/panels/I2cLogListPanel.qml
+
+        ui/components/I2cRequestListComponent.qml
+        ui/components/I2cLogListComponent.qml
+
         # stores
         ui/stores/Constants.qml
         ui/stores/RootStore.qml

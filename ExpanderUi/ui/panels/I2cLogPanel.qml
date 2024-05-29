@@ -12,10 +12,9 @@ Rectangle {
         anchors.fill: parent
         spacing: 0
 
-        Rectangle {
+        I2cLogListPanel {
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height - requestForm.visible * (requestForm.height + formMargin) - (buttonRow.height + parent.spacing)
-            color: "light yellow"
         }
 
         Rectangle {
@@ -48,10 +47,6 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 270
             Layout.topMargin: formMargin
-            // Layout.leftMargin: 10
-            // Layout.rightMargin: 20
-            // Layout.alignment: Qt.AlignBottom
-            // Layout.preferredWidth: 600
             visible: rootStore.i2cRequestForm.visible
         }
     }

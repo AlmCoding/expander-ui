@@ -25,7 +25,7 @@ Rectangle {
             color: "#00BCD4" // "#00BCD4"
         }
 
-        I2cConfigRequestPanel {
+        I2cRequestListPanel {
             Layout.fillWidth: true
             Layout.preferredHeight: (root.height - parent.spacing) * 3 / 4
             // Layout.leftMargin: 10

@@ -1,11 +1,7 @@
 #include "i2crequestmodel.h"
 #include <QVariant>
 
-I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {
-    requests_.clear();
-    // requests_.append(I2cRequest{ I2cReqestType::MasterAction, "MasterAction", 0x42, "write_data", 42 });
-    // requests_.append(I2cRequest{ I2cReqestType::SlaveConfig, "SlaveConfig", 0x43, "write_data", 43 });
-}
+I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {}
 
 int I2cRequestModel::rowCount(const QModelIndex& parent) const { return requests_.size(); }
 
@@ -19,11 +15,11 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
         case NameRole:
             return QVariant{ request.getName() };
         case RwRole:
-            return QVariant{ "RW" };
+            return QVariant{ "MR" };
         case SlaveAddrRole:
             return QVariant{ request.getSlaveAddr() };
         case MemAddrRole:
-            return QVariant{ "0x42" };
+            return QVariant{ request.getWriteData() };
         case SizeRole:
             return QVariant{ request.getWriteSize() + "+" + request.getReadSize() };
         case DataRole:
@@ -35,6 +31,7 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
 
 void I2cRequestModel::addNewRequest(int template_req_idx) {
     I2cRequest request{};
+    request.setReadSize("0");
 
     if (template_req_idx >= 0 && template_req_idx < requests_.size()) {
         request = requests_.at(template_req_idx);

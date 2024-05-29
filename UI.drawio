@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-02-25T21:20:01.195Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/23.1.5 Chrome/120.0.6099.109 Electron/28.1.0 Safari/537.36" etag="kudoystp6VkqDHk4VC-3" version="23.1.5" type="device">
+<mxfile host="Electron" modified="2024-05-29T15:57:02.068Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="WPxHToEuFf-y9aBlvf6v" version="24.4.8" type="device">
   <diagram name="Page-1" id="2YBvvXClWsGukQMizWep">
-    <mxGraphModel dx="1434" dy="844" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="917" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -44,13 +44,13 @@
           <mxGeometry x="590" y="490" width="210" height="90" as="geometry" />
         </mxCell>
         <mxCell id="36UaZG5Xqug6aajMQ6Ba-14" value="Slave addr" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="180" width="310" height="30" as="geometry" />
+          <mxGeometry x="640" y="180" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="36UaZG5Xqug6aajMQ6Ba-15" value="Mem addr" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="210" width="310" height="30" as="geometry" />
+          <mxGeometry x="640" y="210" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="36UaZG5Xqug6aajMQ6Ba-16" value="Write data" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="640" y="240" width="310" height="30" as="geometry" />
+          <mxGeometry x="640" y="240" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="36UaZG5Xqug6aajMQ6Ba-17" value="Timestamp, request id, status, write data, read data" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="590" y="320" width="300" height="30" as="geometry" />

@@ -41,7 +41,7 @@ Item {
                             Layout.fillHeight: true
                             Layout.preferredWidth: 140
                             Layout.margins: 3
-                            radius: 5
+                            radius: rootRectangle.radius
                             color: "lightgray"
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
@@ -77,20 +77,16 @@ Item {
 
                         Rectangle {
                             Layout.fillHeight: true
-                            Layout.preferredWidth: 80
+                            Layout.preferredWidth: 176 // 80
                             radius: 5
                             // color: "red"
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 leftPadding: 8
-                                text: "<b>Addr:</b> " + model.memAddr
+                                text: ((model.rw === "MR") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.memAddr
                             }
                         }
-                        Rectangle {
-                            Layout.fillHeight: true
-                            Layout.preferredWidth: 95
-                            // color: "red"
-                        }
+
                         Rectangle {
                             Layout.fillHeight: true
                             Layout.preferredWidth: 60
@@ -101,7 +97,6 @@ Item {
                             }
                         }
                     }
-
                 }
 
                 MouseArea {

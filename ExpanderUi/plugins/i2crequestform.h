@@ -40,17 +40,14 @@ class I2cRequestForm : public QObject {
         emit nameChanged(name_);
 
         request_.setName(name_);
-        if (external_update_ == false)
-            emit requestChanged(request_);
-        
+        if (external_update_ == false) emit requestChanged(request_);
     }
     void setSlaveAddress(const QString& slave_addr) {
         slave_addr_ = slave_addr;
         emit slaveAddressChanged(slave_addr_);
 
         request_.setSlaveAddr(slave_addr_);
-        if (external_update_ == false)
-            emit requestChanged(request_);
+        if (external_update_ == false) emit requestChanged(request_);
     }
     void setWriteData(const QString& write_data) {
         write_data_ = write_data;
@@ -58,8 +55,7 @@ class I2cRequestForm : public QObject {
 
         request_.setWriteData(write_data_);
         setWriteSize(request_.getWriteSize());
-        if (external_update_ == false)
-            emit requestChanged(request_);
+        if (external_update_ == false) emit requestChanged(request_);
     }
     void setWriteSize(const QString& write_size) {
         write_size_ = write_size;
@@ -70,8 +66,7 @@ class I2cRequestForm : public QObject {
         emit readSizeChanged(read_size_);
 
         request_.setReadSize(read_size_);
-        if (external_update_ == false)
-            emit requestChanged(request_);
+        if (external_update_ == false) emit requestChanged(request_);
     }
 
     void loadRequest(const I2cRequest& request);
