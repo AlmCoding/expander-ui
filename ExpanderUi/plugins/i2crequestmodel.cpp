@@ -9,21 +9,20 @@ QHash<int, QByteArray> I2cRequestModel::roleNames() const { return role_names_; 
 
 QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
     const I2cRequest& request = requests_.at(index.row());
+
+    QString type_name{ (request.getType() == I2cReqestType::MasterAction) ? "MA" : "SC" };
+
     switch (role) {
-        case TypeRole:
-            return QVariant{ "MasterAction" };
         case NameRole:
             return QVariant{ request.getName() };
-        case RwRole:
-            return QVariant{ "MR" };
+        case TypeRole:
+            return QVariant{ type_name };
         case SlaveAddrRole:
             return QVariant{ request.getSlaveAddr() };
-        case MemAddrRole:
+        case WriteDataRole:
             return QVariant{ request.getWriteData() };
         case SizeRole:
             return QVariant{ request.getWriteSize() + "+" + request.getReadSize() };
-        case DataRole:
-            return QVariant{ "preview" };
         default:
             return QVariant{};
     }

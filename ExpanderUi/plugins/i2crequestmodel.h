@@ -21,29 +21,28 @@ class I2cRequestModel : public QAbstractListModel {
    public slots:
     void addNewRequest(int template_req_idx);
     void deleteRequest(int request_idx);
-    int getRequestCount() const { return requests_.size(); }
 
     void setSelectedRequestIdx(int idx);
-    I2cRequest getSelectedRequest() const { return requests_.at(selected_request_idx_); }
     void updateSelectedRequest(I2cRequest request);
+
+    int getRequestCount() const { return requests_.size(); }
+    I2cRequest getSelectedRequest() const { return requests_.at(selected_request_idx_); }
 
    signals:
     void selectedRequestIdxChanged(int idx);
 
    private:
     enum ModelRoles {
-        TypeRole = Qt::UserRole + 1,
-        NameRole,
-        RwRole,
+        NameRole = Qt::UserRole + 1,
+        TypeRole,
         SlaveAddrRole,
-        MemAddrRole,
+        WriteDataRole,
         SizeRole,
-        DataRole,
     };
     const QHash<int, QByteArray> role_names_{
-        { TypeRole, "type" },       { NameRole, "name" }, { RwRole, "rw" },     { SlaveAddrRole, "slaveAddr" },
-        { MemAddrRole, "memAddr" }, { SizeRole, "size" }, { DataRole, "data" },
-    };
+                                              { NameRole, "name" },           { TypeRole, "type" }, { SlaveAddrRole, "slaveAddr" },
+                                              { WriteDataRole, "writeData" }, { SizeRole, "size" },
+                                              };
 
     QList<I2cRequest> requests_;
     int selected_request_idx_ = 0;

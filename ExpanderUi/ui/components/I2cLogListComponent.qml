@@ -60,7 +60,7 @@ Item {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "<b>" + model.i2cInterface + "</b>"
+                            text: "<b>" + model.interface + "</b>"
                         }
                     }
 
@@ -75,7 +75,7 @@ Item {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: model.logType
+                            text: model.type
                         }
                     }
                 }
@@ -175,7 +175,7 @@ Item {
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    text: "Status"
+                    text: model.status
                 }
             }
         }

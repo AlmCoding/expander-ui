@@ -55,7 +55,7 @@ Item {
                             // color: "red"
                             Text {
                                 anchors.centerIn: parent
-                                text: "<b>" + model.rw + "</b>"
+                                text: "<b>" + model.type + "</b>"
                             }
                         }
                         Rectangle {
@@ -83,7 +83,7 @@ Item {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 leftPadding: 8
-                                text: ((model.rw === "MR") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.memAddr
+                                text: ((model.type === "MA") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.writeData
                             }
                         }
 

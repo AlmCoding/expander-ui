@@ -2,6 +2,7 @@ import QtQuick
 import expander.I2cConfig
 import expander.I2cRequestModel
 import expander.I2cRequestForm
+import expander.I2cLogModel
 
 
 Item {
@@ -57,5 +58,9 @@ Item {
         i2cRequestForm.externalUpdate = true; // Avoid binding loop
         i2cRequestForm.clearRequest();
         i2cRequestForm.externalUpdate = false;
+    }
+
+    property I2cLogModel i2cLogModel: I2cLogModel {
+        id: i2cLogModel
     }
 }
