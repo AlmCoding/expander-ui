@@ -12,40 +12,28 @@ Rectangle {
     ListModel {
         id: listModel
         ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
+            time: "31d24h22m12s122ms"
+            i2cInterface: "I2c1"
+            logType: "MR"
+            name: "Turn Pump ON"
+            slaveAddr: "0x042"
+            writeData: "ff 42 ff 12 23 34 45 56 67 78 12"
+            readData: "42 34 54 74 76 85 32 53"
+            writeSize: "32"
+            readSize: "42"
+            status: "Status"
         }
         ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
-        }
-        ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
-        }
-        ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
-        }
-        ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
-        }
-        ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
+            time: "06d09h43m12s122ms"
+            i2cInterface: "I2c2"
+            logType: "MR"
+            name: "Turn Pump ON"
+            slaveAddr: "0x042"
+            writeData: "ff 42 ff 12 23 34 45 56 67 78 12"
+            readData: "42 34 54 74 76 85 32 53"
+            writeSize: "32"
+            readSize: "42"
+            status: "Status"
         }
     }
 

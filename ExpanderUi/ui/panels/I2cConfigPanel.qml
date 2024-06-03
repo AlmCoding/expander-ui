@@ -13,21 +13,22 @@ Rectangle {
         anchors.fill: parent
 
         I2cConfigInterfacePanel {
+            id: configPanel
             Layout.fillWidth: true
-            Layout.preferredHeight: (root.height - parent.spacing) / 4
-            Layout.minimumHeight: 320
+            Layout.preferredHeight: 320
             // Layout.leftMargin: 10
         }
 
         Rectangle {
+            id: spacingRect
             Layout.fillWidth: true
             Layout.preferredHeight: 5
-            color: "#00BCD4" // "#00BCD4"
+            color: "#00BCD4"
         }
 
         I2cRequestListPanel {
             Layout.fillWidth: true
-            Layout.preferredHeight: (root.height - parent.spacing) * 3 / 4
+            Layout.preferredHeight: parent.height - configPanel.height - spacingRect.height
             // Layout.leftMargin: 10
         }
     }

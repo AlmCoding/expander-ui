@@ -14,7 +14,8 @@ void I2cRequestForm::loadRequest(const I2cRequest& request) {
 
 void I2cRequestForm::clearRequest() {
     I2cRequest request{};
-    // request.setName(request_.getName());
+    request.setName(request_.getName());
+    request.setReadSize(QString{"0"});
     loadRequest(request);
     emit requestChanged(request_);
 }
