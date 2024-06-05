@@ -38,11 +38,11 @@ class I2cLogModel : public QAbstractListModel {
         SatusRole,
     };
     const QHash<int, QByteArray> role_names_{
-                                              { TimeRole, "time" },         { InterfaceRole, "interface" }, { TypeRole, "type" },
-                                              { NameRole, "name" },         { SlaveAddrRole, "slaveAddr" }, { WriteDataRole, "writeData" },
-                                              { ReadDataRole, "readData" }, { WriteSizeRole, "writeSize" }, { ReadSizeRole, "readSize" },
-                                              { SatusRole, "status" },
-                                              };
+        { TimeRole, "time" },         { InterfaceRole, "interface" }, { TypeRole, "type" },
+        { NameRole, "name" },         { SlaveAddrRole, "slaveAddr" }, { WriteDataRole, "writeData" },
+        { ReadDataRole, "readData" }, { WriteSizeRole, "writeSize" }, { ReadSizeRole, "readSize" },
+        { SatusRole, "status" },
+    };
 
     QList<I2cLog> logs_;
     int selected_log_idx_ = 0;

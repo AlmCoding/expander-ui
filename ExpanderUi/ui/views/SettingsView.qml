@@ -9,4 +9,13 @@ import "../panels"
 Rectangle {
     anchors.fill: parent
     color: "lightgray"
+
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.topMargin: 10
+
+        ConnectionPanel {
+             Layout.alignment: Qt.AlignTop | Qt.AlignHCenter
+        }
+    }
 }

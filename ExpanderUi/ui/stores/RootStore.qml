@@ -3,7 +3,8 @@ import expander.I2cConfig
 import expander.I2cRequestModel
 import expander.I2cRequestForm
 import expander.I2cLogModel
-
+import expander.InterfaceExpander
+import expander.ComPortModel
 
 Item {
     property I2cConfig i2cConfig1: I2cConfig {
@@ -62,5 +63,13 @@ Item {
 
     property I2cLogModel i2cLogModel: I2cLogModel {
         id: i2cLogModel
+    }
+
+    property ComPortModel comPortModel: ComPortModel {
+        id: comPortModel
+    }
+
+    property InterfaceExpander interfaceExpander: InterfaceExpander {
+        id: interfaceExpander
     }
 }

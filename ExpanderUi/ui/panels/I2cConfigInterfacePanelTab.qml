@@ -24,13 +24,13 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfig.memAddrWidth == 1
-                text: qsTr("1 Byte")
+                checked: i2cConfig.memAddrWidth === 1
+                text: "1 Byte"
                 onClicked: i2cConfig.memAddrWidth = 1
             }
             RadioButton {
-                checked: i2cConfig.memAddrWidth == 2
-                text: qsTr("2 Bytes")
+                checked: i2cConfig.memAddrWidth === 2
+                text: "2 Bytes"
                 onClicked: i2cConfig.memAddrWidth = 2
             }
         }
@@ -44,13 +44,13 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfig.slaveAddrWidth == 7
-                text: qsTr("7 Bit")
+                checked: i2cConfig.slaveAddrWidth === 7
+                text: "7 Bit"
                 onClicked: i2cConfig.slaveAddrWidth = 7
             }
             RadioButton {
-                checked: i2cConfig.slaveAddrWidth == 10
-                text: qsTr("10 Bit")
+                checked: i2cConfig.slaveAddrWidth === 10
+                text: "10 Bit"
                 onClicked: i2cConfig.slaveAddrWidth = 10
             }
         }

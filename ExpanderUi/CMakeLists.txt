@@ -4,7 +4,7 @@ project(ExpanderUi VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick)
+find_package(Qt6 6.4 REQUIRED COMPONENTS Quick SerialPort)
 
 qt_standard_project_setup()
 
@@ -28,6 +28,7 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cRequestFormPanel.qml
         ui/panels/I2cRequestFormMasterTab.qml
         ui/panels/I2cLogListPanel.qml
+        ui/panels/ConnectionPanel.qml
 
         ui/components/I2cRequestListComponent.qml
         ui/components/I2cLogListComponent.qml
@@ -44,6 +45,9 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/i2crequestform.h plugins/i2crequestform.cpp
     SOURCES plugins/i2clog.h plugins/i2clog.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
+    SOURCES plugins/device/interfaceexpander.h plugins/device/interfaceexpander.cpp
+    SOURCES plugins/device/devicecom.h plugins/device/devicecom.cpp
+    SOURCES plugins/device/comportmodel.h plugins/device/comportmodel.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -58,7 +62,9 @@ set_target_properties(appExpanderUi PROPERTIES
 )
 
 target_link_libraries(appExpanderUi
-    PRIVATE Qt6::Quick
+    PRIVATE
+        Qt6::Quick
+        Qt6::SerialPort
 )
 
 include(GNUInstallDirs)

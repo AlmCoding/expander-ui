@@ -40,9 +40,9 @@ class I2cRequestModel : public QAbstractListModel {
         SizeRole,
     };
     const QHash<int, QByteArray> role_names_{
-                                              { NameRole, "name" },           { TypeRole, "type" }, { SlaveAddrRole, "slaveAddr" },
-                                              { WriteDataRole, "writeData" }, { SizeRole, "size" },
-                                              };
+        { NameRole, "name" },           { TypeRole, "type" }, { SlaveAddrRole, "slaveAddr" },
+        { WriteDataRole, "writeData" }, { SizeRole, "size" },
+    };
 
     QList<I2cRequest> requests_;
     int selected_request_idx_ = 0;
