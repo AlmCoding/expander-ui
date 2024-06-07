@@ -38,12 +38,19 @@ Rectangle {
         Button {
             id: connectButton
             text: "Connect"
-            enabled: rootStore.comPortModel.portCount > 0
+            enabled: rootStore.comPortModel.portCount > 0 && rootStore.interfaceExpander.isConnected == false
+            onClicked: function() {
+                rootStore.interfaceExpander.sendOpenPort(rootStore.comPortModel.getSelectedPort());
+            }
         }
 
         Button {
             id: disconnectButton
             text: "Disconnect"
+            enabled: rootStore.interfaceExpander.isConnected
+            onClicked: function() {
+                rootStore.interfaceExpander.sendClosePort();
+            }
         }
     }
 }
