@@ -50,6 +50,8 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/comportmodel.h plugins/device/comportmodel.cpp
 )
 
+add_subdirectory(libraries/tf)
+
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
@@ -65,6 +67,7 @@ target_link_libraries(appExpanderUi
     PRIVATE
         Qt6::Quick
         Qt6::SerialPort
+        tf
 )
 
 include(GNUInstallDirs)
