@@ -1,8 +1,8 @@
 #include "interfaceexpander.h"
 
 InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
-    com_thread_ = new QThread{ nullptr };
-    device_com_ = new DeviceCom{ this };
+    com_thread_ = new QThread{ this };
+    device_com_ = new DeviceCom{ nullptr };
     device_com_->moveToThread(com_thread_);
 
     connect(this, &InterfaceExpander::openPort, device_com_, &DeviceCom::openPort);

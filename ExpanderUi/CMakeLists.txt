@@ -48,6 +48,8 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/interfaceexpander.h plugins/device/interfaceexpander.cpp
     SOURCES plugins/device/devicecom.h plugins/device/devicecom.cpp
     SOURCES plugins/device/comportmodel.h plugins/device/comportmodel.cpp
+    SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
+    SOURCES plugins/device/driver/tfmsgtypes.h
 )
 
 add_subdirectory(libraries/tf)

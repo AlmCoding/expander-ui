@@ -4,12 +4,14 @@
 #include <QObject>
 #include <QSerialPort>
 #include <QSerialPortInfo>
+#include <QTimer>
 
 class DeviceCom : public QObject {
     Q_OBJECT
 
    public:
     explicit DeviceCom(QObject* parent = nullptr);
+    ~DeviceCom();
 
    public slots:
     void run();
@@ -20,9 +22,12 @@ class DeviceCom : public QObject {
    signals:
     void openStateChanged(bool open);
 
+   private slots:
+    void triggerEcho();
+
    private:
     QSerialPort* serial_port_ = nullptr;
-    bool is_open_ = false;
+    QTimer* timer_ = nullptr;
 };
 
 #endif  // DEVICECOM_H
