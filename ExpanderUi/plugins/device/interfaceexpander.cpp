@@ -7,6 +7,9 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
 
     connect(this, &InterfaceExpander::openPort, device_com_, &DeviceCom::openPort);
     connect(this, &InterfaceExpander::closePort, device_com_, &DeviceCom::closePort);
+    connect(this, &InterfaceExpander::configI2c, device_com_, &DeviceCom::sendI2cConfig);
+    connect(this, &InterfaceExpander::requestI2c, device_com_, &DeviceCom::sendI2cRequest);
+
     connect(device_com_, &DeviceCom::openStateChanged, this, [this](bool open) {
         is_connected_ = open;
         emit isConnectedChanged(open);
@@ -19,4 +22,5 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
 InterfaceExpander::~InterfaceExpander() {
     com_thread_->quit();
     com_thread_->wait();
+    delete device_com_;
 }

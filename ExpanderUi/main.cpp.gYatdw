@@ -11,16 +11,13 @@
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
-    qmlRegisterUncreatableMetaObject(I2cConfigTypes::staticMetaObject, "expander.containers.i2c", 1, 0,
-                                     "I2cConfigTypes", "Error: I2cConfigTypes");
-
     qmlRegisterType<I2cConfigForm>("expander.forms", 1, 0, "I2cConfigForm");
     qmlRegisterType<I2cRequestForm>("expander.forms", 1, 0, "I2cRequestForm");
 
-    qmlRegisterType<I2cRequestModel>("expander.models", 1, 0, "I2cRequestModel");
-    qmlRegisterType<I2cLogModel>("expander.models", 1, 0, "I2cLogModel");
-    qmlRegisterType<ComPortModel>("expander.models", 1, 0, "ComPortModel");
+    qmlRegisterType<I2cRequestModel>("expander.I2cRequestModel", 1, 0, "I2cRequestModel");
+    qmlRegisterType<I2cLogModel>("expander.I2cLogModel", 1, 0, "I2cLogModel");
 
+    qmlRegisterType<ComPortModel>("expander.ComPortModel", 1, 0, "ComPortModel");
     qmlRegisterType<InterfaceExpander>("expander.InterfaceExpander", 1, 0, "InterfaceExpander");
 
     QQmlApplicationEngine engine;

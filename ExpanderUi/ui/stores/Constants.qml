@@ -1,8 +1,4 @@
 import QtQuick
-import expander.I2cConfig
-import expander.I2cRequestModel
-import expander.I2cRequestForm
-
 
 Item {
     readonly property color primaryColor: "lightblue"

@@ -25,10 +25,10 @@ ColumnLayout {
         TextField {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
-            text: rootStore.i2cRequestForm.name
+            text: rootStore.i2cStore.i2cRequestForm.name
             onTextChanged: function() {
-                if (rootStore.i2cRequestForm.externalUpdate === false) {
-                    rootStore.i2cRequestForm.name = text;
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cStore.i2cRequestForm.name = text;
                 }
             }
         }
@@ -36,14 +36,14 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
-            text: rootStore.i2cRequestForm.slaveAddress
+            text: rootStore.i2cStore.i2cRequestForm.slaveAddress
             placeholderText: "HEX (0x001)"
             validator: RegularExpressionValidator {
                 regularExpression: constants.regExpSlaveAddress
             }
             onTextChanged: function() {
-                if (rootStore.i2cRequestForm.externalUpdate === false) {
-                    rootStore.i2cRequestForm.slaveAddress = text
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cStore.i2cRequestForm.slaveAddress = text
                 }
             }
         }
@@ -63,15 +63,15 @@ ColumnLayout {
         TextField {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
-            text: rootStore.i2cRequestForm.writeData
+            text: rootStore.i2cStore.i2cRequestForm.writeData
             placeholderText: "HEX (aa bb cc)"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers
                 regularExpression: constants.regExpWriteData
             }
             onTextChanged: function() {
-                if (rootStore.i2cRequestForm.externalUpdate === false) {
-                    rootStore.i2cRequestForm.writeData = text
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cStore.i2cRequestForm.writeData = text
                 }
             }
         }
@@ -79,7 +79,7 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
-            text: rootStore.i2cRequestForm.writeSize
+            text: rootStore.i2cStore.i2cRequestForm.writeSize
             enabled: false
         }
 
@@ -98,15 +98,15 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 80
             Layout.preferredHeight: 40
-            text: rootStore.i2cRequestForm.readSize
+            text: rootStore.i2cStore.i2cRequestForm.readSize
             placeholderText: "DEC (42)"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers no larger than 10 bits
                 regularExpression: constants.regExpReadSize
             }
             onTextChanged: function() {
-                if (rootStore.i2cRequestForm.externalUpdate === false) {
-                    rootStore.i2cRequestForm.readSize = text
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false) {
+                    rootStore.i2cStore.i2cRequestForm.readSize = text
                 }
             }
         }

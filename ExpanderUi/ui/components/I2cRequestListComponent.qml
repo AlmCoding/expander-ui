@@ -102,8 +102,8 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        rootStore.i2cRequestModel.selectedRequestIdx = index;
-                        rootStore.i2cRequestForm.visible = true;
+                        rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
+                        rootStore.i2cStore.i2cRequestForm.visible = true;
                     }
                 }
             }
@@ -126,8 +126,8 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        rootStore.i2cRequestModel.selectedRequestIdx = index;
-                        // TODO: Trigger send request
+                        rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
+                        rootStore.sendI2cRequest();
                     }
                 }
             }

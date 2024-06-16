@@ -47,7 +47,7 @@ Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 270
             Layout.topMargin: formMargin
-            visible: rootStore.i2cRequestForm.visible
+            visible: rootStore.i2cStore.i2cRequestForm.visible
         }
     }
 }

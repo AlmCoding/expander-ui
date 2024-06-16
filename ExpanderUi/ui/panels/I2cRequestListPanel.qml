@@ -23,11 +23,11 @@ ColumnLayout {
             ListView {
                 id: requestList
                 anchors.fill: parent
-                model: rootStore.i2cRequestModel // RequestModel {}
+                model: rootStore.i2cStore.i2cRequestModel // RequestModel {}
                 delegate: I2cRequestListComponent {}
                 highlight: Rectangle { color: "#00BCD4"; radius: 0 }
                 focus: true
-                currentIndex: rootStore.i2cRequestModel.selectedRequestIdx
+                currentIndex: rootStore.i2cStore.i2cRequestModel.selectedRequestIdx
             }
         }
     }
@@ -54,7 +54,7 @@ ColumnLayout {
             Layout.preferredWidth: 90
             text: "New"
             onClicked: {
-                rootStore.addNewRequest();
+                rootStore.i2cStore.addNewRequest();
             }
         }
     }

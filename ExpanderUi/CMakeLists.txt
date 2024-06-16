@@ -36,23 +36,32 @@ qt_add_qml_module(appExpanderUi
         # stores
         ui/stores/Constants.qml
         ui/stores/RootStore.qml
+        ui/stores/I2cStore.qml
     RESOURCES
         ui/resources/images/edit_button.png
         ui/resources/images/play_button.png
-    SOURCES plugins/i2crequest.h plugins/i2crequest.cpp
+
+    # plugins
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
-    SOURCES plugins/i2cconfig.h plugins/i2cconfig.cpp
-    SOURCES plugins/i2crequestform.h plugins/i2crequestform.cpp
     SOURCES plugins/i2clog.h plugins/i2clog.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
+    # containers
+    SOURCES plugins/containers/i2cconfig.h plugins/containers/i2cconfig.cpp
+    SOURCES plugins/containers/i2crequest.h plugins/containers/i2crequest.cpp
+    # forms
+    SOURCES plugins/forms/i2cconfigform.h plugins/forms/i2cconfigform.cpp
+    SOURCES plugins/forms/i2crequestform.h plugins/forms/i2crequestform.cpp
+    # device
     SOURCES plugins/device/interfaceexpander.h plugins/device/interfaceexpander.cpp
     SOURCES plugins/device/devicecom.h plugins/device/devicecom.cpp
     SOURCES plugins/device/comportmodel.h plugins/device/comportmodel.cpp
-    SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
     SOURCES plugins/device/driver/tfmsgtypes.h
+    SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
+    SOURCES plugins/device/driver/i2cprotocom.h plugins/device/driver/i2cprotocom.cpp
 )
 
 add_subdirectory(libraries/tf)
+add_subdirectory(libraries/proto)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -70,6 +79,7 @@ target_link_libraries(appExpanderUi
         Qt6::Quick
         Qt6::SerialPort
         tf
+        proto
 )
 
 include(GNUInstallDirs)

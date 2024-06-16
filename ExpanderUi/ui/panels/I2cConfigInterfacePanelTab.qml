@@ -2,13 +2,14 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
-import expander.I2cConfig
+import expander.forms
+import expander.containers.i2c
 
 
 ColumnLayout {
     spacing: 5
+    property var i2cConfigForm
     readonly property int labelWidth: 130
-    property I2cConfig i2cConfig
 
     GridLayout {
         Layout.fillWidth: true
@@ -24,14 +25,14 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfig.memAddrWidth === 1
+                checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.OneByte
                 text: "1 Byte"
-                onClicked: i2cConfig.memAddrWidth = 1
+                onClicked: i2cConfigForm.memAddrWidth = I2cConfigTypes.OneByte
             }
             RadioButton {
-                checked: i2cConfig.memAddrWidth === 2
+                checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.TwoByte
                 text: "2 Bytes"
-                onClicked: i2cConfig.memAddrWidth = 2
+                onClicked: i2cConfigForm.memAddrWidth = I2cConfigTypes.TwoByte
             }
         }
 
@@ -44,14 +45,14 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfig.slaveAddrWidth === 7
+                checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.SevenBit
                 text: "7 Bit"
-                onClicked: i2cConfig.slaveAddrWidth = 7
+                onClicked: i2cConfigForm.slaveAddrWidth = I2cConfigTypes.SevenBit
             }
             RadioButton {
-                checked: i2cConfig.slaveAddrWidth === 10
+                checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.TenBit
                 text: "10 Bit"
-                onClicked: i2cConfig.slaveAddrWidth = 10
+                onClicked: i2cConfigForm.slaveAddrWidth = I2cConfigTypes.TenBit
             }
         }
 
@@ -65,11 +66,15 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 150
             Layout.preferredHeight: 40
-            text: i2cConfig.slaveAddr
+            text: i2cConfigForm.slaveAddr
             placeholderText: "HEX (0x001)"
             validator: RegularExpressionValidator {
                 regularExpression: constants.regExpSlaveAddress
             }
+            onTextChanged: function() {
+                i2cConfigForm.slaveAddr = text
+            }
+
         }
 
         Label {
@@ -85,13 +90,13 @@ ColumnLayout {
             model: ["1 MHz", "400 kHz", "100 kHz", "10 kHz"]
             onCurrentIndexChanged: {
                 switch (currentIndex) {
-                case 0: i2cConfig.clockFreq = 1000;
+                case 0: i2cConfigForm.clockFreq = I2cConfigTypes.KHz1000;
                     break;
-                case 0: i2cConfig.clockFreq = 400;
+                case 1: i2cConfigForm.clockFreq = I2cConfigTypes.KHz400;
                     break;
-                case 0: i2cConfig.clockFreq = 100;
+                case 2: i2cConfigForm.clockFreq = I2cConfigTypes.KHz100;
                     break;
-                case 0: i2cConfig.clockFreq = 10;
+                case 3: i2cConfigForm.clockFreq = I2cConfigTypes.KHz10;
                     break;
                 }
             }

@@ -3,15 +3,12 @@
 
 namespace driver::tf {
 
-TF_Result typeCallback(TinyFrame* tf, TF_Msg* msg);
 TF_Result genericCallback(TinyFrame* tf, TF_Msg* msg);
 
 FrameDriver::FrameDriver() : QObject{ nullptr } {
     TF_InitStatic(&tf_, TF_SLAVE);
     TF_AddGenericListener(&tf_, genericCallback);
 }
-
-void FrameDriver::forwardData(const QByteArray& data) { emit sendData(data); }
 
 void FrameDriver::receiveData(const QByteArray& data) {
     TF_Accept(&tf_, reinterpret_cast<const uint8_t*>(data.data()), data.size());
@@ -29,20 +26,20 @@ bool FrameDriver::sendMessage(TfMsgType type, const QByteArray& data) {
     return success;
 }
 
-TF_Result typeCallback(TinyFrame* /*tf*/, TF_Msg* msg) {
-    qDebug("=>I msg (type: %d, size: %d)", msg->type, msg->len);
-    auto& tf_driver = FrameDriver::getInstance();
-
-    QByteArray data{ reinterpret_cast<const char*>(msg->data), msg->len };
-    // tf_driver.callRxCallback(static_cast<TfMsgType>(msg->type), data);
-    return TF_STAY;
-}
-
 TF_Result genericCallback(TinyFrame* /*tf*/, TF_Msg* msg) {
-    if (msg->type < static_cast<TF_TYPE>(TfMsgType::NumValues)) {
-        qDebug("No handler for msg type (%d) registerd!", msg->type);
-    } else {
-        qDebug("Unknown msg type: %d", msg->type);
+    auto& tf_driver = driver::tf::FrameDriver::getInstance();
+    QByteArray message{ reinterpret_cast<const char*>(msg->data), msg->len };
+
+    switch (static_cast<TfMsgType>(msg->type)) {
+        case TfMsgType::EchoMsg:
+            tf_driver.echoMessage(message);
+            break;
+        case TfMsgType::I2cMsg:
+            tf_driver.i2cMessage(message);
+            break;
+        default:
+            qDebug("Unknown msg type: %d", msg->type);
+            break;
     }
     return TF_STAY;
 }

@@ -56,20 +56,19 @@ Rectangle {
                 Button {
                     text: "Done"
                     onClicked: {
-                        // rootStore.saveRequest();
-                        rootStore.i2cRequestForm.visible = false;
+                        rootStore.i2cStore.i2cRequestForm.visible = false;
                     }
                 }
                 Button {
                     text: "Clear"
                     onClicked: {
-                        rootStore.clearRequest();
+                        rootStore.i2cStore.clearRequest();
                     }
                 }
                 Button {
                     text: "Delete"
                     onClicked: {
-                        rootStore.deleteRequest();
+                        rootStore.i2cStore.deleteRequest();
                     }
                 }
             }

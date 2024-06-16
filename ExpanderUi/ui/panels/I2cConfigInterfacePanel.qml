@@ -19,13 +19,13 @@ Rectangle {
             Item {
                 id: i2c1Tab
                 I2cConfigInterfacePanelTab {
-                    i2cConfig: rootStore.i2cConfig1
+                    i2cConfigForm: rootStore.i2cStore.i2cConfigForm0
                 }
             }
             Item {
                 id: i2c2Tab
                 I2cConfigInterfacePanelTab {
-                    i2cConfig: rootStore.i2cConfig2
+                    i2cConfigForm: rootStore.i2cStore.i2cConfigForm1
                 }
             }
         }
@@ -51,8 +51,7 @@ Rectangle {
             Layout.margins: 10
             text: "Apply"
             onClicked: {
-                rootStore.i2cConfig1.applyConfig();
-                rootStore.i2cConfig2.applyConfig();
+                rootStore.applyI2cConfig();
             }
         }
     }

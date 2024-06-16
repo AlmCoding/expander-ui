@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "plugins/i2crequest.h"
+#include "plugins/containers/i2crequest.h"
 
 class I2cRequestForm : public QObject {
     Q_OBJECT

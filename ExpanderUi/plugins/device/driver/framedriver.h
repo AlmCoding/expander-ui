@@ -20,14 +20,15 @@ class FrameDriver : public QObject {
         return instance;
     }
 
-    void forwardData(const QByteArray& data);  // Forward data to serial port (downstream)
-
    public slots:
-    bool sendMessage(TfMsgType type, const QByteArray& data);  // Send message to tf (downstream)
-    void receiveData(const QByteArray& data);                  // Forward data to tf (upstream)
+    bool sendMessage(TfMsgType type, const QByteArray& data);  // APP => TF (downstream)
+    void receiveData(const QByteArray& data);                  // COM => TF (upstream)
 
    signals:
-    void sendData(const QByteArray data);  // Send data to serial port (downstream)
+    void sendData(const QByteArray& data);  // TF => COM (downstream)
+
+    void echoMessage(const QByteArray& data);  // Echo message received (TF => APP)
+    void i2cMessage(const QByteArray& data);   // I2C message received (TF => APP)
 
    private:
     FrameDriver();
