@@ -32,6 +32,6 @@ Item {
         console.log("Send I2c Request");
         let request = i2cStore.i2cRequestModel.getSelectedRequest();
 
-        interfaceExpander.sendI2cRequest(request);
+        interfaceExpander.sendI2cRequest(request, i2cStore.selectedInterface);
     }
 }

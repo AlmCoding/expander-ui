@@ -24,7 +24,10 @@ class InterfaceExpander : public QObject {
     void sendClosePort() { emit closePort(); }
 
     void sendI2cConfig(I2cConfig config) { emit configI2c(config); }
-    void sendI2cRequest(I2cRequest request) { emit requestI2c(request); }
+    void sendI2cRequest(I2cRequest request, I2cConfigTypes::I2cId interface) {
+        request.setInterfaceId(interface);
+        emit requestI2c(request);
+    }
 
    signals:
     void openPort(const QSerialPortInfo& port_info);

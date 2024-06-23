@@ -4,7 +4,7 @@
 #include "plugins/device/driver/framedriver.h"
 #include "plugins/device/driver/i2cprotocom.h"
 
-DeviceCom::DeviceCom(QObject* parent) : QObject{ parent } {}
+DeviceCom::DeviceCom(QObject* parent) : QObject{ parent }, i2c_proto_com_{ this } {}
 
 DeviceCom::~DeviceCom() {
     if (serial_port_ != nullptr) {
@@ -76,7 +76,7 @@ void DeviceCom::sendI2cConfig(I2cConfig config) {
 
     // Build message
     QByteArray message{ 128, 0 };
-    I2cProtoCom::encodeI2cConfig(config, message);
+    i2c_proto_com_.encodeI2cConfig(config, message);
 
     // Send message
     driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::I2cMsg, message);
@@ -87,7 +87,7 @@ void DeviceCom::sendI2cRequest(I2cRequest request) {
 
     // Build message
     QByteArray message{ 128, 0 };
-    I2cProtoCom::encodeI2cRequest(request, message);
+    i2c_proto_com_.encodeI2cRequest(request, message);
 
     // Send message
     driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::I2cMsg, message);

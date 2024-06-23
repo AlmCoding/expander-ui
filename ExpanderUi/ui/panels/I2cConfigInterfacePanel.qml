@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import expander.containers.i2c
 
 
 Rectangle {
@@ -34,7 +35,11 @@ Rectangle {
             id: tabBar
             Layout.fillWidth: true
             onCurrentIndexChanged: {
-                // TODO: Info needed for where requests shall be send (I2c1 or I2c2)
+                if (currentIndex === 0) {
+                    rootStore.i2cStore.selectedInterface =  I2cConfigTypes.I2c0;
+                } else {
+                    rootStore.i2cStore.selectedInterface =  I2cConfigTypes.I2c1;
+                }
             }
 
             TabButton {

@@ -4,6 +4,8 @@ import expander.models
 import expander.containers.i2c
 
 Item {
+    property var selectedInterface: I2cConfigTypes.I2c0;
+
     property I2cConfigForm i2cConfigForm0: I2cConfigForm {
         id: i2cConfigForm0
         i2cId: I2cConfigTypes.I2c0

@@ -9,6 +9,7 @@ Q_NAMESPACE
 enum class I2cId {
     I2c0 = 0,
     I2c1,
+    Undefined,
 };
 enum class ClockFreq {
     KHz10 = 0,
@@ -36,7 +37,7 @@ class I2cConfig {
    public:
     explicit I2cConfig();
 
-    I2cConfigTypes::I2cId i2c_id = I2cConfigTypes::I2cId::I2c0;
+    I2cConfigTypes::I2cId i2c_id = I2cConfigTypes::I2cId::Undefined;
     QString slave_addr = "0x001";
     I2cConfigTypes::ClockFreq clock_freq = I2cConfigTypes::ClockFreq::KHz10;
     I2cConfigTypes::MemAddrWidth mem_addr_width = I2cConfigTypes::MemAddrWidth::OneByte;

@@ -7,6 +7,7 @@
 #include <QTimer>
 #include "plugins/containers/i2cconfig.h"
 #include "plugins/containers/i2crequest.h"
+#include "plugins/device/driver/i2cprotocom.h"
 
 class DeviceCom : public QObject {
     Q_OBJECT
@@ -36,6 +37,7 @@ class DeviceCom : public QObject {
 
    private:
     QSerialPort* serial_port_ = nullptr;
+    I2cProtoCom i2c_proto_com_;
     QTimer* timer_ = nullptr;
 };
 
