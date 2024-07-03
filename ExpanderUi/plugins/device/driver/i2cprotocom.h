@@ -10,14 +10,13 @@ class I2cProtoCom : public QObject {
    public:
     explicit I2cProtoCom(QObject* parent = nullptr);
 
-    bool encodeI2cConfig(const I2cConfig& config, QByteArray& message);
-    bool encodeI2cRequest(const I2cRequest& request, QByteArray& message);
+    static bool decodeI2cMsg(const QByteArray& message);
+
+    static bool encodeI2cConfig(const I2cConfig& config, int sequence_number, QByteArray& message);
+    static bool encodeI2cRequest(const I2cRequest& request, int sequence_number, QByteArray& message);
 
    private:
-    bool hexStringToByteArray(const QString& hex_string, QByteArray& byte_array);
-
-    int sequence_number_ = 0;
-    int request_id_ = 0;
+    static bool hexStringToByteArray(const QString& hex_string, QByteArray& byte_array);
 };
 
 #endif  // I2CPROTOCOM_H

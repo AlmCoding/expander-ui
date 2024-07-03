@@ -7,7 +7,7 @@
 #include <QThread>
 #include "plugins/containers/i2cconfig.h"
 #include "plugins/containers/i2crequest.h"
-#include "plugins/device/devicecom.h"
+#include "plugins/device/devicemanager.h"
 
 class InterfaceExpander : public QObject {
     Q_OBJECT
@@ -25,7 +25,7 @@ class InterfaceExpander : public QObject {
 
     void sendI2cConfig(I2cConfig config) { emit configI2c(config); }
     void sendI2cRequest(I2cRequest request, I2cConfigTypes::I2cId interface) {
-        request.setInterfaceId(interface);
+        request.setI2cId(interface);
         emit requestI2c(request);
     }
 
@@ -39,7 +39,7 @@ class InterfaceExpander : public QObject {
 
    private:
     QThread* com_thread_ = nullptr;
-    DeviceCom* device_com_ = nullptr;
+    DeviceManager* device_manager_ = nullptr;
     bool is_connected_ = false;
 };
 

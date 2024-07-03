@@ -1,5 +1,5 @@
-#ifndef DEVICECOM_H
-#define DEVICECOM_H
+#ifndef DEVICEMANAGER_H
+#define DEVICEMANAGER_H
 
 #include <QObject>
 #include <QSerialPort>
@@ -7,18 +7,21 @@
 #include <QTimer>
 #include "plugins/containers/i2cconfig.h"
 #include "plugins/containers/i2crequest.h"
-#include "plugins/device/driver/i2cprotocom.h"
+#include "plugins/device/i2cservice.h"
 
-class DeviceCom : public QObject {
+constexpr bool EchoMessagesEnabled = false;
+constexpr int EchoMessagesPeriodMs = 10;
+
+class DeviceManager : public QObject {
     Q_OBJECT
 
    public:
-    explicit DeviceCom(QObject* parent = nullptr);
-    ~DeviceCom();
+    explicit DeviceManager(QObject* parent = nullptr);
+    ~DeviceManager();
 
    private slots:
-    void handleEchoMessage(const QByteArray& data);
-    void handleI2cMessage(const QByteArray& data);
+    void handleEchoMessage(const QByteArray& message);
+    void handleI2cMessage(const QByteArray& message);
 
    public slots:
     void run();
@@ -37,8 +40,8 @@ class DeviceCom : public QObject {
 
    private:
     QSerialPort* serial_port_ = nullptr;
-    I2cProtoCom i2c_proto_com_;
+    I2cService* i2c_service_ = nullptr;
     QTimer* timer_ = nullptr;
 };
 
-#endif  // DEVICECOM_H
+#endif  // DEVICEMANAGER_H

@@ -37,6 +37,7 @@ class I2cConfig {
    public:
     explicit I2cConfig();
 
+    int request_id = -1;
     I2cConfigTypes::I2cId i2c_id = I2cConfigTypes::I2cId::Undefined;
     QString slave_addr = "0x001";
     I2cConfigTypes::ClockFreq clock_freq = I2cConfigTypes::ClockFreq::KHz10;

@@ -16,7 +16,7 @@ class I2cRequest {
     explicit I2cRequest(I2cReqestType type, QString name, QString slave_addr, QString write_data, QString read_size);
 
     void setRequestId(int request_id) { request_id_ = request_id; }
-    void setInterfaceId(I2cConfigTypes::I2cId i2c_id) { i2c_id_ = i2c_id; }
+    void setI2cId(I2cConfigTypes::I2cId i2c_id) { i2c_id_ = i2c_id; }
     void setName(QString name) { name_ = name; }
     void setType(I2cReqestType type) { type_ = type; }
     void setSlaveAddr(QString slave_addr) { slave_addr_ = slave_addr; }
@@ -24,7 +24,7 @@ class I2cRequest {
     void setReadSize(QString read_size) { read_size_ = read_size; }
 
     int getRequestId() const { return request_id_; }
-    I2cConfigTypes::I2cId getInterfaceId() const { return i2c_id_; }
+    I2cConfigTypes::I2cId getI2cId() const { return i2c_id_; }
     I2cReqestType getType() const { return type_; }
     QString getName() const { return name_; }
     QString getSlaveAddr() const { return slave_addr_; }
