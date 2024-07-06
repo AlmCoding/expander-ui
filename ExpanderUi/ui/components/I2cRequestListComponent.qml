@@ -83,7 +83,7 @@ Item {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 leftPadding: 8
-                                text: ((model.type === "MA") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.writeData
+                                text: ((model.type === "MR") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.writeData
                             }
                         }
 
@@ -120,7 +120,7 @@ Item {
                     anchors.fill: parent
                     fillMode: Image.PreserveAspectFit
                     anchors.margins: 4
-                    source: "/ExpanderUi/ui/resources/images/play_button.png"
+                    source: "/ExpanderUi/ui/resources/images/play_square_100.png"
                 }
 
                 MouseArea {

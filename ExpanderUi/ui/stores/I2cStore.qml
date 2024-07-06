@@ -1,25 +1,25 @@
 import QtQuick
 import expander.forms
 import expander.models
-import expander.containers.i2c
+import expander.containers.types
 
 Item {
-    property var selectedInterface: I2cConfigTypes.I2c0;
+    property var selectedInterface: I2cTypes.I2c0;
 
     property I2cConfigForm i2cConfigForm0: I2cConfigForm {
         id: i2cConfigForm0
-        i2cId: I2cConfigTypes.I2c0
+        i2cId: I2cTypes.I2c0
         slaveAddr: "0x001"
-        memAddrWidth: I2cConfigTypes.OneByte
-        slaveAddrWidth: I2cConfigTypes.SevenBit
+        memAddrWidth: I2cTypes.OneByte
+        slaveAddrWidth: I2cTypes.SevenBit
     }
 
     property I2cConfigForm i2cConfigForm1: I2cConfigForm {
         id: i2cConfigForm1
-        i2cId: I2cConfigTypes.I2c1
+        i2cId: I2cTypes.I2c1
         slaveAddr: "0x002"
-        memAddrWidth: I2cConfigTypes.OneByte
-        slaveAddrWidth: I2cConfigTypes.SevenBit
+        memAddrWidth: I2cTypes.OneByte
+        slaveAddrWidth: I2cTypes.SevenBit
     }
 
     property I2cRequestModel i2cRequestModel: I2cRequestModel {

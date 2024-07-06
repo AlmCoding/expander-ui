@@ -1,5 +1,6 @@
 #include "i2crequestmodel.h"
 #include <QVariant>
+#include "plugins/containers/i2ctypes.h"
 
 I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {}
 
@@ -10,7 +11,7 @@ QHash<int, QByteArray> I2cRequestModel::roleNames() const { return role_names_; 
 QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
     const I2cRequest& request = requests_.at(index.row());
 
-    QString type_name{ (request.getType() == I2cReqestType::MasterAction) ? "MA" : "SC" };
+    QString type_name{ (request.getType() == I2cTypes::I2cReqestType::MasterAction) ? "MR" : "SC" };
 
     switch (role) {
         case NameRole:

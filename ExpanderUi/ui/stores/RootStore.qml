@@ -1,7 +1,7 @@
 import QtQuick
 import expander.models
 import expander.InterfaceExpander
-import expander.containers.i2c
+import expander.containers.types
 
 Item {
     property I2cLogModel i2cLogModel: I2cLogModel {
@@ -34,7 +34,7 @@ Item {
         }
 
         var config;
-        if (i2cStore.selectedInterface === I2cConfigTypes.I2c0) {
+        if (i2cStore.selectedInterface === I2cTypes.I2c0) {
             console.log("Apply I2c0 Config");
             config = i2cStore.i2cConfigForm0.getConfig();
         } else {

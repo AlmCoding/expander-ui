@@ -1,7 +1,7 @@
 #include "i2cservice.h"
 #include <QDateTime>
 #include <QDebug>
-#include "plugins/containers/i2cconfigstatus.h"
+#include "plugins/containers/i2ctypes.h"
 #include "plugins/device/driver/i2cprotocom.h"
 
 I2cService::I2cService(QObject* parent) : QObject{ parent } {
@@ -13,42 +13,56 @@ I2cService::I2cService(QObject* parent) : QObject{ parent } {
 I2cService::~I2cService() { timer_.stop(); }
 
 bool I2cService::parseI2cResponse(const QByteArray& message) {
+    bool success = false;
     I2cConfigStatus* config_status = nullptr;
+    I2cRequestStatus* request_status = nullptr;
 
-    if (I2cProtoCom::decodeI2cMsg(message, &config_status) == false) {
+    if (I2cProtoCom::decodeI2cMsg(message, &config_status, &request_status) == false) {
         qDebug() << "Failed to decode I2C message!";
         delete config_status;
         return false;
     }
 
     if (config_status != nullptr) {
-        if (config_map_.contains(config_status->getRequestId())) {
-            config_map_.remove(config_status->getRequestId());
-            for (auto iter = timeout_list_.begin(); iter != timeout_list_.end(); ++iter) {
-                if (iter->request_id == config_status->getRequestId()) {
-                    timeout_list_.erase(iter);
-                    break;
-                }
-            }
-            if (config_status->getStatusCode() == I2cConfigStatus::StatusCode::Ok) {
-                qDebug() << "I2C config successful!";
-            } else {
-                qDebug() << "I2C config failed!";
-            }
-        } else {
-            qDebug() << "Received I2C config response with unknown request ID!";
-        }
+        success = handleConfigStatus(config_status);
+        delete config_status;
+    } else if (request_status != nullptr) {
+        success = handleRequestStatus(request_status);
+        delete request_status;
     }
 
-    delete config_status;
-    return true;
+    return success;
 }
+
+bool I2cService::handleConfigStatus(I2cConfigStatus* config_status) {
+    if (config_map_.contains(config_status->getRequestId())) {
+        config_map_.remove(config_status->getRequestId());
+        for (auto iter = timeout_list_.begin(); iter != timeout_list_.end(); ++iter) {
+            if (iter->request_id == config_status->getRequestId()) {
+                timeout_list_.erase(iter);
+                break;
+            }
+        }
+        if (config_status->getStatusCode() == I2cConfigStatus::StatusCode::Ok) {
+            qDebug() << "I2C config successful!";
+        } else {
+            qDebug() << "I2C config failed!";
+        }
+        return true;
+
+    } else {
+        qDebug() << "Received I2C config response with unknown request ID!";
+        return false;
+    }
+}
+
+bool I2cService::handleRequestStatus(I2cRequestStatus* request_status) { return true; }
 
 bool I2cService::createI2cConfigMsg(I2cConfig& config, QByteArray& message) {
     int sequence_number = 0;
-    if (config.i2c_id == I2cConfigTypes::I2cId::I2c0) {
+    if (config.i2c_id == I2cTypes::I2cId::I2c0) {
         sequence_number = sequence_number0_++;
-    } else if (config.i2c_id == I2cConfigTypes::I2cId::I2c1) {
+    } else if (config.i2c_id == I2cTypes::I2cId::I2c1) {
         sequence_number = sequence_number1_++;
     } else {
         qDebug("Invalid I2cId!");
@@ -69,9 +83,9 @@ bool I2cService::createI2cConfigMsg(I2cConfig& config, QByteArray& message) {
 bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
     int sequence_number = 0;
     auto i2c_id = request.getI2cId();
-    if (i2c_id == I2cConfigTypes::I2cId::I2c0) {
+    if (i2c_id == I2cTypes::I2cId::I2c0) {
         sequence_number = sequence_number0_++;
-    } else if (i2c_id == I2cConfigTypes::I2cId::I2c1) {
+    } else if (i2c_id == I2cTypes::I2cId::I2c1) {
         sequence_number = sequence_number1_++;
     } else {
         qDebug("Invalid I2cId!");

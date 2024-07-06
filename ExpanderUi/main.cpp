@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "plugins/containers/i2ctypes.h"
 #include "plugins/device/comportmodel.h"
 #include "plugins/device/interfaceexpander.h"
 #include "plugins/forms/i2cconfigform.h"
@@ -11,8 +12,8 @@
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
-    qmlRegisterUncreatableMetaObject(I2cConfigTypes::staticMetaObject, "expander.containers.i2c", 1, 0,
-                                     "I2cConfigTypes", "Error: I2cConfigTypes");
+    qmlRegisterUncreatableMetaObject(I2cTypes::staticMetaObject, "expander.containers.types", 1, 0, "I2cTypes",
+                                     "Error: I2cTypes");
 
     qmlRegisterType<I2cConfigForm>("expander.forms", 1, 0, "I2cConfigForm");
     qmlRegisterType<I2cRequestForm>("expander.forms", 1, 0, "I2cRequestForm");

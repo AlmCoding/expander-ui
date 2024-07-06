@@ -6,7 +6,9 @@
 #include <QPair>
 #include <QTimer>
 #include "plugins/containers/i2cconfig.h"
+#include "plugins/containers/i2cconfigstatus.h"
 #include "plugins/containers/i2crequest.h"
+#include "plugins/containers/i2crequeststatus.h"
 
 constexpr int TimeoutMs = 1000;
 constexpr int TimeoutCheckPeriodMs = 25;
@@ -18,6 +20,8 @@ class I2cService : public QObject {
     ~I2cService();
 
     bool parseI2cResponse(const QByteArray& message);
+    bool handleConfigStatus(I2cConfigStatus* config_status);
+    bool handleRequestStatus(I2cRequestStatus* request_status);
 
     bool createI2cConfigMsg(I2cConfig& config, QByteArray& message);
     bool createI2cRequestMsg(I2cRequest& request, QByteArray& message);

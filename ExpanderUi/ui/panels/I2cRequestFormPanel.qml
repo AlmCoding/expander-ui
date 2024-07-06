@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import expander.containers.types
 
 Rectangle {
     color: "white"
@@ -13,6 +14,13 @@ Rectangle {
         TabBar {
             id: tabBar
             Layout.fillWidth: true
+            onCurrentIndexChanged: {
+                if (currentIndex === 0) {
+                    rootStore.i2cStore.i2cRequestForm.type =  I2cTypes.MasterAction;
+                } else {
+                    rootStore.i2cStore.i2cRequestForm.type =  I2cTypes.SlaveConfig;
+                }
+            }
 
             TabButton {
                 text: qsTr("Master Request")

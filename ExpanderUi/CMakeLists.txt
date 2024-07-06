@@ -39,7 +39,9 @@ qt_add_qml_module(appExpanderUi
         ui/stores/I2cStore.qml
     RESOURCES
         ui/resources/images/edit_button.png
-        ui/resources/images/play_button.png
+        ui/resources/images/play_100.png
+        ui/resources/images/play_square_100.png
+        ui/resources/images/play_round_90.png
 
     # plugins
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
@@ -60,10 +62,13 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/driver/i2cprotocom.h plugins/device/driver/i2cprotocom.cpp
     SOURCES plugins/device/i2cservice.h plugins/device/i2cservice.cpp
     SOURCES plugins/containers/i2cconfigstatus.h plugins/containers/i2cconfigstatus.cpp
+    SOURCES plugins/containers/i2ctypes.h
+    SOURCES plugins/containers/i2crequeststatus.h plugins/containers/i2crequeststatus.cpp
 )
 
 add_subdirectory(libraries/tf)
 add_subdirectory(libraries/proto)
+add_subdirectory(libraries/enum)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -82,6 +87,7 @@ target_link_libraries(appExpanderUi
         Qt6::SerialPort
         tf
         proto
+        magic_enum
 )
 
 include(GNUInstallDirs)

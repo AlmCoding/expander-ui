@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 import expander.forms
-import expander.containers.i2c
+import expander.containers.types
 
 
 ColumnLayout {
@@ -25,18 +25,18 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.OneByte
+                checked: i2cConfigForm.memAddrWidth === I2cTypes.OneByte
                 text: "1 Byte"
                 onClicked: function() {
-                    i2cConfigForm.memAddrWidth = I2cConfigTypes.OneByte;
+                    i2cConfigForm.memAddrWidth = I2cTypes.OneByte;
                     rootStore.applyI2cConfig();
                 }
             }
             RadioButton {
-                checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.TwoByte
+                checked: i2cConfigForm.memAddrWidth === I2cTypes.TwoByte
                 text: "2 Bytes"
                 onClicked: function() {
-                    i2cConfigForm.memAddrWidth = I2cConfigTypes.TwoByte;
+                    i2cConfigForm.memAddrWidth = I2cTypes.TwoByte;
                     rootStore.applyI2cConfig();
                 }
             }
@@ -51,18 +51,18 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.SevenBit
+                checked: i2cConfigForm.slaveAddrWidth === I2cTypes.SevenBit
                 text: "7 Bit"
                 onClicked: function() {
-                    i2cConfigForm.slaveAddrWidth = I2cConfigTypes.SevenBit;
+                    i2cConfigForm.slaveAddrWidth = I2cTypes.SevenBit;
                     rootStore.applyI2cConfig();
                 }
             }
             RadioButton {
-                checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.TenBit
+                checked: i2cConfigForm.slaveAddrWidth === I2cTypes.TenBit
                 text: "10 Bit"
                 onClicked: function() {
-                    i2cConfigForm.slaveAddrWidth = I2cConfigTypes.TenBit;
+                    i2cConfigForm.slaveAddrWidth = I2cTypes.TenBit;
                     rootStore.applyI2cConfig();
                 }
             }
@@ -106,13 +106,13 @@ ColumnLayout {
             model: ["1 MHz", "400 kHz", "100 kHz", "10 kHz"]
             onCurrentIndexChanged: function() {
                 switch (currentIndex) {
-                case 0: i2cConfigForm.clockFreq = I2cConfigTypes.KHz1000;
+                case 0: i2cConfigForm.clockFreq = I2cTypes.KHz1000;
                     break;
-                case 1: i2cConfigForm.clockFreq = I2cConfigTypes.KHz400;
+                case 1: i2cConfigForm.clockFreq = I2cTypes.KHz400;
                     break;
-                case 2: i2cConfigForm.clockFreq = I2cConfigTypes.KHz100;
+                case 2: i2cConfigForm.clockFreq = I2cTypes.KHz100;
                     break;
-                case 3: i2cConfigForm.clockFreq = I2cConfigTypes.KHz10;
+                case 3: i2cConfigForm.clockFreq = I2cTypes.KHz10;
                     break;
                 }
                 rootStore.applyI2cConfig();

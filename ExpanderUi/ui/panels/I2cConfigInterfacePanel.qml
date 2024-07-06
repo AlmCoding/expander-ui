@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
-import expander.containers.i2c
+import expander.containers.types
 
 
 Rectangle {
@@ -44,9 +44,9 @@ Rectangle {
             Layout.fillWidth: true
             onCurrentIndexChanged: {
                 if (currentIndex === 0) {
-                    rootStore.i2cStore.selectedInterface =  I2cConfigTypes.I2c0;
+                    rootStore.i2cStore.selectedInterface =  I2cTypes.I2c0;
                 } else {
-                    rootStore.i2cStore.selectedInterface =  I2cConfigTypes.I2c1;
+                    rootStore.i2cStore.selectedInterface =  I2cTypes.I2c1;
                 }
             }
 

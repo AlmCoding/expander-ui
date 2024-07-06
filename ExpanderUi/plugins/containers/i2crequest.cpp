@@ -1,6 +1,7 @@
 #include "i2crequest.h"
 
-I2cRequest::I2cRequest(I2cReqestType type, QString name, QString slave_addr, QString write_data, QString read_size)
+I2cRequest::I2cRequest(I2cTypes::I2cReqestType type, QString name, QString slave_addr, QString write_data,
+                       QString read_size)
     : type_{ type }, name_{ name }, slave_addr_{ slave_addr }, write_data_{ write_data }, read_size_{ read_size } {}
 
 QString I2cRequest::getWriteSize() const {
