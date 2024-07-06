@@ -1,6 +1,7 @@
 import QtQuick
 import expander.models
 import expander.InterfaceExpander
+import expander.containers.i2c
 
 Item {
     property I2cLogModel i2cLogModel: I2cLogModel {
@@ -13,6 +14,14 @@ Item {
 
     property InterfaceExpander interfaceExpander: InterfaceExpander {
         id: interfaceExpander
+        onIsConnectedChanged: function() {
+            if (isConnected === true) {
+                let config0 = i2cStore.i2cConfigForm0.getConfig();
+                interfaceExpander.sendI2cConfig(config0);
+                let config1 = i2cStore.i2cConfigForm1.getConfig();
+                interfaceExpander.sendI2cConfig(config1);
+            }
+        }
     }
 
     property I2cStore i2cStore: I2cStore {
@@ -20,12 +29,20 @@ Item {
     }
 
     function applyI2cConfig() {
-        console.log("Apply I2c Config");
-        let config0 = i2cStore.i2cConfigForm0.getConfig();
-        let config1 = i2cStore.i2cConfigForm1.getConfig();
+        if (interfaceExpander.isConnected === false) {
+            return;
+        }
 
-        interfaceExpander.sendI2cConfig(config0);
-        interfaceExpander.sendI2cConfig(config1);
+        var config;
+        if (i2cStore.selectedInterface === I2cConfigTypes.I2c0) {
+            console.log("Apply I2c0 Config");
+            config = i2cStore.i2cConfigForm0.getConfig();
+        } else {
+            console.log("Apply I2c1 Config");
+            config = i2cStore.i2cConfigForm1.getConfig();
+        }
+
+        interfaceExpander.sendI2cConfig(config);
     }
 
     function sendI2cRequest() {

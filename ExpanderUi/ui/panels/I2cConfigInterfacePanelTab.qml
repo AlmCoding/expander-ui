@@ -27,12 +27,18 @@ ColumnLayout {
             RadioButton {
                 checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.OneByte
                 text: "1 Byte"
-                onClicked: i2cConfigForm.memAddrWidth = I2cConfigTypes.OneByte
+                onClicked: function() {
+                    i2cConfigForm.memAddrWidth = I2cConfigTypes.OneByte;
+                    rootStore.applyI2cConfig();
+                }
             }
             RadioButton {
                 checked: i2cConfigForm.memAddrWidth === I2cConfigTypes.TwoByte
                 text: "2 Bytes"
-                onClicked: i2cConfigForm.memAddrWidth = I2cConfigTypes.TwoByte
+                onClicked: function() {
+                    i2cConfigForm.memAddrWidth = I2cConfigTypes.TwoByte;
+                    rootStore.applyI2cConfig();
+                }
             }
         }
 
@@ -47,12 +53,18 @@ ColumnLayout {
             RadioButton {
                 checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.SevenBit
                 text: "7 Bit"
-                onClicked: i2cConfigForm.slaveAddrWidth = I2cConfigTypes.SevenBit
+                onClicked: function() {
+                    i2cConfigForm.slaveAddrWidth = I2cConfigTypes.SevenBit;
+                    rootStore.applyI2cConfig();
+                }
             }
             RadioButton {
                 checked: i2cConfigForm.slaveAddrWidth === I2cConfigTypes.TenBit
                 text: "10 Bit"
-                onClicked: i2cConfigForm.slaveAddrWidth = I2cConfigTypes.TenBit
+                onClicked: function() {
+                    i2cConfigForm.slaveAddrWidth = I2cConfigTypes.TenBit;
+                    rootStore.applyI2cConfig();
+                }
             }
         }
 
@@ -74,7 +86,11 @@ ColumnLayout {
             onTextChanged: function() {
                 i2cConfigForm.slaveAddr = text
             }
-
+            onFocusChanged: function() {
+                if (focus === false) {
+                    rootStore.applyI2cConfig();
+                }
+            }
         }
 
         Label {
@@ -88,7 +104,7 @@ ColumnLayout {
             Layout.preferredWidth: 150
             Layout.preferredHeight: 40
             model: ["1 MHz", "400 kHz", "100 kHz", "10 kHz"]
-            onCurrentIndexChanged: {
+            onCurrentIndexChanged: function() {
                 switch (currentIndex) {
                 case 0: i2cConfigForm.clockFreq = I2cConfigTypes.KHz1000;
                     break;
@@ -99,6 +115,7 @@ ColumnLayout {
                 case 3: i2cConfigForm.clockFreq = I2cConfigTypes.KHz10;
                     break;
                 }
+                rootStore.applyI2cConfig();
             }
         }
     }

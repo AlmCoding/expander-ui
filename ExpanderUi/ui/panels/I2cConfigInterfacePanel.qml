@@ -14,17 +14,25 @@ Rectangle {
 
         StackLayout {
             Layout.fillWidth: true
-            Layout.preferredHeight: parent.height - tabBar.height - applyButton.height
+            Layout.preferredHeight: parent.height - tabBar.height
             currentIndex: tabBar.currentIndex
 
             Item {
                 id: i2c1Tab
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: tabBar.forceActiveFocus();
+                }
                 I2cConfigInterfacePanelTab {
                     i2cConfigForm: rootStore.i2cStore.i2cConfigForm0
                 }
             }
             Item {
                 id: i2c2Tab
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: tabBar.forceActiveFocus();
+                }
                 I2cConfigInterfacePanelTab {
                     i2cConfigForm: rootStore.i2cStore.i2cConfigForm1
                 }
@@ -47,16 +55,6 @@ Rectangle {
             }
             TabButton {
                 text: "I2C (2)"
-            }
-        }
-
-        Button {
-            id: applyButton
-            Layout.fillWidth: true
-            Layout.margins: 10
-            text: "Apply"
-            onClicked: {
-                rootStore.applyI2cConfig();
             }
         }
     }

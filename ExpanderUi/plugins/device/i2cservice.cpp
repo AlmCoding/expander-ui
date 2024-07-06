@@ -13,10 +13,34 @@ I2cService::I2cService(QObject* parent) : QObject{ parent } {
 I2cService::~I2cService() { timer_.stop(); }
 
 bool I2cService::parseI2cResponse(const QByteArray& message) {
-    if (I2cProtoCom::decodeI2cMsg(message) == false) {
+    I2cConfigStatus* config_status = nullptr;
+
+    if (I2cProtoCom::decodeI2cMsg(message, &config_status) == false) {
         qDebug() << "Failed to decode I2C message!";
+        delete config_status;
         return false;
     }
+
+    if (config_status != nullptr) {
+        if (config_map_.contains(config_status->getRequestId())) {
+            config_map_.remove(config_status->getRequestId());
+            for (auto iter = timeout_list_.begin(); iter != timeout_list_.end(); ++iter) {
+                if (iter->request_id == config_status->getRequestId()) {
+                    timeout_list_.erase(iter);
+                    break;
+                }
+            }
+            if (config_status->getStatusCode() == I2cConfigStatus::StatusCode::Ok) {
+                qDebug() << "I2C config successful!";
+            } else {
+                qDebug() << "I2C config failed!";
+            }
+        } else {
+            qDebug() << "Received I2C config response with unknown request ID!";
+        }
+    }
+
+    delete config_status;
     return true;
 }
 

@@ -3,7 +3,7 @@
 
 class I2cConfigStatus {
    public:
-    enum class RequestStatus {
+    enum class StatusCode {
         Ok = 0,
         InvalidClockFreq,
         InvalidSlaveAddr,
@@ -12,14 +12,14 @@ class I2cConfigStatus {
         InterfaceError,
     };
 
-    I2cConfigStatus(int request_id, RequestStatus status);
+    I2cConfigStatus(int request_id, StatusCode status_code);
 
     int getRequestId() const { return request_id_; }
-    RequestStatus getStatus() const { return status_; }
+    StatusCode getStatusCode() const { return status_code_; }
 
    private:
     int request_id_ = -1;
-    RequestStatus status_;
+    StatusCode status_code_;
 };
 
 #endif  // I2CCONFIGSTATUS_H

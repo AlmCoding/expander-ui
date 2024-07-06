@@ -7,7 +7,7 @@
 
 I2cProtoCom::I2cProtoCom(QObject* parent) : QObject{ parent } {}
 
-bool I2cProtoCom::decodeI2cMsg(const QByteArray& message) {
+bool I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus** config_status) {
     /* Allocate space for the decoded message. */
     i2c_proto_I2cMsg i2c_msg = i2c_proto_I2cMsg_init_zero;
     /* Create a stream that reads from the buffer. */
@@ -20,6 +20,11 @@ bool I2cProtoCom::decodeI2cMsg(const QByteArray& message) {
     }
 
     if (i2c_msg.which_msg == i2c_proto_I2cMsg_config_status_tag) {
+        int request_id = i2c_msg.msg.config_status.request_id;
+        I2cConfigStatus::StatusCode status_code =
+            static_cast<I2cConfigStatus::StatusCode>(i2c_msg.msg.config_status.status_code);
+        *config_status = new I2cConfigStatus{ request_id, status_code };
+
         qDebug("Received I2C config response!");
         qDebug("  Request ID: %d", i2c_msg.msg.config_status.request_id);
         qDebug("  Status: %d", i2c_msg.msg.config_status.status_code);

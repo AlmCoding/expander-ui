@@ -15,8 +15,7 @@ Rectangle {
         I2cConfigInterfacePanel {
             id: configPanel
             Layout.fillWidth: true
-            Layout.preferredHeight: 320
-            // Layout.leftMargin: 10
+            Layout.preferredHeight: 250
         }
 
         Rectangle {
@@ -29,7 +28,6 @@ Rectangle {
         I2cRequestListPanel {
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height - configPanel.height - spacingRect.height
-            // Layout.leftMargin: 10
         }
     }
 }
