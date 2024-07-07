@@ -22,6 +22,7 @@ class DeviceManager : public QObject {
    private slots:
     void handleEchoMessage(const QByteArray& message);
     void handleI2cMessage(const QByteArray& message);
+    void triggerEcho();
 
    public slots:
     void run();
@@ -34,9 +35,8 @@ class DeviceManager : public QObject {
 
    signals:
     void openStateChanged(bool open);
-
-   private slots:
-    void triggerEcho();
+    void i2cConfigStatusReceived(I2cConfig config);
+    void i2cRequestStatusReceived(I2cRequest request);
 
    private:
     QSerialPort* serial_port_ = nullptr;

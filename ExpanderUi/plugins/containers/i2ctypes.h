@@ -37,6 +37,13 @@ Q_ENUM_NS(MemAddrWidth)
 Q_ENUM_NS(SlaveAddrWidth)
 Q_ENUM_NS(I2cReqestType)
 
+enum class MessageType {
+    ConfigStatus = 0,
+    MasterStatus,
+    SlaveStatus,
+    InvalidMessage,
+};
+
 }  // namespace I2cTypes
 
 #endif  // I2CTYPES_H

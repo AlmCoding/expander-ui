@@ -32,6 +32,9 @@ Rectangle {
                     id: saveButton
                     Layout.preferredWidth: 90
                     text: "Clear"
+                    onClicked: function() {
+                        rootStore.i2cStore.i2cLogModel.clearModel();
+                    }
                 }
                 Button {
                     id: newButton

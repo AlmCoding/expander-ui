@@ -2,6 +2,7 @@
 #define I2CLOGMODEL_H
 
 #include <QAbstractListModel>
+#include "plugins/containers/i2crequest.h"
 #include "plugins/i2clog.h"
 
 class I2cLogModel : public QAbstractListModel {
@@ -20,6 +21,8 @@ class I2cLogModel : public QAbstractListModel {
 
    public slots:
     void setSelectedLogIdx(int idx);
+    void appendNewLog(const I2cRequest& request);
+    void clearModel();
 
    signals:
     void selectedLogIdxChanged(int idx);

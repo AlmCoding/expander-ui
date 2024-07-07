@@ -12,8 +12,8 @@ class I2cProtoCom : public QObject {
    public:
     explicit I2cProtoCom(QObject* parent = nullptr);
 
-    static bool decodeI2cMsg(const QByteArray& message, I2cConfigStatus** config_status,
-                             I2cRequestStatus** request_status);
+    static I2cTypes::MessageType decodeI2cMsg(const QByteArray& message, I2cConfigStatus& config_status,
+                                              I2cRequestStatus& request_status);
 
     static bool encodeI2cConfig(const I2cConfig& config, int sequence_number, QByteArray& message);
     static bool encodeI2cRequest(const I2cRequest& request, int sequence_number, QByteArray& message);

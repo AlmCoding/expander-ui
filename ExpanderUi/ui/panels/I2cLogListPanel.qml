@@ -16,11 +16,11 @@ Rectangle {
         ListView {
             id: logList
             anchors.fill: parent
-            model: rootStore.i2cLogModel // listModel
+            model: rootStore.i2cStore.i2cLogModel // listModel
             delegate: I2cLogListComponent {}
             highlight: Rectangle { color: "#00BCD4"; radius: 0 }
             focus: true
-            currentIndex: rootStore.i2cLogModel.selectedLogIdx
+            currentIndex: rootStore.i2cStore.i2cLogModel.selectedLogIdx
         }
     }
 }

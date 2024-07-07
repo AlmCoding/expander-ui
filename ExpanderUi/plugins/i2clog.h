@@ -13,7 +13,7 @@ class I2cLog {
    public:
     explicit I2cLog() = default;
     explicit I2cLog(QString time, QString interface_name, I2cLogType type, QString name, QString slave_address,
-                    QString write_data, QString read_data, int write_size, int read_size, QString status);
+                    QString write_data, QString read_data, QString write_size, QString read_size, QString status);
 
     void setTime(QString time) { time_ = time; }
     void setInterfaceName(QString interface_name) { interface_name_ = interface_name; }
@@ -22,8 +22,8 @@ class I2cLog {
     void setSlaveAddr(QString slave_addr) { slave_addr_ = slave_addr; }
     void setWriteData(QString write_data) { write_data_ = write_data; }
     void setReadData(QString read_data) { read_data_ = read_data; }
-    void setWriteSize(int write_size) { write_size_ = write_size; }
-    void setReadSize(int read_size) { read_size_ = read_size; }
+    void setWriteSize(QString write_size) { write_size_ = write_size; }
+    void setReadSize(QString read_size) { read_size_ = read_size; }
     void setStatus(QString status) { status_ = status; }
 
     QString getTime() const { return time_; }
@@ -33,8 +33,8 @@ class I2cLog {
     QString getSlaveAddr() const { return slave_addr_; }
     QString getWriteData() const { return write_data_; }
     QString getReadData() const { return read_data_; }
-    int getWriteSize() const { return write_size_; }
-    int getReadSize() const { return read_size_; }
+    QString getWriteSize() const { return write_size_; }
+    QString getReadSize() const { return read_size_; }
     QString getStatus() const { return status_; }
 
    private:
@@ -45,8 +45,8 @@ class I2cLog {
     QString slave_addr_;
     QString write_data_;
     QString read_data_;
-    int write_size_;
-    int read_size_;
+    QString write_size_;
+    QString read_size_;
     QString status_;
 };
 

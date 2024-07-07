@@ -4,10 +4,6 @@ import expander.InterfaceExpander
 import expander.containers.types
 
 Item {
-    property I2cLogModel i2cLogModel: I2cLogModel {
-        id: i2cLogModel
-    }
-
     property ComPortModel comPortModel: ComPortModel {
         id: comPortModel
     }
@@ -21,6 +17,9 @@ Item {
                 let config1 = i2cStore.i2cConfigForm1.getConfig();
                 interfaceExpander.sendI2cConfig(config1);
             }
+        }
+        Component.onCompleted: function() {
+            setI2cLogModel(i2cStore.i2cLogModel);
         }
     }
 

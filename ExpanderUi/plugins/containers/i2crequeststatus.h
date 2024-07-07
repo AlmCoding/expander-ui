@@ -25,6 +25,7 @@ class I2cRequestStatus {
     int getRequestId() const { return request_id_; }
     StatusCode getStatusCode() const { return status_code_; }
     QString getReadData() const { return read_data_; }
+    QString getReadSize() const;
 
    private:
     int request_id_ = -1;

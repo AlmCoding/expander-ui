@@ -9,8 +9,8 @@
 
 I2cProtoCom::I2cProtoCom(QObject* parent) : QObject{ parent } {}
 
-bool I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus** config_status,
-                               I2cRequestStatus** request_status) {
+I2cTypes::MessageType I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus& config_status,
+                                                I2cRequestStatus& request_status) {
     /* Allocate space for the decoded message. */
     i2c_proto_I2cMsg i2c_msg = i2c_proto_I2cMsg_init_zero;
     /* Create a stream that reads from the buffer. */
@@ -19,7 +19,7 @@ bool I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus** conf
     /* Now we are ready to decode the message. */
     if (pb_decode(&stream, i2c_proto_I2cMsg_fields, &i2c_msg) == false) {
         qDebug("Failed to decode message!");
-        return false;
+        return I2cTypes::MessageType::InvalidMessage;
     }
 
     if (i2c_msg.which_msg == i2c_proto_I2cMsg_config_status_tag) {
@@ -27,11 +27,14 @@ bool I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus** conf
         I2cConfigStatus::StatusCode status_code =
             static_cast<I2cConfigStatus::StatusCode>(i2c_msg.msg.config_status.status_code);
 
-        *config_status = new I2cConfigStatus{ request_id, status_code };
+        config_status.setRequestId(request_id);
+        config_status.setStatusCode(status_code);
 
         qDebug("Received I2C config response!");
-        qDebug("  Request ID: %d", (*config_status)->getRequestId());
-        qDebug("  Status: %s", magic_enum::enum_name((*config_status)->getStatusCode()).data());
+        qDebug("  Request ID: %d", config_status.getRequestId());
+        qDebug("  Status: %s", magic_enum::enum_name(config_status.getStatusCode()).data());
+
+        return I2cTypes::MessageType::ConfigStatus;
 
     } else if (i2c_msg.which_msg == i2c_proto_I2cMsg_master_status_tag) {
         int request_id = i2c_msg.msg.master_status.request_id;
@@ -43,21 +46,24 @@ bool I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cConfigStatus** conf
         QString read_data_hex;
         if (byteArrayToHexString(read_data, read_data_hex) == false) {
             qDebug("Failed to convert read data to hex string!");
-            return false;
+            return I2cTypes::MessageType::InvalidMessage;
         }
-        *request_status = new I2cRequestStatus{ request_id, status_code, read_data_hex };
+
+        request_status.setRequestId(request_id);
+        request_status.setStatusCode(status_code);
+        request_status.setReadData(read_data_hex);
 
         qDebug("Received I2C master response!");
-        qDebug("  Request ID: %d", (*request_status)->getRequestId());
-        qDebug("  Status: %s", magic_enum::enum_name((*request_status)->getStatusCode()).data());
-        qDebug("  Read data: %s", qPrintable((*request_status)->getReadData()));
+        qDebug("  Request ID: %d", request_status.getRequestId());
+        qDebug("  Status: %s", magic_enum::enum_name(request_status.getStatusCode()).data());
+        qDebug("  Read data: %s", qPrintable(request_status.getReadData()));
+
+        return I2cTypes::MessageType::MasterStatus;
 
     } else {
         qDebug("Invalid message type!");
-        return false;
+        return I2cTypes::MessageType::InvalidMessage;
     }
-
-    return true;
 }
 
 bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, QByteArray& message) {
@@ -206,6 +212,7 @@ bool I2cProtoCom::byteArrayToHexString(const QByteArray& byte_array, QString& he
 
     for (int i = 0; i < byte_array.length(); i++) {
         hex_string.append(QString("%1").arg(byte_array.at(i), 2, 16, QChar('0')));
+        hex_string.append(' ');
     }
     return true;
 }

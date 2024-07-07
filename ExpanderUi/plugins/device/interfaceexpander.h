@@ -7,7 +7,9 @@
 #include <QThread>
 #include "plugins/containers/i2cconfig.h"
 #include "plugins/containers/i2crequest.h"
+#include "plugins/containers/i2ctypes.h"
 #include "plugins/device/devicemanager.h"
+#include "plugins/i2clogmodel.h"
 
 class InterfaceExpander : public QObject {
     Q_OBJECT
@@ -29,18 +31,27 @@ class InterfaceExpander : public QObject {
         emit requestI2c(request);
     }
 
+    void setI2cLogModel(I2cLogModel* log_model) {
+        qDebug() << "setI2cLogModel: " << log_model;
+        log_model_ = log_model;
+    }
+
    signals:
+    void isConnectedChanged(bool connected);
     void openPort(const QSerialPortInfo& port_info);
     void closePort();
     void configI2c(const I2cConfig& config);
     void requestI2c(const I2cRequest& request);
 
-    void isConnectedChanged(bool connected);
+    void i2cConfigStatusReceived(const I2cConfig& config);
+    void i2cRequestStatusReceived(const I2cRequest& request);
 
    private:
     QThread* com_thread_ = nullptr;
     DeviceManager* device_manager_ = nullptr;
     bool is_connected_ = false;
+
+    I2cLogModel* log_model_ = nullptr;
 };
 
 #endif  // INTERFACEEXPANDER_H

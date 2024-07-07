@@ -61,4 +61,8 @@ Item {
         i2cRequestForm.clearRequest();
         i2cRequestForm.externalUpdate = false;
     }
+
+    property I2cLogModel i2cLogModel: I2cLogModel {
+        id: i2cLogModel
+    }
 }

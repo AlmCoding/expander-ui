@@ -1,7 +1,12 @@
 #include "i2clogmodel.h"
+#include <QDateTime>
 #include <QVariant>
+#include "magic_enum.hpp"
 
 I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } {
+    qDebug() << "I2cLogModel object: " << this;
+
+    /*
     logs_.append(I2cLog{ "06d09h43m12s122ms", "I2c1", I2cLogType::MasterAction,  //
                          "Test", "0x042",                                        //
                          "ff ff ff",                                             //
@@ -13,6 +18,7 @@ I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } {
                          "ff ff ff",                                             //
                          "42 33",                                                //
                          3, 2, "OK" });
+    */
 }
 
 int I2cLogModel::rowCount(const QModelIndex& parent) const { return logs_.size(); }
@@ -25,7 +31,7 @@ QVariant I2cLogModel::data(const QModelIndex& index, int role) const {
     QString type_name;
     switch (log.getType()) {
         case I2cLogType::MasterAction:
-            type_name = "MA";
+            type_name = "MR";
             break;
         case I2cLogType::SlaveConfig:
             type_name = "SC";
@@ -69,4 +75,30 @@ void I2cLogModel::setSelectedLogIdx(int idx) {
         selected_log_idx_ = idx;
         emit selectedLogIdxChanged(selected_log_idx_);
     }
+}
+
+void I2cLogModel::appendNewLog(const I2cRequest& request) {
+    QString interface_name{ magic_enum::enum_name(request.getI2cId()).data() };
+    QString status_code{ magic_enum::enum_name(request.getStatus().getStatusCode()).data() };
+
+    I2cLog new_log{ QDateTime::currentDateTime().toString("hh:mm:ss.zzz"),
+                    interface_name,
+                    I2cLogType::MasterAction,
+                    request.getName(),
+                    request.getSlaveAddr(),
+                    request.getWriteData(),
+                    request.getStatus().getReadData(),
+                    request.getWriteSize(),
+                    request.getStatus().getReadSize(),
+                    status_code };
+
+    QAbstractItemModel::beginInsertRows(QModelIndex(), logs_.size(), logs_.size());
+    logs_.append(new_log);
+    QAbstractItemModel::endInsertRows();
+}
+
+void I2cLogModel::clearModel() {
+    QAbstractItemModel::beginResetModel();
+    logs_.clear();
+    QAbstractItemModel::endResetModel();
 }

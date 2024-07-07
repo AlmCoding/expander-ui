@@ -19,9 +19,7 @@ class I2cService : public QObject {
     explicit I2cService(QObject* parent = nullptr);
     ~I2cService();
 
-    bool parseI2cResponse(const QByteArray& message);
-    bool handleConfigStatus(I2cConfigStatus* config_status);
-    bool handleRequestStatus(I2cRequestStatus* request_status);
+    I2cTypes::MessageType parseI2cResponse(const QByteArray& message, I2cConfig& config, I2cRequest& request);
 
     bool createI2cConfigMsg(I2cConfig& config, QByteArray& message);
     bool createI2cRequestMsg(I2cRequest& request, QByteArray& message);
@@ -33,6 +31,8 @@ class I2cService : public QObject {
     };
 
     void checkTimeouts();
+    bool handleConfigStatus(I2cConfigStatus& config_status, I2cConfig& config);
+    bool handleRequestStatus(I2cRequestStatus& request_status, I2cRequest& request);
 
     int sequence_number0_ = 0;
     int sequence_number1_ = 0;

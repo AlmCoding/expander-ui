@@ -38,9 +38,9 @@ void I2cRequestModel::addNewRequest(int template_req_idx) {
         request.setName(request.getName() + "_copy");
     }
 
-    beginInsertRows(QModelIndex(), requests_.size(), requests_.size());
+    QAbstractListModel::beginInsertRows(QModelIndex(), requests_.size(), requests_.size());
     requests_.append(request);
-    endInsertRows();
+    QAbstractListModel::endInsertRows();
 
     selected_request_idx_ = requests_.size() - 1;
     emit selectedRequestIdxChanged(selected_request_idx_);
@@ -48,9 +48,9 @@ void I2cRequestModel::addNewRequest(int template_req_idx) {
 
 void I2cRequestModel::deleteRequest(int request_idx) {
     if (request_idx >= 0 && request_idx < requests_.size()) {
-        beginRemoveRows(QModelIndex(), request_idx, request_idx);
+        QAbstractListModel::beginRemoveRows(QModelIndex(), request_idx, request_idx);
         requests_.removeAt(request_idx);
-        endRemoveRows();
+        QAbstractListModel::endRemoveRows();
     }
 
     if (selected_request_idx_ > 0 && selected_request_idx_ >= requests_.size()) {

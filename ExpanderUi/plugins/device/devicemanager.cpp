@@ -21,7 +21,25 @@ DeviceManager::~DeviceManager() {
 
 void DeviceManager::handleEchoMessage(const QByteArray& message) { qDebug() << "Echo closed: " << message; }
 
-void DeviceManager::handleI2cMessage(const QByteArray& message) { i2c_service_->parseI2cResponse(message); }
+void DeviceManager::handleI2cMessage(const QByteArray& message) {
+    I2cConfig config;
+    I2cRequest request;
+
+    // Parse I2C message
+    I2cTypes::MessageType msg_type = i2c_service_->parseI2cResponse(message, config, request);
+    if (msg_type == I2cTypes::MessageType::ConfigStatus) {
+        emit i2cConfigStatusReceived(config);
+    } else if (msg_type == I2cTypes::MessageType::MasterStatus) {
+        emit i2cRequestStatusReceived(request);
+    } else {
+        qDebug() << "Invalid I2C message received!";
+    }
+}
+
+void DeviceManager::triggerEcho() {
+    QByteArray message{ "Who is John Galt? Who is Howard Roak?" };
+    driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::EchoMsg, message);
+}
 
 void DeviceManager::run() {
     qDebug() << "Run in DeviceManager thread";
@@ -82,7 +100,7 @@ void DeviceManager::sendI2cConfig(I2cConfig config) {
     // Build message
     QByteArray message{ 128, 0 };
     if (i2c_service_->createI2cConfigMsg(config, message) == false) {
-        qDebug() << "Failed to create I2C config message";
+        qDebug() << "Failed to create I2C config message!";
         return;
     }
 
@@ -96,15 +114,10 @@ void DeviceManager::sendI2cRequest(I2cRequest request) {
     // Build message
     QByteArray message{ 128, 0 };
     if (i2c_service_->createI2cRequestMsg(request, message) == false) {
-        qDebug() << "Failed to create I2C request message";
+        qDebug() << "Failed to create I2C request message!";
         return;
     }
 
     // Send message
     driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::I2cMsg, message);
-}
-
-void DeviceManager::triggerEcho() {
-    QByteArray message{ "Who is John Galt? Who is Howard Roak?" };
-    driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::EchoMsg, message);
 }

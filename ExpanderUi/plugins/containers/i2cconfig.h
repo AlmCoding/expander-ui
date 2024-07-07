@@ -2,6 +2,7 @@
 #define I2CCONFIG_H
 
 #include <QString>
+#include "plugins/containers/i2cconfigstatus.h"
 #include "plugins/containers/i2ctypes.h"
 
 class I2cConfig {
@@ -14,6 +15,8 @@ class I2cConfig {
     I2cTypes::ClockFreq clock_freq = I2cTypes::ClockFreq::KHz10;
     I2cTypes::MemAddrWidth mem_addr_width = I2cTypes::MemAddrWidth::OneByte;
     I2cTypes::SlaveAddrWidth slave_addr_width = I2cTypes::SlaveAddrWidth::SevenBit;
+
+    I2cConfigStatus status;
 };
 
 #endif  // I2CCONFIG_H
