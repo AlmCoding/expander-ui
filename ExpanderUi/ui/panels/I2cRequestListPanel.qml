@@ -43,11 +43,17 @@ ColumnLayout {
             id: loadButton
             Layout.preferredWidth: 90
             text: "Load"
+            onClicked: function() {
+                rootStore.i2cStore.i2cRequestModel.loadRequestsFromFile("C:/Users/Alexander/Downloads/requests.txt");
+            }
         }
         Button {
             id: saveButton
             Layout.preferredWidth: 90
             text: "Save"
+            onClicked: function() {
+                rootStore.i2cStore.i2cRequestModel.saveRequestsToFile("C:/Users/Alexander/Downloads/requests.txt");
+            }
         }
         Button {
             id: newButton

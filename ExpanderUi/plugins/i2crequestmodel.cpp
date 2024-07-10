@@ -1,4 +1,8 @@
 #include "i2crequestmodel.h"
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QVariant>
 #include "plugins/containers/i2ctypes.h"
 
@@ -71,4 +75,61 @@ void I2cRequestModel::updateSelectedRequest(I2cRequest request) {
         requests_[selected_request_idx_] = request;
         emit QAbstractListModel::dataChanged(index(selected_request_idx_), index(selected_request_idx_));
     }
+}
+
+void I2cRequestModel::saveRequestsToFile(const QString& file_path) {
+    QFile file{ file_path };
+    if (file.open(QIODevice::WriteOnly) == false) {
+        qDebug("Failed to open file for writing!");
+        return;
+    }
+
+    QJsonArray request_list;
+    for (const I2cRequest& request : requests_) {
+        QJsonObject req_obj;
+        req_obj["type"] = static_cast<int>(request.getType());
+        req_obj["name"] = request.getName();
+        req_obj["slaveAddr"] = request.getSlaveAddr();
+        req_obj["writeData"] = request.getWriteData();
+        req_obj["readSize"] = request.getReadSize();
+        request_list.append(req_obj);
+    }
+
+    QJsonObject main_obj;
+    main_obj["requests"] = request_list;
+    QJsonDocument doc{ main_obj };
+    QString json_str{ doc.toJson() };
+
+    QTextStream out{ &file };
+    out << json_str;
+}
+
+void I2cRequestModel::loadRequestsFromFile(const QString& file_path) {
+    QFile file{ file_path };
+    if (file.open(QIODevice::ReadOnly) == false) {
+        qDebug("Failed to open file for reading!");
+        return;
+    }
+
+    QByteArray data{ file.readAll() };
+    QJsonDocument doc{ QJsonDocument::fromJson(data) };
+    QJsonObject main_obj{ doc.object() };
+
+    QList<I2cRequest> requests;
+    for (const QJsonValue& req_val : main_obj["requests"].toArray()) {
+        QJsonObject req_obj{ req_val.toObject() };
+
+        I2cTypes::I2cReqestType type{ static_cast<I2cTypes::I2cReqestType>(req_obj["type"].toInt()) };
+        QString name{ req_obj["name"].toString() };
+        QString slave_addr{ req_obj["slaveAddr"].toString() };
+        QString write_data{ req_obj["writeData"].toString() };
+        QString read_size{ req_obj["readSize"].toString() };
+
+        I2cRequest request{ type, name, slave_addr, write_data, read_size };
+        requests.append(request);
+    }
+
+    QAbstractItemModel::beginResetModel();
+    requests_ = requests;
+    QAbstractItemModel::endResetModel();
 }

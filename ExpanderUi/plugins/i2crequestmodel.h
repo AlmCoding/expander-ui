@@ -28,6 +28,9 @@ class I2cRequestModel : public QAbstractListModel {
     int getRequestCount() const { return requests_.size(); }
     I2cRequest getSelectedRequest() const { return requests_.at(selected_request_idx_); }
 
+    void saveRequestsToFile(const QString& file_path);
+    void loadRequestsFromFile(const QString& file_path);
+
    signals:
     void selectedRequestIdxChanged(int idx);
 
