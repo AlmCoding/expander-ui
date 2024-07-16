@@ -27,6 +27,14 @@ Item {
                 Layout.preferredHeight: parent.height
                 Layout.preferredWidth: parent.width - sendButton.width
 
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: function() {
+                        rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
+                        rootStore.i2cStore.i2cRequestForm.visible = false;
+                    }
+                }
+
                 ColumnLayout {
                     anchors.fill: parent
                     spacing: 0
@@ -47,6 +55,13 @@ Item {
                                 anchors.verticalCenter: parent.verticalCenter
                                 leftPadding: 5
                                 text: "<b>" + model.name + "</b>"
+                            }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: function() {
+                                    rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
+                                    rootStore.i2cStore.i2cRequestForm.visible = true;
+                                }
                             }
                         }
                         Rectangle {
@@ -98,14 +113,6 @@ Item {
                         }
                     }
                 }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
-                        rootStore.i2cStore.i2cRequestForm.visible = true;
-                    }
-                }
             }
 
             Rectangle {
@@ -125,7 +132,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: {
+                    onClicked: function() {
                         rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = index;
                         rootStore.sendI2cRequest();
                     }
