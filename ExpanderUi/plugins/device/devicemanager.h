@@ -6,8 +6,10 @@
 #include <QSerialPortInfo>
 #include <QTimer>
 #include "plugins/containers/i2cconfig.h"
+#include "plugins/containers/i2cnotification.h"
 #include "plugins/containers/i2crequest.h"
 #include "plugins/device/i2cservice.h"
+
 
 constexpr bool EchoMessagesEnabled = false;
 constexpr int EchoMessagesPeriodMs = 10;
@@ -37,6 +39,7 @@ class DeviceManager : public QObject {
     void openStateChanged(bool open);
     void i2cConfigStatusReceived(I2cConfig config);
     void i2cRequestStatusReceived(I2cRequest request);
+    void i2cSlaveNotificationReceived(I2cNotification notification);
 
    private:
     QSerialPort* serial_port_ = nullptr;

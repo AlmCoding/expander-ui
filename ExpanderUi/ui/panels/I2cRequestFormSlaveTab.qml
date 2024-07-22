@@ -28,7 +28,7 @@ ColumnLayout {
             text: rootStore.i2cStore.i2cRequestForm.name
             onTextChanged: function() {
                 if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
-                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.MasterAction) {
+                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.SlaveConfig) {
                     rootStore.i2cStore.i2cRequestForm.name = text;
                 }
             }
@@ -37,16 +37,11 @@ ColumnLayout {
         TextField {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
-            text: rootStore.i2cStore.i2cRequestForm.slaveAddress
-            placeholderText: "HEX (0x001)"
-            validator: RegularExpressionValidator {
-                regularExpression: constants.regExpSlaveAddress
-            }
-            onTextChanged: function() {
-                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
-                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.MasterAction) {
-                    rootStore.i2cStore.i2cRequestForm.slaveAddress = text
-                }
+            text: ""
+            enabled: false
+            Rectangle {
+                anchors.fill: parent
+                color: "white"
             }
         }
 
@@ -54,6 +49,10 @@ ColumnLayout {
             text: "Slave Address"
             font.pixelSize: 12
             font.bold: true
+            Rectangle {
+                anchors.fill: parent
+                color: "white"
+            }
         }
 
         Label {
@@ -73,7 +72,7 @@ ColumnLayout {
             }
             onTextChanged: function() {
                 if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
-                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.MasterAction) {
+                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.SlaveConfig) {
                     rootStore.i2cStore.i2cRequestForm.writeData = text
                 }
             }
@@ -109,7 +108,7 @@ ColumnLayout {
             }
             onTextChanged: function() {
                 if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
-                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.MasterAction) {
+                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.SlaveConfig) {
                     rootStore.i2cStore.i2cRequestForm.readSize = text
                 }
             }

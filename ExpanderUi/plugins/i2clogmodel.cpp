@@ -2,24 +2,9 @@
 #include <QDateTime>
 #include <QVariant>
 #include "magic_enum.hpp"
+#include "plugins/containers/i2ctypes.h"
 
-I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } {
-    qDebug() << "I2cLogModel object: " << this;
-
-    /*
-    logs_.append(I2cLog{ "06d09h43m12s122ms", "I2c1", I2cLogType::MasterAction,  //
-                         "Test", "0x042",                                        //
-                         "ff ff ff",                                             //
-                         "42 33",                                                //
-                         3, 2, "OK" });
-
-    logs_.append(I2cLog{ "06d09h43m12s122ms", "I2c2", I2cLogType::MasterAction,  //
-                         "Test", "0x042",                                        //
-                         "ff ff ff",                                             //
-                         "42 33",                                                //
-                         3, 2, "OK" });
-    */
-}
+I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } { qDebug() << "I2cLogModel object: " << this; }
 
 int I2cLogModel::rowCount(const QModelIndex& parent) const { return logs_.size(); }
 
@@ -30,13 +15,13 @@ QVariant I2cLogModel::data(const QModelIndex& index, int role) const {
 
     QString type_name;
     switch (log.getType()) {
-        case I2cLogType::MasterAction:
+        case I2cTypes::I2cReqestType::MasterAction:
             type_name = "MR";
             break;
-        case I2cLogType::SlaveConfig:
+        case I2cTypes::I2cReqestType::SlaveConfig:
             type_name = "SC";
             break;
-        case I2cLogType::SlaveNotify:
+        case I2cTypes::I2cReqestType::SlaveNotify:
             type_name = "SN";
             break;
         default:
@@ -83,7 +68,7 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
 
     I2cLog new_log{ QDateTime::currentDateTime().toString("hh:mm:ss.zzz"),
                     interface_name,
-                    I2cLogType::MasterAction,
+                    request.getType(),
                     request.getName(),
                     request.getSlaveAddr(),
                     request.getWriteData(),
@@ -96,6 +81,8 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
     logs_.append(new_log);
     QAbstractItemModel::endInsertRows();
 }
+
+void I2cLogModel::appendNewLog(const I2cNotification& notification) {}
 
 void I2cLogModel::clearModel() {
     QAbstractItemModel::beginResetModel();

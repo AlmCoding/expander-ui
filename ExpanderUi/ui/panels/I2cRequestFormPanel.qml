@@ -14,11 +14,14 @@ Rectangle {
         TabBar {
             id: tabBar
             Layout.fillWidth: true
+            currentIndex: (rootStore.i2cStore.i2cRequestForm.type === I2cTypes.MasterAction) ? 0 : 1;
             onCurrentIndexChanged: {
-                if (currentIndex === 0) {
-                    rootStore.i2cStore.i2cRequestForm.type =  I2cTypes.MasterAction;
-                } else {
-                    rootStore.i2cStore.i2cRequestForm.type =  I2cTypes.SlaveConfig;
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false) {
+                    if (currentIndex === 0) {
+                        rootStore.i2cStore.i2cRequestForm.type = I2cTypes.MasterAction;
+                    } else {
+                        rootStore.i2cStore.i2cRequestForm.type = I2cTypes.SlaveConfig;
+                    }
                 }
             }
 
@@ -42,9 +45,7 @@ Rectangle {
             }
             Item {
                 id: slaveConfig
-                Rectangle {
-                    anchors.fill: parent
-                    color: "lightgray"
+                I2cRequestFormSlaveTab {
                 }
             }
         }

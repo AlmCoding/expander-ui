@@ -28,7 +28,7 @@ enum class SlaveAddrWidth {
 enum class I2cReqestType {
     MasterAction = 0,
     SlaveConfig,
-    Undefined,
+    SlaveNotify,
 };
 
 Q_ENUM_NS(I2cId)
@@ -41,7 +41,18 @@ enum class MessageType {
     ConfigStatus = 0,
     MasterStatus,
     SlaveStatus,
+    SlaveNotification,
     InvalidMessage,
+};
+
+enum class StatusCode {
+    NotInit = 0,
+    Success,
+    BadRequest,
+    NoSpace,
+    SlaveNoAck,
+    SlaveEarlyNack,
+    InterfaceError,
 };
 
 }  // namespace I2cTypes

@@ -27,6 +27,7 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cRequestListPanel.qml
         ui/panels/I2cRequestFormPanel.qml
         ui/panels/I2cRequestFormMasterTab.qml
+        ui/panels/I2cRequestFormSlaveTab.qml
         ui/panels/I2cLogListPanel.qml
         ui/panels/ConnectionPanel.qml
 
@@ -48,8 +49,12 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/i2clog.h plugins/i2clog.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
     # containers
+    SOURCES plugins/containers/i2ctypes.h
     SOURCES plugins/containers/i2cconfig.h plugins/containers/i2cconfig.cpp
     SOURCES plugins/containers/i2crequest.h plugins/containers/i2crequest.cpp
+    SOURCES plugins/containers/i2cconfigstatus.h plugins/containers/i2cconfigstatus.cpp
+    SOURCES plugins/containers/i2crequeststatus.h plugins/containers/i2crequeststatus.cpp
+    SOURCES plugins/containers/i2cnotification.h plugins/containers/i2cnotification.cpp
     # forms
     SOURCES plugins/forms/i2cconfigform.h plugins/forms/i2cconfigform.cpp
     SOURCES plugins/forms/i2crequestform.h plugins/forms/i2crequestform.cpp
@@ -61,9 +66,6 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
     SOURCES plugins/device/driver/i2cprotocom.h plugins/device/driver/i2cprotocom.cpp
     SOURCES plugins/device/i2cservice.h plugins/device/i2cservice.cpp
-    SOURCES plugins/containers/i2cconfigstatus.h plugins/containers/i2cconfigstatus.cpp
-    SOURCES plugins/containers/i2ctypes.h
-    SOURCES plugins/containers/i2crequeststatus.h plugins/containers/i2crequeststatus.cpp
 )
 
 add_subdirectory(libraries/tf)

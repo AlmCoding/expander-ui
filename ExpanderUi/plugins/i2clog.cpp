@@ -1,6 +1,6 @@
 #include "i2clog.h"
 
-I2cLog::I2cLog(QString time, QString interface_name, I2cLogType type, QString name, QString slave_addr,
+I2cLog::I2cLog(QString time, QString interface_name, I2cTypes::I2cReqestType type, QString name, QString slave_addr,
                QString write_data, QString read_data, QString write_size, QString read_size, QString status)
     : time_(time),
       interface_name_(interface_name),

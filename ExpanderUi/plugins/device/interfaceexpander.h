@@ -45,6 +45,7 @@ class InterfaceExpander : public QObject {
 
     void i2cConfigStatusReceived(const I2cConfig& config);
     void i2cRequestStatusReceived(const I2cRequest& request);
+    void i2cSlaveNotificationReceived(const I2cNotification& notification);
 
    private:
     QThread* com_thread_ = nullptr;

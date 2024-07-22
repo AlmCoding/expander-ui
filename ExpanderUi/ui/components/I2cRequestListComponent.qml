@@ -79,7 +79,7 @@ Item {
                             // color: "blue"
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
-                                text: "<b>Slave:</b> " + model.slaveAddr
+                                text: (model.type === "MR") ? ("<b>Slave:</b> " + model.slaveAddr) : ""
                             }
                         }
                     }
@@ -98,7 +98,8 @@ Item {
                             Text {
                                 anchors.verticalCenter: parent.verticalCenter
                                 leftPadding: 8
-                                text: ((model.type === "MR") ? "<b>Write:</b> " : "<b>Addr:</b> ") + model.writeData
+                                text: "<b>Write:</b> " + model.writeData
+                                // text: ((model.type === "MR") ? "<b>Write:</b> " : "<b>Write:</b> ") + model.writeData
                             }
                         }
 

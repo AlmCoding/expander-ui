@@ -24,13 +24,18 @@ void DeviceManager::handleEchoMessage(const QByteArray& message) { qDebug() << "
 void DeviceManager::handleI2cMessage(const QByteArray& message) {
     I2cConfig config;
     I2cRequest request;
+    I2cNotification notification;
 
     // Parse I2C message
-    I2cTypes::MessageType msg_type = i2c_service_->parseI2cResponse(message, config, request);
+    I2cTypes::MessageType msg_type = i2c_service_->parseI2cResponse(message, config, request, notification);
     if (msg_type == I2cTypes::MessageType::ConfigStatus) {
         emit i2cConfigStatusReceived(config);
     } else if (msg_type == I2cTypes::MessageType::MasterStatus) {
         emit i2cRequestStatusReceived(request);
+    } else if (msg_type == I2cTypes::MessageType::SlaveStatus) {
+        emit i2cRequestStatusReceived(request);
+    } else if (msg_type == I2cTypes::MessageType::SlaveNotification) {
+        emit i2cSlaveNotificationReceived(notification);
     } else {
         qDebug() << "Invalid I2C message received!";
     }

@@ -2,22 +2,17 @@
 #define I2CLOG_H
 
 #include <QString>
-
-enum class I2cLogType {
-    MasterAction = 0,
-    SlaveConfig,
-    SlaveNotify,
-};
+#include "plugins/containers/i2ctypes.h"
 
 class I2cLog {
    public:
     explicit I2cLog() = default;
-    explicit I2cLog(QString time, QString interface_name, I2cLogType type, QString name, QString slave_address,
+    explicit I2cLog(QString time, QString interface_name, I2cTypes::I2cReqestType type, QString name, QString slave_address,
                     QString write_data, QString read_data, QString write_size, QString read_size, QString status);
 
     void setTime(QString time) { time_ = time; }
     void setInterfaceName(QString interface_name) { interface_name_ = interface_name; }
-    void setType(I2cLogType type) { type_ = type; }
+    void setType(I2cTypes::I2cReqestType type) { type_ = type; }
     void setName(QString name) { name = name; }
     void setSlaveAddr(QString slave_addr) { slave_addr_ = slave_addr; }
     void setWriteData(QString write_data) { write_data_ = write_data; }
@@ -28,7 +23,7 @@ class I2cLog {
 
     QString getTime() const { return time_; }
     QString getInterfaceName() const { return interface_name_; }
-    I2cLogType getType() const { return type_; }
+    I2cTypes::I2cReqestType getType() const { return type_; }
     QString getName() const { return name; }
     QString getSlaveAddr() const { return slave_addr_; }
     QString getWriteData() const { return write_data_; }
@@ -40,7 +35,7 @@ class I2cLog {
    private:
     QString time_;
     QString interface_name_;
-    I2cLogType type_;
+    I2cTypes::I2cReqestType type_;
     QString name;
     QString slave_addr_;
     QString write_data_;

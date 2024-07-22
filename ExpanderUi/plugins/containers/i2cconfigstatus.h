@@ -4,7 +4,9 @@
 class I2cConfigStatus {
    public:
     enum class StatusCode {
-        Ok = 0,
+        NotInit = 0,
+        Success,
+        BadRequest,
         InvalidClockFreq,
         InvalidSlaveAddr,
         InvalidSlaveAddrWidth,
@@ -23,7 +25,7 @@ class I2cConfigStatus {
 
    private:
     int request_id_ = -1;
-    StatusCode status_code_ = StatusCode::InterfaceError;
+    StatusCode status_code_ = StatusCode::NotInit;
 };
 
 #endif  // I2CCONFIGSTATUS_H

@@ -107,7 +107,8 @@ Item {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "<b>Slave:</b> " + model.slaveAddr
+                            // text: "<b>Slave:</b> " + model.slaveAddr
+                            text: (model.type === "MR") ? ("<b>Slave:</b> " + model.slaveAddr) : ""
                         }
                     }
                 }

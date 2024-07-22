@@ -12,10 +12,11 @@ I2cService::I2cService(QObject* parent) : QObject{ parent } {
 
 I2cService::~I2cService() { timer_.stop(); }
 
-I2cTypes::MessageType I2cService::parseI2cResponse(const QByteArray& message, I2cConfig& config, I2cRequest& request) {
+I2cTypes::MessageType I2cService::parseI2cResponse(const QByteArray& message, I2cConfig& config, I2cRequest& request,
+                                                   I2cNotification& notification) {
     I2cConfigStatus config_status;
     I2cRequestStatus request_status;
-    I2cTypes::MessageType msg_type = I2cProtoCom::decodeI2cMsg(message, config_status, request_status);
+    I2cTypes::MessageType msg_type = I2cProtoCom::decodeI2cMsg(message, config_status, request_status, notification);
 
     if (msg_type == I2cTypes::MessageType::ConfigStatus) {
         if (handleConfigStatus(config_status, config) == true) {
@@ -27,7 +28,15 @@ I2cTypes::MessageType I2cService::parseI2cResponse(const QByteArray& message, I2
             return I2cTypes::MessageType::MasterStatus;
         }
 
-    } else if (msg_type == I2cTypes::MessageType::InvalidMessage) {
+    } else if (msg_type == I2cTypes::MessageType::SlaveStatus) {
+        if (handleRequestStatus(request_status, request) == true) {
+            return I2cTypes::MessageType::SlaveStatus;
+        }
+
+    } else if (msg_type == I2cTypes::MessageType::SlaveNotification) {
+        return I2cTypes::MessageType::SlaveNotification;
+
+    } else {
         qDebug() << "Failed to decode I2C message!";
     }
 
@@ -119,8 +128,18 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
     }
     request.setRequestId(request_id_++);
 
-    if (I2cProtoCom::encodeI2cRequest(request, sequence_number, message) == false) {
-        qDebug() << "Failed to create I2C request message!";
+    if (request.getType() == I2cTypes::I2cReqestType::MasterAction) {
+        if (I2cProtoCom::encodeI2cMasterRequest(request, sequence_number, message) == false) {
+            qDebug() << "Failed to create I2cMaster request message!";
+            return false;
+        }
+    } else if (request.getType() == I2cTypes::I2cReqestType::SlaveConfig) {
+        if (I2cProtoCom::encodeI2cSlaveRequest(request, sequence_number, message) == false) {
+            qDebug() << "Failed to create I2cSlave request message!";
+            return false;
+        }
+    } else {
+        qDebug("Invalid I2cRequestType!");
         return false;
     }
 
@@ -138,7 +157,7 @@ void I2cService::checkTimeouts() {
             } else if (request_map_.contains(iter->request_id)) {
                 request_map_.remove(iter->request_id);
             }
-            qDebug() << "Timeout for request request_id: " << iter->request_id;
+            qDebug() << "Timeout for request with request_id:" << iter->request_id;
             iter = timeout_list_.erase(iter);
             // TODO: emit timeout signal
         } else {

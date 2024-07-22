@@ -19,11 +19,20 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     connect(device_manager_, &DeviceManager::i2cConfigStatusReceived, this,
             [this](const I2cConfig& config) { emit i2cConfigStatusReceived(config); });
     connect(device_manager_, &DeviceManager::i2cRequestStatusReceived, this, [this](const I2cRequest& request) {
-        // emit i2cRequestStatusReceived(request);
         if (log_model_ != nullptr) {
             log_model_->appendNewLog(request);
+        } else {
+            emit i2cRequestStatusReceived(request);
         }
     });
+    connect(device_manager_, &DeviceManager::i2cSlaveNotificationReceived, this,
+            [this](const I2cNotification& notification) {
+                if (log_model_ != nullptr) {
+                    log_model_->appendNewLog(notification);
+                } else {
+                    emit i2cSlaveNotificationReceived(notification);
+                }
+            });
 
     connect(com_thread_, &QThread::started, device_manager_, &DeviceManager::run);
     com_thread_->start();
