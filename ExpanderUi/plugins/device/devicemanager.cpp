@@ -51,6 +51,11 @@ void DeviceManager::run() {
     i2c_service_ = new I2cService{ this };
     serial_port_ = new QSerialPort{ this };
 
+    connect(serial_port_, &QSerialPort::errorOccurred, this, [this](QSerialPort::SerialPortError error) {
+        qDebug() << "Serial port error: " << error;
+        closePort();
+    });
+
     connect(serial_port_, &QSerialPort::readyRead, this, [this]() {
         QByteArray data = serial_port_->readAll();
         driver::tf::FrameDriver::getInstance().receiveData(data);

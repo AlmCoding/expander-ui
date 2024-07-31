@@ -82,7 +82,26 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
     QAbstractItemModel::endInsertRows();
 }
 
-void I2cLogModel::appendNewLog(const I2cNotification& notification) {}
+void I2cLogModel::appendNewLog(const I2cNotification& notification) {
+    QString interface_name{ magic_enum::enum_name(notification.getI2cId()).data() };
+    QString status_code{ magic_enum::enum_name(notification.getStatusCode()).data() };
+    QString notification_name{ "Slave Access #" + QString::number(notification.getAccessId()) };
+
+    I2cLog new_log{ QDateTime::currentDateTime().toString("hh:mm:ss.zzz"),
+                    interface_name,
+                    I2cTypes::I2cReqestType::SlaveNotify,
+                    notification_name,
+                    QString{ "" },
+                    notification.getWriteData(),
+                    notification.getReadData(),
+                    notification.getWriteSize(),
+                    notification.getReadSize(),
+                    status_code };
+
+    QAbstractItemModel::beginInsertRows(QModelIndex(), logs_.size(), logs_.size());
+    logs_.append(new_log);
+    QAbstractItemModel::endInsertRows();
+}
 
 void I2cLogModel::clearModel() {
     QAbstractItemModel::beginResetModel();

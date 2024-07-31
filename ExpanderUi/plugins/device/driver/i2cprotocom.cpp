@@ -42,14 +42,17 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cMsg(const QByteArray& message, I2cCo
 
 I2cTypes::MessageType I2cProtoCom::decodeI2cConfigStatus(const i2c_proto_I2cMsg& i2c_msg,
                                                          I2cConfigStatus& config_status) {
+    I2cTypes::I2cId interface_id = static_cast<I2cTypes::I2cId>(i2c_msg.i2c_id);
     int request_id = i2c_msg.msg.config_status.request_id;
     I2cConfigStatus::StatusCode status_code =
         static_cast<I2cConfigStatus::StatusCode>(i2c_msg.msg.config_status.status_code);
 
+    config_status.setI2cId(interface_id);
     config_status.setRequestId(request_id);
     config_status.setStatusCode(status_code);
 
     qDebug("Received I2C config response!");
+    qDebug("  I2c ID: %s", magic_enum::enum_name(interface_id).data());
     qDebug("  Request ID: %d", config_status.getRequestId());
     qDebug("  Status: %s", magic_enum::enum_name(config_status.getStatusCode()).data());
     return I2cTypes::MessageType::ConfigStatus;
@@ -57,6 +60,7 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cConfigStatus(const i2c_proto_I2cMsg&
 
 I2cTypes::MessageType I2cProtoCom::decodeI2cMasterStatus(const i2c_proto_I2cMsg& i2c_msg,
                                                          I2cRequestStatus& request_status) {
+    I2cTypes::I2cId interface_id = static_cast<I2cTypes::I2cId>(i2c_msg.i2c_id);
     int request_id = i2c_msg.msg.master_status.request_id;
     I2cTypes::StatusCode status_code = static_cast<I2cTypes::StatusCode>(i2c_msg.msg.master_status.status_code);
     QByteArray read_data{ reinterpret_cast<const char*>(i2c_msg.msg.master_status.read_data.bytes),
@@ -68,11 +72,13 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cMasterStatus(const i2c_proto_I2cMsg&
         return I2cTypes::MessageType::InvalidMessage;
     }
 
+    request_status.setI2cId(interface_id);
     request_status.setRequestId(request_id);
     request_status.setStatusCode(status_code);
     request_status.setReadData(read_data_hex);
 
     qDebug("Received I2C master response!");
+    qDebug("  I2c ID: %s", magic_enum::enum_name(interface_id).data());
     qDebug("  Request ID: %d", request_status.getRequestId());
     qDebug("  Status: %s", magic_enum::enum_name(request_status.getStatusCode()).data());
     qDebug("  Read data: %s", qPrintable(request_status.getReadData()));
@@ -81,6 +87,7 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cMasterStatus(const i2c_proto_I2cMsg&
 
 I2cTypes::MessageType I2cProtoCom::decodeI2cSlaveStatus(const i2c_proto_I2cMsg& i2c_msg,
                                                         I2cRequestStatus& request_status) {
+    I2cTypes::I2cId interface_id = static_cast<I2cTypes::I2cId>(i2c_msg.i2c_id);
     int request_id = i2c_msg.msg.slave_status.request_id;
     I2cTypes::StatusCode status_code = static_cast<I2cTypes::StatusCode>(i2c_msg.msg.slave_status.status_code);
     QByteArray read_data{ reinterpret_cast<const char*>(i2c_msg.msg.slave_status.read_data.bytes),
@@ -92,11 +99,13 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cSlaveStatus(const i2c_proto_I2cMsg& 
         return I2cTypes::MessageType::InvalidMessage;
     }
 
+    request_status.setI2cId(interface_id);
     request_status.setRequestId(request_id);
     request_status.setStatusCode(status_code);
     request_status.setReadData(read_data_hex);
 
     qDebug("Received I2C slave response!");
+    qDebug("  I2c ID: %s", magic_enum::enum_name(interface_id).data());
     qDebug("  Request ID: %d", request_id);
     qDebug("  Status: %s", magic_enum::enum_name(status_code).data());
     qDebug("  Read data: %s", qPrintable(read_data_hex));
@@ -105,10 +114,14 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cSlaveStatus(const i2c_proto_I2cMsg& 
 
 I2cTypes::MessageType I2cProtoCom::decodeI2cSlaveNotification(const i2c_proto_I2cMsg& i2c_msg,
                                                               I2cNotification& notification) {
+    I2cTypes::I2cId interface_id = static_cast<I2cTypes::I2cId>(i2c_msg.i2c_id);
     int access_id = i2c_msg.msg.slave_notification.access_id;
     I2cTypes::StatusCode status_code = static_cast<I2cTypes::StatusCode>(i2c_msg.msg.slave_notification.status_code);
+
     QByteArray write_data{ reinterpret_cast<const char*>(i2c_msg.msg.slave_notification.write_data.bytes),
                            i2c_msg.msg.slave_notification.write_data.size };
+    QByteArray read_data{ reinterpret_cast<const char*>(i2c_msg.msg.slave_notification.read_data.bytes),
+                          i2c_msg.msg.slave_notification.read_data.size };
 
     QString write_data_hex;
     if (byteArrayToHexString(write_data, write_data_hex) == false) {
@@ -116,25 +129,24 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cSlaveNotification(const i2c_proto_I2
         return I2cTypes::MessageType::InvalidMessage;
     }
 
-    /*
-    QString write_addr = QString("0x%1").arg(i2c_msg.msg.slave_notification.write_addr, 4, 16, QChar('0'));
+    QString read_data_hex;
+    if (byteArrayToHexString(read_data, read_data_hex) == false) {
+        qDebug("Failed to convert read data to hex string!");
+        return I2cTypes::MessageType::InvalidMessage;
+    }
 
+    notification.setI2cId(interface_id);
     notification.setAccessId(access_id);
     notification.setStatusCode(status_code);
-    notification.setWriteAddr(write_addr);
     notification.setWriteData(write_data_hex);
-    notification.setReadAddr(read_addr);
-    notification.setReadSize(read_size);
+    notification.setReadData(read_data_hex);
 
     qDebug("Received I2C slave notification!");
+    qDebug("  I2c ID: %s", magic_enum::enum_name(interface_id).data());
     qDebug("  Access ID: %d", access_id);
     qDebug("  Status: %s", magic_enum::enum_name(status_code).data());
-
-    qDebug("  Write addr: 0x%04X", write_addr);
-    qDebug("  Write data: %s", qPrintable(write_data_hex);
-    qDebug("  Read addr: 0x%04X", read_addr);
-    qDebug("  Read size: %d", read_size);
-    */
+    qDebug("  Write data: %s", qPrintable(write_data_hex));
+    qDebug("  Read data: %s", qPrintable(read_data_hex));
 
     return I2cTypes::MessageType::SlaveNotification;
 }

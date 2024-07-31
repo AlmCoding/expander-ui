@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-29T14:46:36.415Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="SULg8SOvjvm7Se7u3n0J" version="24.6.4" type="device">
+<mxfile host="Electron" modified="2024-07-23T21:25:16.672Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.6.4 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="stb_5HN9MRylvG4EJjc5" version="24.6.4" type="device">
   <diagram name="Page-1" id="J74IcI-AK6bZDN4WiDBa">
-    <mxGraphModel dx="-106" dy="494" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="-329" dy="346" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -64,6 +64,54 @@
             <mxPoint x="1180" y="480" as="sourcePoint" />
             <mxPoint x="1180" y="30" as="targetPoint" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="760" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-2" value="Slave Mem" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="740" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-3" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="870" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-4" value="Slave Queue" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="850" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-5" value="w1" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="950" y="780" as="sourcePoint" />
+            <mxPoint x="1030" y="780" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-7" value="w1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="900" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-11" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1030" y="879.83" as="sourcePoint" />
+            <mxPoint x="960" y="879.83" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-12" value="w2" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="1200" y="770" as="sourcePoint" />
+            <mxPoint x="1130" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-13" value="w2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="870" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-14" value="PC" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="740" width="80" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-15" value="Master" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="740" width="80" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-16" value="Mem Mutex" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d80073;fontColor=#ffffff;strokeColor=#A50040;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="710" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="BFm5H7IqKuTcZFUJ3lcy-17" value="Assign mutex to request/indication and release it when it got serviced" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="995" y="640" width="170" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
