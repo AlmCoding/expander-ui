@@ -4,7 +4,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QVariant>
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {}
 

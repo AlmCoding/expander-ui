@@ -2,7 +2,7 @@
 #include <QDateTime>
 #include <QVariant>
 #include "magic_enum.hpp"
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } { qDebug() << "I2cLogModel object: " << this; }
 

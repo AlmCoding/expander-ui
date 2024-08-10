@@ -2,11 +2,12 @@
 #define I2CPROTOCOM_H
 
 #include <QObject>
-#include "plugins/containers/i2cconfig.h"
-#include "plugins/containers/i2cconfigstatus.h"
-#include "plugins/containers/i2cnotification.h"
-#include "plugins/containers/i2crequest.h"
-#include "plugins/containers/i2crequeststatus.h"
+#include "plugins/containers/i2c/i2cconfig.h"
+#include "plugins/containers/i2c/i2cconfigstatus.h"
+#include "plugins/containers/i2c/i2cnotification.h"
+#include "plugins/containers/i2c/i2crequest.h"
+#include "plugins/containers/i2c/i2crequeststatus.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 #include "proto_c/i2c.pb.h"
 
 class I2cProtoCom : public QObject {

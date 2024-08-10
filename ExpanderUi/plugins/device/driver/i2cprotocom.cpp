@@ -4,7 +4,6 @@
 #include "pb_common.h"
 #include "pb_decode.h"
 #include "pb_encode.h"
-#include "plugins/containers/i2ctypes.h"
 #include "proto_c/i2c.pb.h"
 
 I2cProtoCom::I2cProtoCom(QObject* parent) : QObject{ parent } {}
@@ -158,9 +157,9 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
     /* Create a stream that will write to our buffer. */
     pb_ostream_t stream = pb_ostream_from_buffer(reinterpret_cast<uint8_t*>(message.data()), message.capacity());
 
-    if (config.i2c_id == I2cTypes::I2cId::I2c0) {
+    if (config.getI2cId() == I2cTypes::I2cId::I2c0) {
         i2c_msg.i2c_id = i2c_proto_I2cId::i2c_proto_I2cId_I2C0;
-    } else if (config.i2c_id == I2cTypes::I2cId::I2c1) {
+    } else if (config.getI2cId() == I2cTypes::I2cId::I2c1) {
         i2c_msg.i2c_id = i2c_proto_I2cId::i2c_proto_I2cId_I2C1;
     } else {
         qDebug("Invalid I2cId!");
@@ -169,9 +168,9 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
 
     i2c_msg.sequence_number = sequence_number;
     i2c_msg.which_msg = i2c_proto_I2cMsg_config_request_tag;
-    i2c_msg.msg.config_request.request_id = config.request_id;
+    i2c_msg.msg.config_request.request_id = config.getRequestId();
 
-    QString slave_addr{ config.slave_addr };
+    QString slave_addr{ config.getSlaveAddr() };
     if (slave_addr.startsWith("0x", Qt::CaseInsensitive)) {
         slave_addr = slave_addr.mid(2);
     }
@@ -182,7 +181,7 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
         return false;
     }
 
-    switch (config.clock_freq) {
+    switch (config.getClockFreq()) {
         case I2cTypes::ClockFreq::KHz10:
             i2c_msg.msg.config_request.clock_freq = 10e3;
             break;
@@ -200,10 +199,10 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
             return false;
     }
 
-    i2c_msg.msg.config_request.slave_addr_width = (config.slave_addr_width == I2cTypes::SlaveAddrWidth::SevenBit)
+    i2c_msg.msg.config_request.slave_addr_width = (config.getSlaveAddrWidth() == I2cTypes::SlaveAddrWidth::SevenBit)
                                                       ? i2c_proto_AddressWidth_Bits7
                                                       : i2c_proto_AddressWidth_Bits10;
-    i2c_msg.msg.config_request.mem_addr_width = (config.mem_addr_width == I2cTypes::MemAddrWidth::OneByte)
+    i2c_msg.msg.config_request.mem_addr_width = (config.getMemAddrWidth() == I2cTypes::MemAddrWidth::OneByte)
                                                     ? i2c_proto_AddressWidth_Bits8
                                                     : i2c_proto_AddressWidth_Bits16;
     i2c_msg.msg.config_request.pullups_enabled = true;

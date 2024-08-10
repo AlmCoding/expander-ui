@@ -2,7 +2,7 @@
 #define I2CREQUESTSTATUS_H
 
 #include <QString>
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 class I2cRequestStatus {
    public:

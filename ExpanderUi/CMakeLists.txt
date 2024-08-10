@@ -48,16 +48,22 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
     SOURCES plugins/i2clog.h plugins/i2clog.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
+
     # containers
-    SOURCES plugins/containers/i2ctypes.h
-    SOURCES plugins/containers/i2cconfig.h plugins/containers/i2cconfig.cpp
-    SOURCES plugins/containers/i2crequest.h plugins/containers/i2crequest.cpp
-    SOURCES plugins/containers/i2cconfigstatus.h plugins/containers/i2cconfigstatus.cpp
-    SOURCES plugins/containers/i2crequeststatus.h plugins/containers/i2crequeststatus.cpp
-    SOURCES plugins/containers/i2cnotification.h plugins/containers/i2cnotification.cpp
+    SOURCES plugins/containers/i2c/i2ctypes.h
+    SOURCES plugins/containers/i2c/i2cconfig.h plugins/containers/i2c/i2cconfig.cpp
+    SOURCES plugins/containers/i2c/i2crequest.h plugins/containers/i2c/i2crequest.cpp
+    SOURCES plugins/containers/i2c/i2cconfigstatus.h plugins/containers/i2c/i2cconfigstatus.cpp
+    SOURCES plugins/containers/i2c/i2crequeststatus.h plugins/containers/i2c/i2crequeststatus.cpp
+    SOURCES plugins/containers/i2c/i2cnotification.h plugins/containers/i2c/i2cnotification.cpp
+    SOURCES plugins/containers/ctrl/ctrltypes.h
+    SOURCES plugins/containers/ctrl/ctrlrequest.h plugins/containers/ctrl/ctrlrequest.cpp
+    SOURCES plugins/containers/ctrl/deviceinfo.h plugins/containers/ctrl/deviceinfo.cpp
+
     # forms
     SOURCES plugins/forms/i2cconfigform.h plugins/forms/i2cconfigform.cpp
     SOURCES plugins/forms/i2crequestform.h plugins/forms/i2crequestform.cpp
+
     # device
     SOURCES plugins/device/interfaceexpander.h plugins/device/interfaceexpander.cpp
     SOURCES plugins/device/devicemanager.h plugins/device/devicemanager.cpp
@@ -65,7 +71,9 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/driver/tfmsgtypes.h
     SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
     SOURCES plugins/device/driver/i2cprotocom.h plugins/device/driver/i2cprotocom.cpp
+    SOURCES plugins/device/driver/ctrlprotocom.h plugins/device/driver/ctrlprotocom.cpp
     SOURCES plugins/device/i2cservice.h plugins/device/i2cservice.cpp
+    SOURCES plugins/device/ctrlservice.h plugins/device/ctrlservice.cpp
 )
 
 add_subdirectory(libraries/tf)

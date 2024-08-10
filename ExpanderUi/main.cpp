@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 #include "plugins/device/comportmodel.h"
 #include "plugins/device/interfaceexpander.h"
 #include "plugins/forms/i2cconfigform.h"

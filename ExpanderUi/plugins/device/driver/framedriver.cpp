@@ -34,6 +34,9 @@ TF_Result genericCallback(TinyFrame* /*tf*/, TF_Msg* msg) {
         case TfMsgType::EchoMsg:
             tf_driver.echoMessage(message);
             break;
+        case TfMsgType::CtrlMsg:
+            tf_driver.ctrlMessage(message);
+            break;
         case TfMsgType::I2cMsg:
             tf_driver.i2cMessage(message);
             break;

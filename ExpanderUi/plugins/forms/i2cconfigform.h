@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "plugins/containers/i2cconfig.h"
+#include "plugins/containers/i2c/i2cconfig.h"
 
 class I2cConfigForm : public QObject {
     Q_OBJECT
@@ -18,31 +18,31 @@ class I2cConfigForm : public QObject {
    public:
     explicit I2cConfigForm(QObject* parent = nullptr);
 
-    I2cTypes::I2cId getI2cId() const { return i2c_config_.i2c_id; }
-    QString getSlaveAddr() const { return i2c_config_.slave_addr; }
-    I2cTypes::ClockFreq getClockFreq() const { return i2c_config_.clock_freq; }
-    I2cTypes::MemAddrWidth getMemAddrWidth() const { return i2c_config_.mem_addr_width; }
-    I2cTypes::SlaveAddrWidth getSlaveAddrWidth() const { return i2c_config_.slave_addr_width; }
+    I2cTypes::I2cId getI2cId() const { return i2c_config_.getI2cId(); }
+    QString getSlaveAddr() const { return i2c_config_.getSlaveAddr(); }
+    I2cTypes::ClockFreq getClockFreq() const { return i2c_config_.getClockFreq(); }
+    I2cTypes::MemAddrWidth getMemAddrWidth() const { return i2c_config_.getMemAddrWidth(); }
+    I2cTypes::SlaveAddrWidth getSlaveAddrWidth() const { return i2c_config_.getSlaveAddrWidth(); }
 
    public slots:
     void setI2cId(I2cTypes::I2cId i2cId) {
-        i2c_config_.i2c_id = i2cId;
+        i2c_config_.setI2cId(i2cId);
         // emit i2cIdChanged(i2cId);
     }
     void setSlaveAddr(const QString& slaveAddr) {
-        i2c_config_.slave_addr = slaveAddr;
+        i2c_config_.setSlaveAddr(slaveAddr);
         // emit slaveAddrChanged(slaveAddr);
     }
     void setClockFreq(I2cTypes::ClockFreq clockFreq) {
-        i2c_config_.clock_freq = clockFreq;
+        i2c_config_.setClockFreq(clockFreq);
         // emit clockFreqChanged(clockFreq);
     }
     void setMemAddrWidth(I2cTypes::MemAddrWidth memAddrWidth) {
-        i2c_config_.mem_addr_width = memAddrWidth;
+        i2c_config_.setMemAddrWidth(memAddrWidth);
         // emit memAddrWidthChanged(memAddrWidth);
     }
     void setSlaveAddrWidth(I2cTypes::SlaveAddrWidth slaveAddrWidth) {
-        i2c_config_.slave_addr_width = slaveAddrWidth;
+        i2c_config_.setSlaveAddrWidth(slaveAddrWidth);
         // emit slaveAddrWidthChanged(slaveAddrWidth);
     }
     I2cConfig getConfig() const { return i2c_config_; }

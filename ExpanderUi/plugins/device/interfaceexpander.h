@@ -5,9 +5,9 @@
 #include <QObject>
 #include <QSerialPortInfo>
 #include <QThread>
-#include "plugins/containers/i2cconfig.h"
-#include "plugins/containers/i2crequest.h"
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2cconfig.h"
+#include "plugins/containers/i2c/i2crequest.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 #include "plugins/device/devicemanager.h"
 #include "plugins/i2clogmodel.h"
 

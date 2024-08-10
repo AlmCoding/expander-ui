@@ -28,6 +28,7 @@ class FrameDriver : public QObject {
     void sendData(const QByteArray& data);  // TF => COM (downstream)
 
     void echoMessage(const QByteArray& data);  // Echo message received (TF => APP)
+    void ctrlMessage(const QByteArray& data);  // Ctrl message received (TF => APP)
     void i2cMessage(const QByteArray& data);   // I2C message received (TF => APP)
 
    private:

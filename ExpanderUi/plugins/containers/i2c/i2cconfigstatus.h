@@ -1,7 +1,7 @@
 #ifndef I2CCONFIGSTATUS_H
 #define I2CCONFIGSTATUS_H
 
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 class I2cConfigStatus {
    public:

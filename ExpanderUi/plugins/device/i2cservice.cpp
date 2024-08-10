@@ -1,7 +1,6 @@
 #include "i2cservice.h"
 #include <QDateTime>
 #include <QDebug>
-#include "plugins/containers/i2ctypes.h"
 #include "plugins/device/driver/i2cprotocom.h"
 
 I2cService::I2cService(QObject* parent) : QObject{ parent } {
@@ -59,7 +58,7 @@ bool I2cService::handleConfigStatus(I2cConfigStatus& config_status, I2cConfig& c
         }
 
         // Insert status into config
-        config.status = config_status;
+        config.setStatus(config_status);
         return true;
 
     } else {
@@ -88,30 +87,30 @@ bool I2cService::handleRequestStatus(I2cRequestStatus& request_status, I2cReques
         return true;
 
     } else {
-        qDebug() << "Received I2C request response with unknown request ID!";
+        qDebug() << "Received I2C request response with unknown request_id: " << request_id;
         return false;
     }
 }
 
 bool I2cService::createI2cConfigMsg(I2cConfig& config, QByteArray& message) {
     int sequence_number = 0;
-    if (config.i2c_id == I2cTypes::I2cId::I2c0) {
+    if (config.getI2cId() == I2cTypes::I2cId::I2c0) {
         sequence_number = sequence_number0_++;
-    } else if (config.i2c_id == I2cTypes::I2cId::I2c1) {
+    } else if (config.getI2cId() == I2cTypes::I2cId::I2c1) {
         sequence_number = sequence_number1_++;
     } else {
         qDebug("Invalid I2cId!");
         return false;
     }
-    config.request_id = request_id_++;
+    config.setRequestId(request_id_++);
 
     if (I2cProtoCom::encodeI2cConfig(config, sequence_number, message) == false) {
         qDebug() << "Failed to create I2C config message!";
         return false;
     }
 
-    config_map_.insert(config.request_id, config);
-    timeout_list_.append({ config.request_id, QDateTime::currentMSecsSinceEpoch() + TimeoutMs });
+    config_map_.insert(config.getRequestId(), config);
+    timeout_list_.append({ config.getRequestId(), QDateTime::currentMSecsSinceEpoch() + TimeoutMs });
     return true;
 }
 
@@ -150,14 +149,19 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
 
 void I2cService::checkTimeouts() {
     auto current_time = QDateTime::currentMSecsSinceEpoch();
+
     for (auto iter = timeout_list_.begin(); iter != timeout_list_.end();) {
         if (current_time > iter->timeout) {
-            if (config_map_.contains(iter->request_id)) {
-                config_map_.remove(iter->request_id);
-            } else if (request_map_.contains(iter->request_id)) {
-                request_map_.remove(iter->request_id);
+            int request_id = iter->request_id;
+
+            if (config_map_.contains(request_id)) {
+                config_map_.remove(request_id);
+            } else if (request_map_.contains(request_id)) {
+                request_map_.remove(request_id);
+            } else {
+                assert(false);
             }
-            qDebug() << "Timeout for request with request_id:" << iter->request_id;
+            qDebug() << "Timeout for request with request_id:" << request_id;
             iter = timeout_list_.erase(iter);
             // TODO: emit timeout signal
         } else {

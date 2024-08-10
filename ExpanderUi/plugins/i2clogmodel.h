@@ -2,8 +2,8 @@
 #define I2CLOGMODEL_H
 
 #include <QAbstractListModel>
-#include "plugins/containers/i2cnotification.h"
-#include "plugins/containers/i2crequest.h"
+#include "plugins/containers/i2c/i2cnotification.h"
+#include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/i2clog.h"
 
 

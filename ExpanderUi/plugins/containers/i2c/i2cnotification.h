@@ -2,7 +2,7 @@
 #define I2CNOTIFICATION_H
 
 #include <QString>
-#include "plugins/containers/i2ctypes.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 class I2cNotification {
    public:

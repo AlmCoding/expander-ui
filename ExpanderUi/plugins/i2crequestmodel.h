@@ -2,7 +2,7 @@
 #define I2CREQUESTMODEL_H
 
 #include <QAbstractListModel>
-#include "plugins/containers/i2crequest.h"
+#include "plugins/containers/i2c/i2crequest.h"
 
 class I2cRequestModel : public QAbstractListModel {
     Q_OBJECT

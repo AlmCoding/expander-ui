@@ -5,14 +5,12 @@
 #include <QObject>
 #include <QPair>
 #include <QTimer>
-#include "plugins/containers/i2cconfig.h"
-#include "plugins/containers/i2cconfigstatus.h"
-#include "plugins/containers/i2cnotification.h"
-#include "plugins/containers/i2crequest.h"
-#include "plugins/containers/i2crequeststatus.h"
-
-constexpr int TimeoutMs = 2000;
-constexpr int TimeoutCheckPeriodMs = 25;
+#include "plugins/containers/i2c/i2ctypes.h"
+#include "plugins/containers/i2c/i2cconfig.h"
+#include "plugins/containers/i2c/i2cconfigstatus.h"
+#include "plugins/containers/i2c/i2cnotification.h"
+#include "plugins/containers/i2c/i2crequest.h"
+#include "plugins/containers/i2c/i2crequeststatus.h"
 
 class I2cService : public QObject {
     Q_OBJECT
@@ -27,6 +25,9 @@ class I2cService : public QObject {
     bool createI2cRequestMsg(I2cRequest& request, QByteArray& message);
 
    private:
+    constexpr static int TimeoutMs = 2000;
+    constexpr static int TimeoutCheckPeriodMs = 25;
+
     struct TimeoutEntry {
         int request_id;
         qint64 timeout;

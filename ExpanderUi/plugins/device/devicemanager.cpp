@@ -10,6 +10,9 @@ DeviceManager::~DeviceManager() {
         closePort();
         delete serial_port_;
     }
+    if (ctrl_service_ != nullptr) {
+        delete ctrl_service_;
+    }
     if (i2c_service_ != nullptr) {
         delete i2c_service_;
     }
@@ -20,6 +23,18 @@ DeviceManager::~DeviceManager() {
 }
 
 void DeviceManager::handleEchoMessage(const QByteArray& message) { qDebug() << "Echo closed: " << message; }
+
+void DeviceManager::handleCtrlMessage(const QByteArray& message) {
+    CtrlRequest request;
+
+    // Parse control message
+    CtrlTypes::MessageType msg_type = ctrl_service_->parseCtrlResponse(message, request);
+    if (msg_type == CtrlTypes::MessageType::DeviceInfo) {
+        emit ctrlDeviceInfoReceived(request);
+    } else {
+        qDebug() << "Invalid CTRL message received!";
+    }
+}
 
 void DeviceManager::handleI2cMessage(const QByteArray& message) {
     I2cConfig config;
@@ -49,6 +64,7 @@ void DeviceManager::triggerEcho() {
 void DeviceManager::run() {
     qDebug() << "Run in DeviceManager thread";
     i2c_service_ = new I2cService{ this };
+    ctrl_service_ = new CtrlService{ this };
     serial_port_ = new QSerialPort{ this };
 
     connect(serial_port_, &QSerialPort::errorOccurred, this, [this](QSerialPort::SerialPortError error) {
@@ -71,6 +87,8 @@ void DeviceManager::run() {
 
     connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::echoMessage, this,
             &DeviceManager::handleEchoMessage);
+    connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::ctrlMessage, this,
+            &DeviceManager::handleCtrlMessage);
     connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::i2cMessage, this,
             &DeviceManager::handleI2cMessage);
 
@@ -102,6 +120,20 @@ void DeviceManager::closePort() {
     timer_->stop();
     serial_port_->close();
     emit openStateChanged(serial_port_->isOpen());
+}
+
+void DeviceManager::sendCtrlRequest(CtrlRequest request) {
+    qDebug() << "sendCtrlRequest in DeviceManager thread";
+
+    // Build message
+    QByteArray message{ 128, 0 };
+    if (ctrl_service_->createCtrlRequestMsg(request, message) == false) {
+        qDebug() << "Failed to create CTRL request message!";
+        return;
+    }
+
+    // Send message
+    driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::CtrlMsg, message);
 }
 
 void DeviceManager::sendI2cConfig(I2cConfig config) {
