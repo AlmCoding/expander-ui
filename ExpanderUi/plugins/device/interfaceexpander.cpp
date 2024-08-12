@@ -8,6 +8,7 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     connect(this, &InterfaceExpander::openPort, device_manager_, &DeviceManager::openPort);
     connect(this, &InterfaceExpander::closePort, device_manager_, &DeviceManager::closePort);
 
+    connect(this, &InterfaceExpander::requestCtrl, device_manager_, &DeviceManager::sendCtrlRequest);
     connect(this, &InterfaceExpander::configI2c, device_manager_, &DeviceManager::sendI2cConfig);
     connect(this, &InterfaceExpander::requestI2c, device_manager_, &DeviceManager::sendI2cRequest);
 
@@ -42,4 +43,12 @@ InterfaceExpander::~InterfaceExpander() {
     com_thread_->quit();
     com_thread_->wait();
     delete device_manager_;
+}
+
+void InterfaceExpander::sendCtrlRequest(bool get_device_info, bool reset_device, bool start_bootloader) {
+    CtrlRequest request;
+    request.setGetDeviceInfo(get_device_info);
+    request.setResetDevice(reset_device);
+    request.setStartBootloader(start_bootloader);
+    emit requestCtrl(request);
 }

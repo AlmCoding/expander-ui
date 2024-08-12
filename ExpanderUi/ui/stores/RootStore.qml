@@ -12,6 +12,9 @@ Item {
         id: interfaceExpander
         onIsConnectedChanged: function() {
             if (isConnected === true) {
+                // Request device info
+                interfaceExpander.sendCtrlRequest(true, false, false);
+
                 let config0 = i2cStore.i2cConfigForm0.getConfig();
                 interfaceExpander.sendI2cConfig(config0);
                 let config1 = i2cStore.i2cConfigForm1.getConfig();

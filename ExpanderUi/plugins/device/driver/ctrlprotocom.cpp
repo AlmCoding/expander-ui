@@ -30,6 +30,7 @@ CtrlTypes::MessageType CtrlProtoCom::decodeCtrlMsg(const QByteArray& message, De
 }
 
 CtrlTypes::MessageType CtrlProtoCom::decodeDeviceInfo(const ctrl_proto_CtrlMsg& ctrl_msg, DeviceInfo& device_info) {
+    device_info.setRequestId(ctrl_msg.msg.device_info.request_id);
     device_info.setDeviceType(ctrl_msg.msg.device_info.device_type);
     device_info.setHardwareVersion(ctrl_msg.msg.device_info.hardware_version);
 
@@ -41,6 +42,7 @@ CtrlTypes::MessageType CtrlProtoCom::decodeDeviceInfo(const ctrl_proto_CtrlMsg& 
     device_info.setGitHash(git_hash);
 
     qDebug("Received CTRL device-info response!");
+    qDebug("  Request ID: %d", device_info.getRequestId());
     qDebug("  Device type: %d", device_info.getDeviceType());
     qDebug("  Hardware version: %d", device_info.getHardwareVersion());
     qDebug("  Firmware version: %d.%d.%d", device_info.getFirmwareVersionMajor(), device_info.getFirmwareVersionMinor(),

@@ -25,6 +25,7 @@ class InterfaceExpander : public QObject {
     void sendOpenPort(const QSerialPortInfo& port_info) { emit openPort(port_info); }
     void sendClosePort() { emit closePort(); }
 
+    void sendCtrlRequest(bool get_device_info, bool reset_device, bool start_bootloader);
     void sendI2cConfig(I2cConfig config) { emit configI2c(config); }
     void sendI2cRequest(I2cRequest request, I2cTypes::I2cId interface) {
         request.setI2cId(interface);
@@ -40,6 +41,7 @@ class InterfaceExpander : public QObject {
     void isConnectedChanged(bool connected);
     void openPort(const QSerialPortInfo& port_info);
     void closePort();
+    void requestCtrl(const CtrlRequest& request);
     void configI2c(const I2cConfig& config);
     void requestI2c(const I2cRequest& request);
 
