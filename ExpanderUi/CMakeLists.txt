@@ -30,6 +30,7 @@ qt_add_qml_module(appExpanderUi
         ui/panels/I2cRequestFormSlaveTab.qml
         ui/panels/I2cLogListPanel.qml
         ui/panels/ConnectionPanel.qml
+        ui/panels/DeviceInfoPanel.qml
 
         ui/components/I2cRequestListComponent.qml
         ui/components/I2cLogListComponent.qml
@@ -79,6 +80,7 @@ qt_add_qml_module(appExpanderUi
 add_subdirectory(libraries/tf)
 add_subdirectory(libraries/proto)
 add_subdirectory(libraries/enum)
+add_subdirectory(libraries/cube)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

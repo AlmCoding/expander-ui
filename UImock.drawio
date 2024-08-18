@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2024-06-03T15:04:31.291Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.4.8 Chrome/124.0.6367.207 Electron/30.0.6 Safari/537.36" etag="Z3YQDX249uOU-xkp9Ieg" version="24.4.8" type="device">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.5 Chrome/126.0.6478.183 Electron/31.3.0 Safari/537.36" version="24.7.5">
   <diagram name="Page-1" id="RZVQxzq3Kgt89hsoHabK">
-    <mxGraphModel dx="1953" dy="1296" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="529" dy="352" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -333,6 +333,21 @@
         </mxCell>
         <mxCell id="qSsTl2Cgwz86RILfjA0u-20" value="S" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="1150" y="560" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ls9VwocQqVg9yasHQa6N-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="880" y="360" width="370" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="Ls9VwocQqVg9yasHQa6N-2" value="Firmware Version: 0.0.42" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="370" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ls9VwocQqVg9yasHQa6N-3" value="Hardware Version: 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="405" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ls9VwocQqVg9yasHQa6N-4" value="Install" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="460" width="170" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Ls9VwocQqVg9yasHQa6N-6" value="file drop down" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="460" width="170" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

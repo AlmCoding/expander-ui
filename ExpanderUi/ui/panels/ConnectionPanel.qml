@@ -7,7 +7,7 @@ import "../panels"
 
 
 Rectangle {
-    Layout.preferredWidth: layout.width + 10
+    // Layout.preferredWidth: layout.width + 10
     Layout.preferredHeight: layout.height + 10
     radius: 5
     color: "white"
