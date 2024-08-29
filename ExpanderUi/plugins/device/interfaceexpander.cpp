@@ -14,9 +14,21 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
 
     connect(device_manager_, &DeviceManager::openStateChanged, this, [this](bool open) {
         is_connected_ = open;
+        fw_version_ = "N/A";
+        hw_version_ = "N/A";
         emit isConnectedChanged(open);
+        emit fwVersionChanged(fw_version_);
+        emit hwVersionChanged(hw_version_);
     });
 
+    connect(device_manager_, &DeviceManager::ctrlDeviceInfoReceived, this, [this](const CtrlRequest& request) {
+        fw_version_ = QString::number(request.getDeviceInfo().getFirmwareVersionMajor()) + "." +
+                      QString::number(request.getDeviceInfo().getFirmwareVersionMinor()) + "." +
+                      QString::number(request.getDeviceInfo().getFirmwareVersionPatch());
+        hw_version_ = QString::number(request.getDeviceInfo().getHardwareVersion());
+        emit fwVersionChanged(fw_version_);
+        emit hwVersionChanged(hw_version_);
+    });
     connect(device_manager_, &DeviceManager::i2cConfigStatusReceived, this,
             [this](const I2cConfig& config) { emit i2cConfigStatusReceived(config); });
     connect(device_manager_, &DeviceManager::i2cRequestStatusReceived, this, [this](const I2cRequest& request) {

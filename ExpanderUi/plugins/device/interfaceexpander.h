@@ -15,6 +15,8 @@ class InterfaceExpander : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(bool isConnected READ getIsConnected NOTIFY isConnectedChanged)
+    Q_PROPERTY(QString fwVersion READ getFwVersion NOTIFY fwVersionChanged)
+    Q_PROPERTY(QString hwVersion READ getHwVersion NOTIFY hwVersionChanged)
 
    public:
     explicit InterfaceExpander(QObject* parent = nullptr);
@@ -22,6 +24,8 @@ class InterfaceExpander : public QObject {
 
    public slots:
     bool getIsConnected() const { return is_connected_; }
+    QString getFwVersion() const { return fw_version_; }
+    QString getHwVersion() const { return hw_version_; }
     void sendOpenPort(const QSerialPortInfo& port_info) { emit openPort(port_info); }
     void sendClosePort() { emit closePort(); }
 
@@ -39,6 +43,8 @@ class InterfaceExpander : public QObject {
 
    signals:
     void isConnectedChanged(bool connected);
+    void fwVersionChanged(QString fw_version);
+    void hwVersionChanged(QString hw_version);
     void openPort(const QSerialPortInfo& port_info);
     void closePort();
     void requestCtrl(const CtrlRequest& request);
@@ -53,6 +59,8 @@ class InterfaceExpander : public QObject {
     QThread* com_thread_ = nullptr;
     DeviceManager* device_manager_ = nullptr;
     bool is_connected_ = false;
+    QString fw_version_{ "N/A" };
+    QString hw_version_{ "N/A" };
 
     I2cLogModel* log_model_ = nullptr;
 };

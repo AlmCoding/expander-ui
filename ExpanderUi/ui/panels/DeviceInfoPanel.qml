@@ -33,7 +33,7 @@ Rectangle {
         }
 
         Text {
-            text: "0.0.42"
+            text: rootStore.interfaceExpander.fwVersion
         }
 
         Label {
@@ -43,13 +43,13 @@ Rectangle {
         }
 
         Text {
-            text: "1"
+            text: rootStore.interfaceExpander.hwVersion
         }
 
         Button {
             id: installButton
             text: "Install Firmware"
-            // enabled: rootStore.interfaceExpander.isConnected
+            enabled: rootStore.interfaceExpander.isConnected
             onClicked: function() {
                 // SRrootStore.interfaceExpander.sendClosePort();
             }

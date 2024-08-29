@@ -61,6 +61,7 @@ bool CtrlProtoCom::encodeCtrlRequest(const CtrlRequest& request, int sequence_nu
     ctrl_msg.sequence_number = sequence_number;
     ctrl_msg.which_msg = ctrl_proto_CtrlMsg_ctrl_request_tag;
 
+    ctrl_msg.msg.ctrl_request.request_id = request.getRequestId();
     ctrl_msg.msg.ctrl_request.get_device_info = request.getGetDeviceInfo();
     ctrl_msg.msg.ctrl_request.reset_system = request.getResetDevice();
     ctrl_msg.msg.ctrl_request.start_bootloader = request.getStartBootloader();
