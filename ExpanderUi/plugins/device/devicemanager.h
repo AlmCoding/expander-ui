@@ -10,8 +10,8 @@
 #include "plugins/containers/i2c/i2cnotification.h"
 #include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/device/ctrlservice.h"
+#include "plugins/device/firmwareinstaller.h"
 #include "plugins/device/i2cservice.h"
-
 
 constexpr bool EchoMessagesEnabled = false;
 constexpr int EchoMessagesPeriodMs = 10;
@@ -36,6 +36,7 @@ class DeviceManager : public QObject {
     void closePort();
 
     void sendCtrlRequest(CtrlRequest request);
+    void installFirmware(QString file);
     void sendI2cConfig(I2cConfig config);
     void sendI2cRequest(I2cRequest request);
 
@@ -50,6 +51,7 @@ class DeviceManager : public QObject {
     QSerialPort* serial_port_ = nullptr;
     CtrlService* ctrl_service_ = nullptr;
     I2cService* i2c_service_ = nullptr;
+    FirmwareInstaller* firmware_installer_ = nullptr;
     QTimer* timer_ = nullptr;
 };
 

@@ -49,9 +49,10 @@ Rectangle {
         Button {
             id: installButton
             text: "Install Firmware"
-            enabled: rootStore.interfaceExpander.isConnected
+            enabled: true // rootStore.interfaceExpander.isConnected
             onClicked: function() {
-                // SRrootStore.interfaceExpander.sendClosePort();
+                // rootStore.interfaceExpander.sendCtrlStartBootloader();
+                rootStore.interfaceExpander.startFirmwareUpdate("C:/projects/expander/expander-mcu/ExpanderFw/Debug/ExpanderFw.hex");
             }
         }
 

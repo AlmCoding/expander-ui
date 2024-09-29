@@ -16,6 +16,9 @@ DeviceManager::~DeviceManager() {
     if (i2c_service_ != nullptr) {
         delete i2c_service_;
     }
+    if (firmware_installer_ != nullptr) {
+        delete firmware_installer_;
+    }
     if (timer_ != nullptr) {
         timer_->stop();
         delete timer_;
@@ -65,11 +68,14 @@ void DeviceManager::run() {
     qDebug() << "Run in DeviceManager thread";
     i2c_service_ = new I2cService{ this };
     ctrl_service_ = new CtrlService{ this };
+    firmware_installer_ = new FirmwareInstaller{ this };
     serial_port_ = new QSerialPort{ this };
 
     connect(serial_port_, &QSerialPort::errorOccurred, this, [this](QSerialPort::SerialPortError error) {
-        qDebug() << "Serial port error: " << error;
-        closePort();
+        if (error != QSerialPort::SerialPortError::NoError) {
+            qDebug() << "Serial port error: " << error;
+            closePort();
+        }
     });
 
     connect(serial_port_, &QSerialPort::readyRead, this, [this]() {
@@ -134,6 +140,11 @@ void DeviceManager::sendCtrlRequest(CtrlRequest request) {
 
     // Send message
     driver::tf::FrameDriver::getInstance().sendMessage(driver::tf::TfMsgType::CtrlMsg, message);
+}
+
+void DeviceManager::installFirmware(QString file) {
+    qDebug() << "installFirmware in DeviceManager thread (file:" << file << ")";
+    firmware_installer_->installFirmware(file);
 }
 
 void DeviceManager::sendI2cConfig(I2cConfig config) {

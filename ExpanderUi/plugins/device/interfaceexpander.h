@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QSerialPortInfo>
 #include <QThread>
+#include <QString>
 #include "plugins/containers/i2c/i2cconfig.h"
 #include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/containers/i2c/i2ctypes.h"
@@ -29,7 +30,11 @@ class InterfaceExpander : public QObject {
     void sendOpenPort(const QSerialPortInfo& port_info) { emit openPort(port_info); }
     void sendClosePort() { emit closePort(); }
 
-    void sendCtrlRequest(bool get_device_info, bool reset_device, bool start_bootloader);
+    void sendCtrlGetDeviceInfo();
+    void sendCtrlResetDevice();
+    void sendCtrlStartBootloader();
+    void startFirmwareUpdate(QString file);
+
     void sendI2cConfig(I2cConfig config) { emit configI2c(config); }
     void sendI2cRequest(I2cRequest request, I2cTypes::I2cId interface) {
         request.setI2cId(interface);
@@ -47,6 +52,7 @@ class InterfaceExpander : public QObject {
     void hwVersionChanged(QString hw_version);
     void openPort(const QSerialPortInfo& port_info);
     void closePort();
+    void updateFirmware(QString file);
     void requestCtrl(const CtrlRequest& request);
     void configI2c(const I2cConfig& config);
     void requestI2c(const I2cRequest& request);

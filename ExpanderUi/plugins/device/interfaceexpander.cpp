@@ -9,6 +9,7 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     connect(this, &InterfaceExpander::closePort, device_manager_, &DeviceManager::closePort);
 
     connect(this, &InterfaceExpander::requestCtrl, device_manager_, &DeviceManager::sendCtrlRequest);
+    connect(this, &InterfaceExpander::updateFirmware, device_manager_, &DeviceManager::installFirmware);
     connect(this, &InterfaceExpander::configI2c, device_manager_, &DeviceManager::sendI2cConfig);
     connect(this, &InterfaceExpander::requestI2c, device_manager_, &DeviceManager::sendI2cRequest);
 
@@ -57,10 +58,22 @@ InterfaceExpander::~InterfaceExpander() {
     delete device_manager_;
 }
 
-void InterfaceExpander::sendCtrlRequest(bool get_device_info, bool reset_device, bool start_bootloader) {
+void InterfaceExpander::sendCtrlGetDeviceInfo() {
     CtrlRequest request;
-    request.setGetDeviceInfo(get_device_info);
-    request.setResetDevice(reset_device);
-    request.setStartBootloader(start_bootloader);
+    request.setGetDeviceInfo(true);
     emit requestCtrl(request);
 }
+
+void InterfaceExpander::sendCtrlResetDevice() {
+    CtrlRequest request;
+    request.setResetDevice(true);
+    emit requestCtrl(request);
+}
+
+void InterfaceExpander::sendCtrlStartBootloader() {
+    CtrlRequest request;
+    request.setStartBootloader(true);
+    emit requestCtrl(request);
+}
+
+void InterfaceExpander::startFirmwareUpdate(QString file) { emit updateFirmware(file); }
