@@ -1,6 +1,7 @@
 #include "devicemanager.h"
 #include <QDebug>
 #include <QSerialPortInfo>
+#include "magic_enum.hpp"
 #include "plugins/device/driver/framedriver.h"
 
 DeviceManager::DeviceManager(QObject* parent) : QObject{ parent } {}
@@ -97,6 +98,9 @@ void DeviceManager::run() {
             &DeviceManager::handleCtrlMessage);
     connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::i2cMessage, this,
             &DeviceManager::handleI2cMessage);
+
+    connect(firmware_installer_, &FirmwareInstaller::stateChanged, this,
+            [this](InstallerTypes::State state) { emit installerStateChanged(state); });
 
     timer_ = new QTimer{ this };
     connect(timer_, &QTimer::timeout, this, &DeviceManager::triggerEcho);

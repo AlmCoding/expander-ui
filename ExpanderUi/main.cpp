@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
+#include "plugins/containers/com/installertypes.h"
 #include "plugins/containers/i2c/i2ctypes.h"
 #include "plugins/device/comportmodel.h"
 #include "plugins/device/interfaceexpander.h"
@@ -12,6 +13,8 @@
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
 
+    qmlRegisterUncreatableMetaObject(InstallerTypes::staticMetaObject, "expander.containers.types", 1, 0,
+                                     "InstallerTypes", "Error: InstallerTypes");
     qmlRegisterUncreatableMetaObject(I2cTypes::staticMetaObject, "expander.containers.types", 1, 0, "I2cTypes",
                                      "Error: I2cTypes");
 

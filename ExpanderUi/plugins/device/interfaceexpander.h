@@ -4,8 +4,9 @@
 #include <QDebug>
 #include <QObject>
 #include <QSerialPortInfo>
-#include <QThread>
 #include <QString>
+#include <QThread>
+#include "plugins/containers/com/installertypes.h"
 #include "plugins/containers/i2c/i2cconfig.h"
 #include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/containers/i2c/i2ctypes.h"
@@ -16,8 +17,10 @@ class InterfaceExpander : public QObject {
     Q_OBJECT
 
     Q_PROPERTY(bool isConnected READ getIsConnected NOTIFY isConnectedChanged)
-    Q_PROPERTY(QString fwVersion READ getFwVersion NOTIFY fwVersionChanged)
     Q_PROPERTY(QString hwVersion READ getHwVersion NOTIFY hwVersionChanged)
+    Q_PROPERTY(QString fwVersion READ getFwVersion NOTIFY fwVersionChanged)
+    Q_PROPERTY(QString gitHash READ getGitHash NOTIFY gitHashChanged)
+    Q_PROPERTY(InstallerTypes::State installerState READ getInstallerState NOTIFY installerStateChanged)
 
    public:
     explicit InterfaceExpander(QObject* parent = nullptr);
@@ -25,8 +28,10 @@ class InterfaceExpander : public QObject {
 
    public slots:
     bool getIsConnected() const { return is_connected_; }
-    QString getFwVersion() const { return fw_version_; }
     QString getHwVersion() const { return hw_version_; }
+    QString getFwVersion() const { return fw_version_; }
+    QString getGitHash() const { return git_hash_; }
+    InstallerTypes::State getInstallerState() const { return installer_state_; }
     void sendOpenPort(const QSerialPortInfo& port_info) { emit openPort(port_info); }
     void sendClosePort() { emit closePort(); }
 
@@ -48,8 +53,10 @@ class InterfaceExpander : public QObject {
 
    signals:
     void isConnectedChanged(bool connected);
-    void fwVersionChanged(QString fw_version);
     void hwVersionChanged(QString hw_version);
+    void fwVersionChanged(QString fw_version);
+    void gitHashChanged(QString git_hash);
+    void installerStateChanged(InstallerTypes::State state);
     void openPort(const QSerialPortInfo& port_info);
     void closePort();
     void updateFirmware(QString file);
@@ -65,8 +72,10 @@ class InterfaceExpander : public QObject {
     QThread* com_thread_ = nullptr;
     DeviceManager* device_manager_ = nullptr;
     bool is_connected_ = false;
-    QString fw_version_{ "N/A" };
     QString hw_version_{ "N/A" };
+    QString fw_version_{ "N/A" };
+    QString git_hash_{ "N/A" };
+    InstallerTypes::State installer_state_ = InstallerTypes::State::Idle;
 
     I2cLogModel* log_model_ = nullptr;
 };

@@ -2,14 +2,17 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
+import expander.containers.types
 
 import "../panels"
-
 
 Rectangle {
     Layout.preferredHeight: layout.height + 20
     radius: 5
     color: "white"
+
+    property string resultDialogeTitle: ""
+    property string resultDialogeText: ""
 
     GridLayout {
         id: layout
@@ -27,6 +30,16 @@ Rectangle {
         rowSpacing: 10
 
         Label {
+            text: "Hardware Version:"
+            font.pixelSize: 12
+            font.bold: true
+        }
+
+        Text {
+            text: rootStore.interfaceExpander.hwVersion
+        }
+
+        Label {
             text: "Firmware Version:"
             font.pixelSize: 12
             font.bold: true
@@ -37,13 +50,13 @@ Rectangle {
         }
 
         Label {
-            text: "Hardware Version:"
+            text: "Git Hash:"
             font.pixelSize: 12
             font.bold: true
         }
 
         Text {
-            text: rootStore.interfaceExpander.hwVersion
+            text: rootStore.interfaceExpander.gitHash
         }
 
         Button {
@@ -51,7 +64,8 @@ Rectangle {
             text: "Install Firmware"
             enabled: true // rootStore.interfaceExpander.isConnected
             onClicked: function() {
-                // rootStore.interfaceExpander.sendCtrlStartBootloader();
+                dialog.open()
+                rootStore.interfaceExpander.sendCtrlStartBootloader();
                 rootStore.interfaceExpander.startFirmwareUpdate("C:/projects/expander/expander-mcu/ExpanderFw/Debug/ExpanderFw.hex");
             }
         }
@@ -60,6 +74,78 @@ Rectangle {
             // Layout.preferredWidth: 150
             Layout.preferredHeight: 40
             model: ["V0.0.1", "V0.0.1", "V0.0.2", "V0.0.3"]
+        }
+    }
+
+    Connections {
+        target: rootStore.interfaceExpander
+        function onInstallerStateChanged(state) {
+            if (state === InstallerTypes.Success) {
+                console.log("Install firmware success.")
+                dialog.close();
+                resultDialogeTitle = "Firmware Update Successful!";
+                resultDialogeText = "Please remove and reinsert the device.";
+                resultDialog.open();
+
+            } else if (state === InstallerTypes.Error) {
+                console.log("Install firmware failed!")
+                dialog.close();
+                resultDialogeTitle = "Firmware Update Failed!";
+                resultDialogeText = "Please check <b>www.intexp.com/confail</b> for more information.";
+                resultDialog.open();
+            }
+        }
+    }
+
+    Dialog {
+        id: dialog
+        anchors.centerIn: Overlay.overlay
+        title: "Firmware Update"
+        modal: true
+        closePolicy: Popup.NoAutoClose
+
+        ColumnLayout {
+            spacing: 10
+
+            Text {
+                Layout.topMargin: 10
+                text: "Please wait and don't remove the device!"
+                font.pixelSize: 12
+            }
+
+            ProgressBar {
+                Layout.bottomMargin: 10
+                Layout.preferredWidth: parent.width
+                indeterminate: true
+            }
+        }
+
+        onRejected: {
+            console.log("Rejected!")
+            Qt.callLater(dialog.open)
+        }
+    }
+
+    Dialog {
+        id: resultDialog
+        anchors.centerIn: Overlay.overlay
+        title: resultDialogeTitle
+        modal: true
+        standardButtons: Dialog.Ok
+
+        ColumnLayout {
+            spacing: 10
+            anchors.fill: parent
+
+            Text {
+                Layout.topMargin: 10
+                text: resultDialogeText
+                font.pixelSize: 12
+            }
+        }
+
+        onAccepted: {
+            resultDialog.close()
         }
     }
 }

@@ -5,6 +5,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QTimer>
+#include "plugins/containers/com/installertypes.h"
 #include "plugins/containers/ctrl/ctrlrequest.h"
 #include "plugins/containers/i2c/i2cconfig.h"
 #include "plugins/containers/i2c/i2cnotification.h"
@@ -42,6 +43,7 @@ class DeviceManager : public QObject {
 
    signals:
     void openStateChanged(bool open);
+    void installerStateChanged(InstallerTypes::State state);
     void ctrlDeviceInfoReceived(CtrlRequest request);
     void i2cConfigStatusReceived(I2cConfig config);
     void i2cRequestStatusReceived(I2cRequest request);

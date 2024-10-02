@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <QTimer>
+#include "plugins/containers/com/installertypes.h"
 
-constexpr int SearchForDfuIntervalMs = 500;
+constexpr int SearchForDfuIntervalMs = 1000;
 constexpr int SearchForDfuTimeoutMs = 5000;
 
 class FirmwareInstaller : public QObject {
@@ -16,23 +17,17 @@ class FirmwareInstaller : public QObject {
     void installFirmware(QString file);
 
    signals:
+    void stateChanged(InstallerTypes::State state);
 
    private:
-    enum class State {
-        Idle = 0,
-        Connect,
-        Download,
-        Error,
-    };
-
     void process();
-    void connect_device();
-    void download_firmware();
+    void connectDevice();
+    void downloadFirmware();
 
+    QString file_;
     QTimer timer_;
     int remaining_attempts_ = 0;
-    State state_ = State::Idle;
-    QString file_;
+    InstallerTypes::State state_ = InstallerTypes::State::Idle;
 };
 
 #endif  // FIRMWAREINSTALLER_H

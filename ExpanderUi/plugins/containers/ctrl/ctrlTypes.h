@@ -6,7 +6,7 @@
 namespace CtrlTypes {
 
 enum class MessageType {
-    CtrlReqeust = 0,
+    CtrlRequest = 0,
     DeviceInfo,
     InvalidMessage,
 };

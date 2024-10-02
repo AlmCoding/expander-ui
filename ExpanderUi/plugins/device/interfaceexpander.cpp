@@ -15,20 +15,29 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
 
     connect(device_manager_, &DeviceManager::openStateChanged, this, [this](bool open) {
         is_connected_ = open;
-        fw_version_ = "N/A";
         hw_version_ = "N/A";
+        fw_version_ = "N/A";
+        git_hash_ = "N/A";
         emit isConnectedChanged(open);
-        emit fwVersionChanged(fw_version_);
         emit hwVersionChanged(hw_version_);
+        emit fwVersionChanged(fw_version_);
+        emit gitHashChanged(git_hash_);
+    });
+
+    connect(device_manager_, &DeviceManager::installerStateChanged, this, [this](InstallerTypes::State state) {
+        installer_state_ = state;
+        emit installerStateChanged(state);
     });
 
     connect(device_manager_, &DeviceManager::ctrlDeviceInfoReceived, this, [this](const CtrlRequest& request) {
+        hw_version_ = QString::number(request.getDeviceInfo().getHardwareVersion());
         fw_version_ = QString::number(request.getDeviceInfo().getFirmwareVersionMajor()) + "." +
                       QString::number(request.getDeviceInfo().getFirmwareVersionMinor()) + "." +
                       QString::number(request.getDeviceInfo().getFirmwareVersionPatch());
-        hw_version_ = QString::number(request.getDeviceInfo().getHardwareVersion());
-        emit fwVersionChanged(fw_version_);
+        git_hash_ = request.getDeviceInfo().getGitHash().left(7);
         emit hwVersionChanged(hw_version_);
+        emit fwVersionChanged(fw_version_);
+        emit gitHashChanged(git_hash_);
     });
     connect(device_manager_, &DeviceManager::i2cConfigStatusReceived, this,
             [this](const I2cConfig& config) { emit i2cConfigStatusReceived(config); });
