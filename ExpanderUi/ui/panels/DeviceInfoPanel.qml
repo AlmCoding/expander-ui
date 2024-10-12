@@ -73,7 +73,12 @@ Rectangle {
         ComboBox {
             // Layout.preferredWidth: 150
             Layout.preferredHeight: 40
-            model: ["V0.0.1", "V0.0.1", "V0.0.2", "V0.0.3"]
+            model: rootStore.firmwareFileModel
+            textRole: "display"
+            currentIndex: rootStore.firmwareFileModel.selectedFileIdx
+            onCurrentIndexChanged: {
+                rootStore.firmwareFileModel.selectedFileIdx = currentIndex;
+            }
         }
     }
 

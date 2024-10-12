@@ -4,6 +4,7 @@
 #include "plugins/containers/com/installertypes.h"
 #include "plugins/containers/i2c/i2ctypes.h"
 #include "plugins/device/comportmodel.h"
+#include "plugins/device/firmwarefilemodel.h"
 #include "plugins/device/interfaceexpander.h"
 #include "plugins/forms/i2cconfigform.h"
 #include "plugins/forms/i2crequestform.h"
@@ -24,6 +25,7 @@ int main(int argc, char* argv[]) {
     qmlRegisterType<I2cRequestModel>("expander.models", 1, 0, "I2cRequestModel");
     qmlRegisterType<I2cLogModel>("expander.models", 1, 0, "I2cLogModel");
     qmlRegisterType<ComPortModel>("expander.models", 1, 0, "ComPortModel");
+    qmlRegisterType<FirmwareFileModel>("expander.models", 1, 0, "FirmwareFileModel");
 
     qmlRegisterType<InterfaceExpander>("expander.InterfaceExpander", 1, 0, "InterfaceExpander");
 

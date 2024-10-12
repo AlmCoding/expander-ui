@@ -7,6 +7,7 @@
 
 class ComPortModel : public QAbstractListModel {
     Q_OBJECT
+
     Q_PROPERTY(int selectedPortIdx READ getSelectedPortIdx WRITE setSelectedPortIdx NOTIFY selectedPortIdxChanged)
     Q_PROPERTY(int portCount READ getPortCount NOTIFY portCountChanged)
 

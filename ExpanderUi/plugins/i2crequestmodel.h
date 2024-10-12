@@ -6,6 +6,7 @@
 
 class I2cRequestModel : public QAbstractListModel {
     Q_OBJECT
+
     Q_PROPERTY(
         int selectedRequestIdx READ getSelectedRequestIdx WRITE setSelectedRequestIdx NOTIFY selectedRequestIdxChanged)
 

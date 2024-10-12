@@ -8,6 +8,10 @@ Item {
         id: comPortModel
     }
 
+    property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
+        id: firmwareFileModel
+    }
+
     property InterfaceExpander interfaceExpander: InterfaceExpander {
         id: interfaceExpander
         onIsConnectedChanged: function() {
