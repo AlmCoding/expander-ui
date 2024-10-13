@@ -10,6 +10,7 @@ Item {
 
     property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
         id: firmwareFileModel
+        firmwareDirectory: constants.firmwareDirectory
     }
 
     property InterfaceExpander interfaceExpander: InterfaceExpander {

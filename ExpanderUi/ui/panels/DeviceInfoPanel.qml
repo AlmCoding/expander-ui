@@ -64,9 +64,11 @@ Rectangle {
             text: "Install Firmware"
             enabled: true // rootStore.interfaceExpander.isConnected
             onClicked: function() {
-                dialog.open()
+                var firmware_file = rootStore.firmwareFileModel.getSelectedFile();
+                console.log("Install firmware file: " + firmware_file);
+                dialog.open();
                 rootStore.interfaceExpander.sendCtrlStartBootloader();
-                rootStore.interfaceExpander.startFirmwareUpdate("C:/projects/expander/expander-mcu/ExpanderFw/Debug/ExpanderFw.hex");
+                rootStore.interfaceExpander.startFirmwareUpdate(firmware_file);
             }
         }
 
@@ -75,7 +77,7 @@ Rectangle {
             Layout.preferredHeight: 40
             model: rootStore.firmwareFileModel
             textRole: "display"
-            currentIndex: rootStore.firmwareFileModel.selectedFileIdx
+            // currentIndex: rootStore.firmwareFileModel.selectedFileIdx
             onCurrentIndexChanged: {
                 rootStore.firmwareFileModel.selectedFileIdx = currentIndex;
             }
