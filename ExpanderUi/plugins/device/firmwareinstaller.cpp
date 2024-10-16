@@ -78,18 +78,21 @@ void FirmwareInstaller::connectDevice() {
     qDebug("-----------------------------------------------");
 
     // Connect to the first device in the list
-    int connect_result = CubeProgrammer::connectDfuBootloader(dfu_list[0].usbIndex);
-    connect_result = 0;  // CubeProgrammer bug workaround (connectDfuBootloader always returns -5)
+    CubeProgrammer::cubeProgrammerError result =
+        static_cast<CubeProgrammer::cubeProgrammerError>(CubeProgrammer::connectDfuBootloader(dfu_list[0].usbIndex));
+    result = CubeProgrammer::CUBEPROGRAMMER_NO_ERROR;  // CubeProgrammer bug workaround (connectDfuBootloader always
+                                                       // returns -5)
 
-    if (connect_result != 0) {
+    if (result == CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
+        qDebug() << "Connected to DFU device!";
+        state_ = InstallerTypes::State::Download;
+
+    } else {
         qDebug() << "Failed to connect to DFU device!";
         state_ = InstallerTypes::State::Error;
         disconnect();
-
-    } else {
-        qDebug() << "Connected to DFU device!";
-        state_ = InstallerTypes::State::Download;
     }
+
     CubeProgrammer::deleteInterfaceList();
 }
 
@@ -98,17 +101,18 @@ void FirmwareInstaller::downloadFirmware() {
 
     unsigned int verify = 1;      // verify download
     unsigned int skip_erase = 0;  // do not skip erase
+    CubeProgrammer::cubeProgrammerError result = static_cast<CubeProgrammer::cubeProgrammerError>(
+        CubeProgrammer::downloadFile(file_.toStdWString().c_str(), FirmwareStartAddress, skip_erase, verify, L""));
 
-    int download_result = CubeProgrammer::downloadFile(reinterpret_cast<const wchar_t*>(file_.utf16()), 0x08000000,
-                                                       skip_erase, verify, L"");
-    CubeProgrammer::disconnect();
-
-    if (download_result != 0) {
-        qDebug() << "Failed to download firmware!";
-        state_ = InstallerTypes::State::Error;
+    if (result == CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
+        qDebug() << "Firmware successfully downloaded!";
+        // CubeProgrammer::execute(FirmwareStartAddress);
+        state_ = InstallerTypes::State::Success;
 
     } else {
-        qDebug() << "Firmware successfully downloaded!";
-        state_ = InstallerTypes::State::Success;
+        qDebug() << "Download firmware error: " << result;
+        state_ = InstallerTypes::State::Error;
     }
+
+    CubeProgrammer::disconnect();
 }

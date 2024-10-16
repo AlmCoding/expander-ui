@@ -7,6 +7,7 @@
 
 constexpr int SearchForDfuIntervalMs = 1000;
 constexpr int SearchForDfuTimeoutMs = 5000;
+constexpr int FirmwareStartAddress = 0x08000000;
 
 class FirmwareInstaller : public QObject {
     Q_OBJECT
