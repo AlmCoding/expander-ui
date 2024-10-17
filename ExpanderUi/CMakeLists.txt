@@ -70,7 +70,6 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/interfaceexpander.h plugins/device/interfaceexpander.cpp
     SOURCES plugins/device/devicemanager.h plugins/device/devicemanager.cpp
     SOURCES plugins/device/comportmodel.h plugins/device/comportmodel.cpp
-    SOURCES plugins/device/firmwarefilemodel.h plugins/device/firmwarefilemodel.cpp
     SOURCES plugins/device/driver/tfmsgtypes.h
     SOURCES plugins/device/driver/framedriver.h plugins/device/driver/framedriver.cpp
     SOURCES plugins/device/driver/i2cprotocom.h plugins/device/driver/i2cprotocom.cpp
@@ -78,6 +77,8 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/device/i2cservice.h plugins/device/i2cservice.cpp
     SOURCES plugins/device/ctrlservice.h plugins/device/ctrlservice.cpp
     SOURCES plugins/device/firmwareinstaller.h plugins/device/firmwareinstaller.cpp
+    SOURCES plugins/device/firmwarefilemodel.h plugins/device/firmwarefilemodel.cpp
+    SOURCES plugins/device/firmwaredownloader.h plugins/device/firmwaredownloader.cpp
 )
 
 add_subdirectory(libraries/tf)
