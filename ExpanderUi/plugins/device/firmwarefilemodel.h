@@ -8,7 +8,7 @@ class FirmwareFileModel : public QAbstractListModel {
     Q_OBJECT
 
     Q_PROPERTY(
-        QString firmwareDirectory WRITE setFirmwareDirectory READ getFirmwareDirectory NOTIFY firmwareDirectoryChanged)
+        QString firmwareDirectory READ getFirmwareDirectory WRITE setFirmwareDirectory NOTIFY firmwareDirectoryChanged)
     Q_PROPERTY(int selectedFileIdx READ getSelectedFileIdx WRITE setSelectedFileIdx NOTIFY selectedFileIdxChanged)
     Q_PROPERTY(int fileCount READ getFileCount NOTIFY fileCountChanged)
 
@@ -27,7 +27,7 @@ class FirmwareFileModel : public QAbstractListModel {
     void setSelectedFileIdx(int idx);
 
     QString getSelectedFile() const;
-    void updateFiles();
+    void refresh();
 
    signals:
     void firmwareDirectoryChanged(const QString& path);

@@ -2,6 +2,7 @@ import QtQuick
 import expander.models
 import expander.InterfaceExpander
 import expander.containers.types
+import expander.FirmwareDownloader
 
 Item {
     property ComPortModel comPortModel: ComPortModel {
@@ -11,6 +12,14 @@ Item {
     property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
         id: firmwareFileModel
         firmwareDirectory: constants.firmwareDirectory
+    }
+
+    property FirmwareDownloader firmwareDownloader: FirmwareDownloader {
+        id: firmwareDownloader
+        firmwareDirectory: constants.firmwareDirectory
+        onFirmwareDownloaded: function() {
+            firmwareFileModel.refresh();
+        }
     }
 
     property InterfaceExpander interfaceExpander: InterfaceExpander {

@@ -1,6 +1,7 @@
 #include "firmwarefilemodel.h"
 #include <QDir>
 #include <QFileInfo>
+#include <algorithm>
 
 FirmwareFileModel::FirmwareFileModel(QObject* parent) : QAbstractListModel{ parent } { files_.clear(); }
 
@@ -36,8 +37,8 @@ void FirmwareFileModel::setFirmwareDirectory(const QString& path) {
     }
 
     firmware_directory_ = path;
-    updateFiles();
     emit firmwareDirectoryChanged(firmware_directory_);
+    refresh();
 }
 
 void FirmwareFileModel::setSelectedFileIdx(int idx) {
@@ -52,7 +53,7 @@ void FirmwareFileModel::setSelectedFileIdx(int idx) {
     }
 }
 
-void FirmwareFileModel::updateFiles() {
+void FirmwareFileModel::refresh() {
     if (QDir().exists(firmware_directory_) == false) {
         qDebug() << "Firmware directory does not (yet) exist: " << firmware_directory_;
         return;
@@ -70,6 +71,7 @@ void FirmwareFileModel::updateFiles() {
     for (const QFileInfo& file : files) {
         files_.append(file.fileName());
     }
+    std::reverse(files_.begin(), files_.end());
     endResetModel();
 
     // if (update_index_ == true) {
