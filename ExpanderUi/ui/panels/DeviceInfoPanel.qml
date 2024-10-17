@@ -77,7 +77,7 @@ Rectangle {
             Layout.preferredHeight: 40
             model: rootStore.firmwareFileModel
             textRole: "display"
-            // currentIndex: rootStore.firmwareFileModel.selectedFileIdx
+            currentIndex: rootStore.firmwareFileModel.selectedFileIdx
             onCurrentIndexChanged: {
                 rootStore.firmwareFileModel.selectedFileIdx = currentIndex;
             }

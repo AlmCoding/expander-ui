@@ -42,12 +42,7 @@ void FirmwareFileModel::setFirmwareDirectory(const QString& path) {
 }
 
 void FirmwareFileModel::setSelectedFileIdx(int idx) {
-    // if (update_index_ == true) {
-    //     update_index_ = false;
-    //     return;
-    // }
-
-    if (idx >= 0 && idx < files_.size()) {
+    if (idx >= 0 && idx < files_.size() && idx != selected_file_idx_) {
         selected_file_idx_ = idx;
         emit selectedFileIdxChanged(selected_file_idx_);
     }
@@ -58,10 +53,6 @@ void FirmwareFileModel::refresh() {
         qDebug() << "Firmware directory does not (yet) exist: " << firmware_directory_;
         return;
     }
-
-    // if (files_.size() == 0) {
-    //     update_index_ = true;
-    // }
 
     // List files in directory
     QFileInfoList files = QDir(firmware_directory_).entryInfoList(QDir::Files);
@@ -74,9 +65,6 @@ void FirmwareFileModel::refresh() {
     std::reverse(files_.begin(), files_.end());
     endResetModel();
 
-    // if (update_index_ == true) {
-    selected_file_idx_ = 0;
-    emit selectedFileIdxChanged(selected_file_idx_);
-    //}
+    setSelectedFileIdx(0);
     emit fileCountChanged(files_.size());
 }
