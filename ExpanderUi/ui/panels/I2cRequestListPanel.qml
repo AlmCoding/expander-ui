@@ -11,6 +11,16 @@ ColumnLayout {
     id: root
     spacing: 0
 
+    // Define Shape enum
+    enum ActionType {
+        New,
+        Open,
+        Save,
+        SaveAs
+    }
+    property int currentAction: I2cRequestListPanel.ActionType.New
+    property string currentFilePath: ""
+
     Rectangle {
         id: scrollRectangle
         Layout.fillWidth: true
@@ -56,6 +66,18 @@ ColumnLayout {
         //     }
         // }
 
+        // MenuBar {
+        //     Layout.fillHeight: true
+        //     // Layout.leftMargin: 10
+        //     Menu {
+        //         title: qsTr("&File")
+        //         Action { text: qsTr("&New...") }
+        //         Action { text: qsTr("&Open...") }
+        //         Action { text: qsTr("&Save") }
+        //         Action { text: qsTr("Save &As...") }
+        //     }
+        // }
+
         Button {
             id: fileButton
             text: "&File"
@@ -69,37 +91,42 @@ ColumnLayout {
 
                 Action {
                     text: qsTr("&New...")
-                    onTriggered: {}
+                    onTriggered: {
+                        currentAction = I2cRequestListPanel.ActionType.New;
+                        fileDialog.fileMode = FileDialog.SaveFile;
+                        fileDialog.open();
+                    }
                 }
                 Action {
                     text: qsTr("&Open...")
                     onTriggered: {
+                        currentAction = I2cRequestListPanel.ActionType.Open;
+                        fileDialog.fileMode = FileDialog.OpenFile;
                         fileDialog.open();
-                        // rootStore.i2cStore.i2cRequestModel.loadRequestsFromFile("C:/Users/Alexander/Downloads/requests.txt");
                     }
                 }
                 Action {
                     text: qsTr("&Save")
-                    onTriggered: {}
+                    onTriggered: {
+                        currentAction = I2cRequestListPanel.ActionType.Save;
+                        if (currentFilePath === "") {
+                            fileDialog.fileMode = FileDialog.SaveFile;
+                            fileDialog.open();
+                        } else {
+                            rootStore.i2cStore.i2cRequestModel.saveRequestsToFile(currentFilePath);
+                        }
+                    }
                 }
                 Action {
                     text: qsTr("Save &As...")
-                    onTriggered: {}
+                    onTriggered: {
+                        currentAction = I2cRequestListPanel.ActionType.SaveAs;
+                        fileDialog.fileMode = FileDialog.SaveFile;
+                        fileDialog.open();
+                    }
                 }
             }
         }
-
-        // MenuBar {
-        //     Layout.fillHeight: true
-        //     // Layout.leftMargin: 10
-        //     Menu {
-        //         title: qsTr("&File")
-        //         Action { text: qsTr("&New...") }
-        //         Action { text: qsTr("&Open...") }
-        //         Action { text: qsTr("&Save") }
-        //         Action { text: qsTr("Save &As...") }
-        //     }
-        // }
 
         Item {
             id: spacer
@@ -123,15 +150,33 @@ ColumnLayout {
         id: fileDialog
         title: "Set File"
         onAccepted: {
-            console.log("Selected file:", fileDialog.selectedFile)
-            // You can handle the file here, e.g., open or create a new file.
+            // Get the local file path as a string
+            currentFilePath = Qt.resolvedUrl(selectedFile);
+            if (currentFilePath.startsWith("file:///")) {
+                currentFilePath = currentFilePath.replace("file:///", "");
+            }
+            console.log("Selected file:", currentFilePath);
+
+            switch (currentAction) {
+            case I2cRequestListPanel.ActionType.New:
+                // clear model and save it (empty)
+                rootStore.i2cStore.i2cRequestModel.clear();
+                rootStore.i2cStore.i2cRequestModel.saveRequestsToFile(currentFilePath);
+                break;
+            case I2cRequestListPanel.ActionType.Open:
+                rootStore.i2cStore.i2cRequestModel.loadRequestsFromFile(currentFilePath);
+                break;
+            case I2cRequestListPanel.ActionType.Save:
+            case I2cRequestListPanel.ActionType.SaveAs:
+                rootStore.i2cStore.i2cRequestModel.saveRequestsToFile(currentFilePath);
+                break;
+            }
         }
         onRejected: {
-            console.log("File dialog canceled.")
+            console.log("File dialog canceled.");
         }
         // Set the options for the dialog
-        //selectExisting: true // Set to false to allow creating new files
-        //folder: "file:///path/to/your/directory" // Specify the initial directory
+        fileMode: FileDialog.SaveFile
         nameFilters: ["Text files (*.txt)", "All files (*)"] // Set filters for file types
     }
 }

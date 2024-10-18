@@ -133,3 +133,10 @@ void I2cRequestModel::loadRequestsFromFile(const QString& file_path) {
     requests_ = requests;
     QAbstractItemModel::endResetModel();
 }
+
+void I2cRequestModel::clear()
+{
+    QAbstractItemModel::beginResetModel();
+    requests_.clear();
+    QAbstractItemModel::endResetModel();
+}
