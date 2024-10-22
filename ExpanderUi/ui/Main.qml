@@ -5,6 +5,7 @@ import QtQuick.Controls.Material
 
 import "views"
 import "stores"
+import "panels"
 
 
 Window {
@@ -76,11 +77,10 @@ Window {
             }
         }
 
-        Rectangle {
+        FooterPanel {
             id: footer
             Layout.fillWidth: true
             Layout.preferredHeight: 30
-            color: "#00BCD4"
         }
     }
 }

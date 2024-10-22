@@ -29,7 +29,7 @@ Rectangle {
                 spacing: 10
 
                 Button {
-                    id: saveButton
+                    id: clearButton
                     Layout.preferredWidth: 90
                     text: "Clear"
                     onClicked: function() {
@@ -37,10 +37,10 @@ Rectangle {
                     }
                 }
                 Button {
-                    id: newButton
+                    id: fileButton
                     Layout.preferredWidth: 90
                     Layout.rightMargin: parent.spacing
-                    text: "Save"
+                    text: "&File"
                 }
             }
         }

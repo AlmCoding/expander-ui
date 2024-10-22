@@ -5,17 +5,23 @@ import QtQuick.Controls.Material
 
 import "../panels"
 
-
 Rectangle {
     // Layout.preferredWidth: layout.width + 10
-    Layout.preferredHeight: layout.height + 10
+    Layout.preferredHeight: layout.height + 20
     radius: 5
     color: "white"
 
-    RowLayout {
+    GridLayout {
         id: layout
-        anchors.centerIn: parent
-        spacing: 10
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+            topMargin: 10
+            leftMargin: 10
+        }
+        columns: 3
+        rowSpacing: 10
 
         Label {
             // Layout.preferredWidth: labelWidth
@@ -36,20 +42,16 @@ Rectangle {
         }
 
         Button {
-            id: connectButton
-            text: "Connect"
-            enabled: rootStore.comPortModel.portCount > 0 && rootStore.interfaceExpander.isConnected == false
+            id: connectionButton
+            Layout.preferredWidth: 140
+            text: rootStore.interfaceExpander.isConnected === false ? "Connect" : "Disconnect"
+            enabled: rootStore.comPortModel.portCount > 0
             onClicked: function() {
-                rootStore.interfaceExpander.sendOpenPort(rootStore.comPortModel.getSelectedPort());
-            }
-        }
-
-        Button {
-            id: disconnectButton
-            text: "Disconnect"
-            enabled: rootStore.interfaceExpander.isConnected
-            onClicked: function() {
-                rootStore.interfaceExpander.sendClosePort();
+                if (rootStore.interfaceExpander.isConnected === false) {
+                    rootStore.interfaceExpander.sendOpenPort(rootStore.comPortModel.getSelectedPort());
+                }else {
+                    rootStore.interfaceExpander.sendClosePort();
+                }
             }
         }
     }

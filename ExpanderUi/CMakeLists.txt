@@ -20,6 +20,7 @@ qt_add_qml_module(appExpanderUi
         ui/views/I2cView.qml
         ui/views/SpiView.qml
         ui/views/SettingsView.qml
+        ui/panels/FooterPanel.qml
         ui/panels/I2cConfigPanel.qml
         ui/panels/I2cLogPanel.qml
         ui/panels/I2cConfigInterfacePanel.qml
@@ -44,6 +45,9 @@ qt_add_qml_module(appExpanderUi
         ui/resources/images/play_100.png
         ui/resources/images/play_square_100.png
         ui/resources/images/play_round_90.png
+        ui/resources/images/connected_50.png
+        ui/resources/images/disconnected_50.png
+        ui/resources/images/file_52.png
 
     # plugins
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
