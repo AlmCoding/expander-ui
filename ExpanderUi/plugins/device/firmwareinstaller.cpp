@@ -99,20 +99,39 @@ void FirmwareInstaller::connectDevice() {
 void FirmwareInstaller::downloadFirmware() {
     qDebug() << "Downloading firmware...";
 
-    unsigned int verify = 1;      // verify download
-    unsigned int skip_erase = 0;  // do not skip erase
-    CubeProgrammer::cubeProgrammerError result = static_cast<CubeProgrammer::cubeProgrammerError>(
-        CubeProgrammer::downloadFile(file_.toStdWString().c_str(), FirmwareStartAddress, skip_erase, verify, L""));
+    CubeProgrammer::cubeProgrammerError result =
+        static_cast<CubeProgrammer::cubeProgrammerError>(CubeProgrammer::massErase());
 
-    if (result == CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
-        qDebug() << "Firmware successfully downloaded!";
-        // CubeProgrammer::execute(FirmwareStartAddress);
-        state_ = InstallerTypes::State::Success;
-
-    } else {
-        qDebug() << "Download firmware error: " << result;
+    if (result != CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
+        qDebug() << "Mass erase error: " << result;
         state_ = InstallerTypes::State::Error;
+        CubeProgrammer::disconnect();
+        return;
     }
 
+    unsigned int verify = 1;      // verify download
+    unsigned int skip_erase = 1;  // skip erase
+    result = static_cast<CubeProgrammer::cubeProgrammerError>(
+        CubeProgrammer::downloadFile(file_.toStdWString().c_str(), FirmwareStartAddress, skip_erase, verify, L""));
+
+    if (result != CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
+        qDebug() << "Download firmware error: " << result;
+        state_ = InstallerTypes::State::Error;
+        CubeProgrammer::disconnect();
+        return;
+    }
+    qDebug() << "Firmware successfully downloaded!";
+
+    // result = static_cast<CubeProgrammer::cubeProgrammerError>(CubeProgrammer::execute(FirmwareStartAddress));
+
+    // if (result != CubeProgrammer::CUBEPROGRAMMER_NO_ERROR) {
+    //     qDebug() << "Execute firmware error: " << result;
+    //     state_ = InstallerTypes::State::Error;
+    //     CubeProgrammer::disconnect();
+    //     return;
+    // }
+    // qDebug() << "Firmware successfully started!";
+
+    state_ = InstallerTypes::State::Success;
     CubeProgrammer::disconnect();
 }
