@@ -44,6 +44,7 @@ class DeviceManager : public QObject {
    signals:
     void openStateChanged(bool open);
     void installerStateChanged(InstallerTypes::State state);
+    void statusMessageChanged(QString message);
     void ctrlDeviceInfoReceived(CtrlRequest request);
     void i2cConfigStatusReceived(I2cConfig config);
     void i2cRequestStatusReceived(I2cRequest request);

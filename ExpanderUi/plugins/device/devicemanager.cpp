@@ -86,10 +86,11 @@ void DeviceManager::run() {
 
     connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::sendData, this,
             [this](const QByteArray& data) {
-                if (serial_port_ != nullptr && serial_port_->isOpen() == true)
+                if (serial_port_ != nullptr && serial_port_->isOpen() == true) {
                     serial_port_->write(data);
-                else
-                    qDebug("Drop frame due to closed port!");
+                } else {
+                    emit statusMessageChanged("[ERR] Device not connected");
+                }
             });
 
     connect(&driver::tf::FrameDriver::getInstance(), &driver::tf::FrameDriver::echoMessage, this,

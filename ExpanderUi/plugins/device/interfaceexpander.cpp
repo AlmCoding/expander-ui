@@ -13,6 +13,11 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     connect(this, &InterfaceExpander::configI2c, device_manager_, &DeviceManager::sendI2cConfig);
     connect(this, &InterfaceExpander::requestI2c, device_manager_, &DeviceManager::sendI2cRequest);
 
+    connect(device_manager_, &DeviceManager::statusMessageChanged, this, [this](QString message) {
+        status_message_ = message;
+        emit statusMessageChanged(message);
+    });
+
     connect(device_manager_, &DeviceManager::openStateChanged, this, [this](bool open) {
         is_connected_ = open;
         hw_version_ = "N/A";

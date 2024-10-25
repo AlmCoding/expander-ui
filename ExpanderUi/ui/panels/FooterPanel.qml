@@ -23,8 +23,8 @@ Rectangle {
             Label {
                 id: fileName
                 anchors.verticalCenter: parent.verticalCenter
-                font.bold: true
-                text: "requests_longer_file_name.yaml"
+                //font.bold: true
+                text: rootStore.i2cStore.i2cRequestModel.filePath
             }
 
             Image {
@@ -47,16 +47,16 @@ Rectangle {
                 id: statusMessage
                 anchors.verticalCenter: parent.verticalCenter
                 font.bold: true
-                text: "Request response timeout error!"
+                text: rootStore.interfaceExpander.statusMessage
             }
 
-            Image {
-                id: statusImage
-                height: parent.height - centertRow.spacing
-                fillMode: Image.PreserveAspectFit
-                anchors.verticalCenter: parent.verticalCenter
-                source: rootStore.interfaceExpander.isConnected === false ? "/ExpanderUi/ui/resources/images/disconnected_50.png" : "/ExpanderUi/ui/resources/images/connected_50.png"
-            }
+            // Image {
+            //     id: statusImage
+            //     height: parent.height - centertRow.spacing
+            //     fillMode: Image.PreserveAspectFit
+            //     anchors.verticalCenter: parent.verticalCenter
+            //     source: rootStore.interfaceExpander.isConnected === false ? "/ExpanderUi/ui/resources/images/disconnected_50.png" : "/ExpanderUi/ui/resources/images/connected_50.png"
+            // }
         }
 
         Row {
@@ -69,7 +69,7 @@ Rectangle {
             Label {
                 id: connectionStatus
                 anchors.verticalCenter: parent.verticalCenter
-                font.bold: true
+                //font.bold: true
                 text: rootStore.interfaceExpander.isConnected === false ? "Disconnected" : "Connected"
             }
 

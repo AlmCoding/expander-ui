@@ -2,6 +2,7 @@
 #define I2CREQUESTMODEL_H
 
 #include <QAbstractListModel>
+#include <QString>
 #include "plugins/containers/i2c/i2crequest.h"
 
 class I2cRequestModel : public QAbstractListModel {
@@ -9,6 +10,7 @@ class I2cRequestModel : public QAbstractListModel {
 
     Q_PROPERTY(
         int selectedRequestIdx READ getSelectedRequestIdx WRITE setSelectedRequestIdx NOTIFY selectedRequestIdxChanged)
+    Q_PROPERTY(QString filePath READ getFilePath NOTIFY filePathChanged)
 
    public:
     explicit I2cRequestModel(QObject* parent = nullptr);
@@ -24,10 +26,12 @@ class I2cRequestModel : public QAbstractListModel {
     void deleteRequest(int request_idx);
 
     void setSelectedRequestIdx(int idx);
+    void setFilePath(QString file_path);
     void updateSelectedRequest(I2cRequest request);
 
     int getRequestCount() const { return requests_.size(); }
     I2cRequest getSelectedRequest() const { return requests_.at(selected_request_idx_); }
+    QString getFilePath() { return file_path_; }
 
     void saveRequestsToFile(const QString& file_path);
     void loadRequestsFromFile(const QString& file_path);
@@ -35,6 +39,7 @@ class I2cRequestModel : public QAbstractListModel {
 
    signals:
     void selectedRequestIdxChanged(int idx);
+    void filePathChanged(QString file_path);
 
    private:
     enum ModelRoles {
@@ -51,6 +56,7 @@ class I2cRequestModel : public QAbstractListModel {
 
     QList<I2cRequest> requests_;
     int selected_request_idx_ = 0;
+    QString file_path_;
 };
 
 #endif  // I2CREQUESTMODEL_H

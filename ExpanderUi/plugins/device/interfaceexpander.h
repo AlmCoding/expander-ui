@@ -16,6 +16,7 @@
 class InterfaceExpander : public QObject {
     Q_OBJECT
 
+    Q_PROPERTY(QString statusMessage READ getStatusMessage NOTIFY statusMessageChanged)
     Q_PROPERTY(bool isConnected READ getIsConnected NOTIFY isConnectedChanged)
     Q_PROPERTY(QString hwVersion READ getHwVersion NOTIFY hwVersionChanged)
     Q_PROPERTY(QString fwVersion READ getFwVersion NOTIFY fwVersionChanged)
@@ -27,11 +28,13 @@ class InterfaceExpander : public QObject {
     ~InterfaceExpander();
 
    public slots:
+    QString getStatusMessage() const { return status_message_; }
     bool getIsConnected() const { return is_connected_; }
     QString getHwVersion() const { return hw_version_; }
     QString getFwVersion() const { return fw_version_; }
     QString getGitHash() const { return git_hash_; }
     InstallerTypes::State getInstallerState() const { return installer_state_; }
+
     void sendOpenPort(const QSerialPortInfo& port_info) { emit openPort(port_info); }
     void sendClosePort() { emit closePort(); }
 
@@ -52,6 +55,7 @@ class InterfaceExpander : public QObject {
     }
 
    signals:
+    void statusMessageChanged(QString message);
     void isConnectedChanged(bool connected);
     void hwVersionChanged(QString hw_version);
     void fwVersionChanged(QString fw_version);
@@ -76,6 +80,7 @@ class InterfaceExpander : public QObject {
     QString fw_version_{ "N/A" };
     QString git_hash_{ "N/A" };
     InstallerTypes::State installer_state_ = InstallerTypes::State::Idle;
+    QString status_message_;
 
     I2cLogModel* log_model_ = nullptr;
 };

@@ -70,6 +70,11 @@ void I2cRequestModel::setSelectedRequestIdx(int idx) {
     }
 }
 
+void I2cRequestModel::setFilePath(QString file_path) {
+    file_path_ = file_path;
+    emit filePathChanged(file_path_);
+}
+
 void I2cRequestModel::updateSelectedRequest(I2cRequest request) {
     if (selected_request_idx_ >= 0 && selected_request_idx_ < requests_.size()) {
         requests_[selected_request_idx_] = request;
@@ -102,6 +107,9 @@ void I2cRequestModel::saveRequestsToFile(const QString& file_path) {
 
     QTextStream out{ &file };
     out << json_str;
+
+    file.close();
+    setFilePath(file_path);
 }
 
 void I2cRequestModel::loadRequestsFromFile(const QString& file_path) {
@@ -128,14 +136,15 @@ void I2cRequestModel::loadRequestsFromFile(const QString& file_path) {
         I2cRequest request{ type, name, slave_addr, write_data, read_size };
         requests.append(request);
     }
+    file.close();
+    setFilePath(file_path);
 
     QAbstractItemModel::beginResetModel();
     requests_ = requests;
     QAbstractItemModel::endResetModel();
 }
 
-void I2cRequestModel::clear()
-{
+void I2cRequestModel::clear() {
     QAbstractItemModel::beginResetModel();
     requests_.clear();
     QAbstractItemModel::endResetModel();
