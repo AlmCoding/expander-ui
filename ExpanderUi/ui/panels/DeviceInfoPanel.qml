@@ -61,7 +61,10 @@ Rectangle {
 
         Button {
             id: installButton
-            text: "Install Firmware"
+            Layout.preferredWidth: 160
+            text: rootStore.firmwareFileModel.newerVersionSelected === true ? "Upgrade Firmware" : "Install Firmware"
+            Material.background: rootStore.firmwareFileModel.newerVersionSelected === true ? Material.Pink : Material.Foreground
+
             enabled: true // rootStore.interfaceExpander.isConnected
             onClicked: function() {
                 var firmware_file = rootStore.firmwareFileModel.getSelectedFile();
@@ -107,7 +110,7 @@ Rectangle {
     Dialog {
         id: dialog
         anchors.centerIn: Overlay.overlay
-        title: "Firmware Update"
+        title: "Firmware Update"        
         modal: true
         closePolicy: Popup.NoAutoClose
 

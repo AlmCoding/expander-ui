@@ -43,7 +43,7 @@ Rectangle {
 
         Button {
             id: connectionButton
-            Layout.preferredWidth: 140
+            Layout.preferredWidth: 160
             text: rootStore.interfaceExpander.isConnected === false ? "Connect" : "Disconnect"
             enabled: rootStore.comPortModel.portCount > 0
             onClicked: function() {

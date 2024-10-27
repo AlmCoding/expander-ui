@@ -12,8 +12,10 @@ Item {
     property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
         id: firmwareFileModel
         firmwareDirectory: constants.firmwareDirectory
+        installedFirmwareVersion: interfaceExpander.fwVersion
     }
 
+    // Download firmware from internet
     property FirmwareDownloader firmwareDownloader: FirmwareDownloader {
         id: firmwareDownloader
         firmwareDirectory: constants.firmwareDirectory

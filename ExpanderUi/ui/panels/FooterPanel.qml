@@ -33,6 +33,7 @@ Rectangle {
                 fillMode: Image.PreserveAspectFit
                 anchors.verticalCenter: parent.verticalCenter
                 source: "/ExpanderUi/ui/resources/images/file_52.png"
+                visible: rootStore.i2cStore.i2cRequestModel.filePath !== ""
             }
         }
 
