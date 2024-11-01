@@ -103,7 +103,27 @@ void I2cLogModel::appendNewLog(const I2cNotification& notification) {
     QAbstractItemModel::endInsertRows();
 }
 
-void I2cLogModel::clearModel() {
+void I2cLogModel::saveLogsToFile(const QString& file_path) {
+    qDebug() << "I2cLogModel::saveLogsToFile: " << file_path;
+    // QFile file{ file_path };
+    // if (file.open(QIODevice::WriteOnly)) {
+    //     QDataStream out{ &file };
+    //     out << logs_;
+    //     file.close();
+    // }
+}
+
+void I2cLogModel::loadLogsFromFile(const QString& file_path) {
+    qDebug() << "I2cLogModel::loadLogsFromFile: " << file_path;
+    // QFile file{ file_path };
+    // if (file.open(QIODevice::ReadOnly)) {
+    //     QDataStream in{ &file };
+    //     in >> logs_;
+    //     file.close();
+    // }
+}
+
+void I2cLogModel::clear() {
     QAbstractItemModel::beginResetModel();
     logs_.clear();
     QAbstractItemModel::endResetModel();

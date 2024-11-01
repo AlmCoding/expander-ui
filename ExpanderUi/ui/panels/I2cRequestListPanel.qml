@@ -6,12 +6,11 @@ import QtQuick.Controls.Material
 
 import "../components"
 
-
 ColumnLayout {
     id: root
     spacing: 0
 
-    // Define Shape enum
+    // Define action enum
     enum ActionType {
         New,
         Open,
@@ -49,40 +48,11 @@ ColumnLayout {
         Layout.fillWidth: true
         spacing: 0
 
-        // Button {
-        //     id: loadButton
-        //     Layout.preferredWidth: 90
-        //     text: "Load"
-        //     onClicked: function() {
-        //         rootStore.i2cStore.i2cRequestModel.loadRequestsFromFile("C:/Users/Alexander/Downloads/requests.txt");
-        //     }
-        // }
-        // Button {
-        //     id: saveButton
-        //     Layout.preferredWidth: 90
-        //     text: "Save"
-        //     onClicked: function() {
-        //         rootStore.i2cStore.i2cRequestModel.saveRequestsToFile("C:/Users/Alexander/Downloads/requests.txt");
-        //     }
-        // }
-
-        // MenuBar {
-        //     Layout.fillHeight: true
-        //     // Layout.leftMargin: 10
-        //     Menu {
-        //         title: qsTr("&File")
-        //         Action { text: qsTr("&New...") }
-        //         Action { text: qsTr("&Open...") }
-        //         Action { text: qsTr("&Save") }
-        //         Action { text: qsTr("Save &As...") }
-        //     }
-        // }
-
         Button {
             id: fileButton
-            text: "&File"
             Layout.leftMargin: 10
             Layout.preferredWidth: 90
+            text: "&File"
             onClicked: menu.open()
 
             Menu {

@@ -6,7 +6,6 @@
 #include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/i2clog.h"
 
-
 class I2cLogModel : public QAbstractListModel {
     Q_OBJECT
 
@@ -25,7 +24,10 @@ class I2cLogModel : public QAbstractListModel {
     void setSelectedLogIdx(int idx);
     void appendNewLog(const I2cRequest& request);
     void appendNewLog(const I2cNotification& notification);
-    void clearModel();
+
+    void saveLogsToFile(const QString& file_path);
+    void loadLogsFromFile(const QString& file_path);
+    void clear();
 
    signals:
     void selectedLogIdxChanged(int idx);
