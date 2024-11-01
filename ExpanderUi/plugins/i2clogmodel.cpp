@@ -1,5 +1,9 @@
 #include "i2clogmodel.h"
 #include <QDateTime>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QVariant>
 #include "magic_enum.hpp"
 #include "plugins/containers/i2c/i2ctypes.h"
@@ -104,23 +108,75 @@ void I2cLogModel::appendNewLog(const I2cNotification& notification) {
 }
 
 void I2cLogModel::saveLogsToFile(const QString& file_path) {
-    qDebug() << "I2cLogModel::saveLogsToFile: " << file_path;
-    // QFile file{ file_path };
-    // if (file.open(QIODevice::WriteOnly)) {
-    //     QDataStream out{ &file };
-    //     out << logs_;
-    //     file.close();
-    // }
+    QFile file{ file_path };
+    if (file.open(QIODevice::WriteOnly) == false) {
+        qDebug("Failed to open file for writing!");
+        return;
+    }
+
+    QJsonArray log_list;
+    for (const I2cLog& log : logs_) {
+        QJsonObject log_obj;
+        log_obj["time"] = log.getTime();
+        log_obj["interface"] = log.getInterfaceName();
+        log_obj["type"] = static_cast<int>(log.getType());
+        log_obj["name"] = log.getName();
+        log_obj["slaveAddr"] = log.getSlaveAddr();
+        log_obj["writeData"] = log.getWriteData();
+        log_obj["readData"] = log.getReadData();
+        log_obj["writeSize"] = log.getWriteSize();
+        log_obj["readSize"] = log.getReadSize();
+        log_obj["status"] = log.getStatus();
+        log_list.append(log_obj);
+    }
+
+    QJsonObject main_obj;
+    main_obj["logs"] = log_list;
+    QJsonDocument doc{ main_obj };
+    QString json_str{ doc.toJson() };
+
+    QTextStream out{ &file };
+    out << json_str;
+
+    file.close();
 }
 
 void I2cLogModel::loadLogsFromFile(const QString& file_path) {
-    qDebug() << "I2cLogModel::loadLogsFromFile: " << file_path;
-    // QFile file{ file_path };
-    // if (file.open(QIODevice::ReadOnly)) {
-    //     QDataStream in{ &file };
-    //     in >> logs_;
-    //     file.close();
-    // }
+    QFile file{ file_path };
+    if (file.open(QIODevice::ReadOnly) == false) {
+        qDebug("Failed to open file for reading!");
+        return;
+    }
+
+    QByteArray data{ file.readAll() };
+    QJsonDocument doc{ QJsonDocument::fromJson(data) };
+    QJsonObject main_obj{ doc.object() };
+
+    QList<I2cLog> logs;
+    for (const QJsonValue& log_val : main_obj["logs"].toArray()) {
+        QJsonObject log_obj{ log_val.toObject() };
+
+        I2cTypes::I2cReqestType type{ static_cast<I2cTypes::I2cReqestType>(log_obj["type"].toInt()) };
+        QString time{ log_obj["time"].toString() };
+        QString interface_name{ log_obj["interface"].toString() };
+        QString name{ log_obj["name"].toString() };
+        QString slave_addr{ log_obj["slaveAddr"].toString() };
+        QString write_data{ log_obj["writeData"].toString() };
+        QString read_data{ log_obj["readData"].toString() };
+        QString write_size{ log_obj["writeSize"].toString() };
+        QString read_size{ log_obj["readSize"].toString() };
+        QString status{ log_obj["status"].toString() };
+
+        I2cLog log{
+            time, interface_name, type, name, slave_addr, write_data, read_data, write_size, read_size, status
+        };
+        logs.append(log);
+    }
+    file.close();
+
+    QAbstractItemModel::beginResetModel();
+    logs_ = logs;
+    QAbstractItemModel::endResetModel();
 }
 
 void I2cLogModel::clear() {
