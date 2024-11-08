@@ -15,13 +15,19 @@ class I2cRequestModel : public QAbstractListModel {
    public:
     explicit I2cRequestModel(QObject* parent = nullptr);
 
+    Qt::ItemFlags flags(const QModelIndex& index) const override;
+    Qt::DropActions supportedDropActions() const override;
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex& index, int role) const override;
+    bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent,
+                  int destinationChild) override;
+    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
     int getSelectedRequestIdx() const { return selected_request_idx_; }
 
    public slots:
+    // void moveItNow(int from, int to) { moveRows(QModelIndex(), from, 1, QModelIndex(), to); }
     void addNewRequest(int template_req_idx);
     void deleteRequest(int request_idx);
 

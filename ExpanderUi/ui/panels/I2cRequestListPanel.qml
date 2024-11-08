@@ -30,11 +30,16 @@ ColumnLayout {
             anchors.fill: parent
             clip: true
 
+            DelegateModel {
+                id: visualModel
+                model: rootStore.i2cStore.i2cRequestModel
+                delegate: I2cRequestListComponent {}
+            }
+
             ListView {
                 id: requestList
                 anchors.fill: parent
-                model: rootStore.i2cStore.i2cRequestModel // RequestModel {}
-                delegate: I2cRequestListComponent {}
+                model: visualModel
                 highlight: Rectangle { color: "#00BCD4"; radius: 0 }
                 focus: true
                 currentIndex: rootStore.i2cStore.i2cRequestModel.selectedRequestIdx

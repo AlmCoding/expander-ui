@@ -8,6 +8,19 @@
 
 I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {}
 
+Qt::ItemFlags I2cRequestModel::flags(const QModelIndex& index) const {
+    Qt::ItemFlags flags = QAbstractListModel::flags(index);
+    if (index.isValid() == true) {
+        flags |= Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsDragEnabled | Qt::ItemIsDropEnabled;
+    } else {
+        // Might not be needed because only elments already in the model can be dragged
+        // flags |= Qt::ItemIsDropEnabled;  // Can be dropped into the top level of the model
+    }
+    return flags;
+}
+
+Qt::DropActions I2cRequestModel::supportedDropActions() const { return Qt::CopyAction | Qt::MoveAction; }
+
 int I2cRequestModel::rowCount(const QModelIndex& parent) const { return requests_.size(); }
 
 QHash<int, QByteArray> I2cRequestModel::roleNames() const { return role_names_; }
@@ -31,6 +44,51 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
         default:
             return QVariant{};
     }
+}
+
+bool I2cRequestModel::moveRows(const QModelIndex& sourceParent, int sourceRow, int count,
+                               const QModelIndex& destinationParent, int destinationChild) {
+    if (sourceParent.isValid() == false || destinationParent.isValid() == false || sourceRow < 0 ||
+        sourceRow >= requests_.size() || destinationChild < 0 || destinationChild > requests_.size()) {
+        return false;
+    }
+
+    if (beginMoveRows(sourceParent, sourceRow, sourceRow + count - 1, destinationParent, destinationChild) == false) {
+        return false;
+    }
+
+    QList<I2cRequest> moved_requests;
+    for (int i = 0; i < count; i++) {
+        moved_requests.append(requests_.takeAt(sourceRow));
+    }
+
+    for (int i = 0; i < count; i++) {
+        requests_.insert(destinationChild + i, moved_requests.at(i));
+    }
+
+    endMoveRows();
+
+    // Print new order of requests
+    qDebug() << "New order of requests:";
+    for (int i = 0; i < requests_.size(); i++) {
+        qDebug() << requests_.at(i).getName();
+    }
+
+    return true;
+}
+
+bool I2cRequestModel::removeRows(int row, int count, const QModelIndex& parent) {
+    if (row < 0 || row >= requests_.size() || count < 1 || row + count > requests_.size()) {
+        return false;
+    }
+
+    beginRemoveRows(parent, row, row + count - 1);
+    for (int i = 0; i < count; i++) {
+        requests_.removeAt(row);
+    }
+    endRemoveRows();
+
+    return true;
 }
 
 void I2cRequestModel::addNewRequest(int template_req_idx) {
