@@ -13,4 +13,6 @@ Item {
     readonly property var regExpReadSize: new  RegExp(/^(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/)
 
     readonly property string firmwareDirectory: "C:/Users/Alexander/Downloads/firmware_dir" // TODO: Change this to the correct path
+
+    readonly property var listViewHighlightMoveDuration: 100
 }

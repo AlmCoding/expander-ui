@@ -5,7 +5,6 @@ import QtQuick.Controls.Material
 
 import "../components"
 
-
 Rectangle {
     color: "lightgray"
 
@@ -19,6 +18,7 @@ Rectangle {
             model: rootStore.i2cStore.i2cLogModel // listModel
             delegate: I2cLogListComponent {}
             highlight: Rectangle { color: "#00BCD4"; radius: 0 }
+            highlightMoveDuration: constants.listViewHighlightMoveDuration
             focus: true
             currentIndex: rootStore.i2cStore.i2cLogModel.selectedLogIdx
         }
