@@ -1,6 +1,7 @@
 #ifndef I2CREQUESTSTATUS_H
 #define I2CREQUESTSTATUS_H
 
+#include <QDataStream>
 #include <QString>
 #include "plugins/containers/i2c/i2ctypes.h"
 
@@ -19,6 +20,9 @@ class I2cRequestStatus {
     I2cTypes::StatusCode getStatusCode() const { return status_code_; }
     QString getReadData() const { return read_data_; }
     QString getReadSize() const;
+
+    friend QDataStream& operator<<(QDataStream& out, const I2cRequestStatus& request);
+    friend QDataStream& operator>>(QDataStream& in, I2cRequestStatus& request);
 
    private:
     int request_id_ = -1;

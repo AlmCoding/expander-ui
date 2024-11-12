@@ -17,12 +17,13 @@ Item {
         drag.axis: Drag.YAxis
 
         onPressed: function() {
-            console.log("onPressed: " + model.index);
+            // console.log("onPressed: " + model.index);
             rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = model.index;
             rootStore.i2cStore.i2cRequestForm.visible = false;
+            held = true;
         }
         onPressAndHold: function() {
-            held = true;
+            // held = true;
         }
         onReleased: function() {
             held = false;
@@ -35,9 +36,12 @@ Item {
             }
 
             onEntered: function(drag) {
-                console.log("move item: " + drag.source.DelegateModel.itemsIndex + " -> " + dragArea.DelegateModel.itemsIndex);
-                visualModel.items.move(drag.source.DelegateModel.itemsIndex, dragArea.DelegateModel.itemsIndex);
-                // model.moveItNow(drag.source.DelegateModel.itemsIndex, dragArea.DelegateModel.itemsIndex);
+                var from = drag.source.DelegateModel.itemsIndex;
+                var to = dragArea.DelegateModel.itemsIndex;
+                console.log("Move item: " + from + " -> " + to);
+
+                visualModel.items.move(from, to);
+                rootStore.i2cStore.i2cRequestModel.myMoveRow(from, to);
             }
         }
 

@@ -2,6 +2,7 @@
 #define I2CREQUESTMODEL_H
 
 #include <QAbstractListModel>
+#include <QMimeData>
 #include <QString>
 #include "plugins/containers/i2c/i2crequest.h"
 
@@ -16,18 +17,25 @@ class I2cRequestModel : public QAbstractListModel {
     explicit I2cRequestModel(QObject* parent = nullptr);
 
     Qt::ItemFlags flags(const QModelIndex& index) const override;
-    Qt::DropActions supportedDropActions() const override;
+    // Qt::DropActions supportedDropActions() const override;
+    // QStringList mimeTypes() const override;
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex& index, int role) const override;
     bool moveRows(const QModelIndex& sourceParent, int sourceRow, int count, const QModelIndex& destinationParent,
                   int destinationChild) override;
-    bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    // bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    // bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+    // QMimeData* mimeData(const QModelIndexList& indexes) const override;
+    // bool canDropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
+    //                      const QModelIndex& parent) const override;
+    // bool dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
+    //                   const QModelIndex& parent) override;
 
     int getSelectedRequestIdx() const { return selected_request_idx_; }
+    Q_INVOKABLE void myMoveRow(int from, int to) { moveRows(QModelIndex(), from, 1, QModelIndex(), to); }
 
    public slots:
-    // void moveItNow(int from, int to) { moveRows(QModelIndex(), from, 1, QModelIndex(), to); }
     void addNewRequest(int template_req_idx);
     void deleteRequest(int request_idx);
 

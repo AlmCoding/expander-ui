@@ -30,6 +30,9 @@ class I2cRequest {
     QString getReadSize() const { return read_size_; }
     I2cRequestStatus getStatus() const { return status_; }
 
+    friend QDataStream& operator<<(QDataStream& out, const I2cRequest& request);
+    friend QDataStream& operator>>(QDataStream& in, I2cRequest& request);
+
    private:
     int request_id_ = -1;
     I2cTypes::I2cId i2c_id_ = I2cTypes::I2cId::Undefined;

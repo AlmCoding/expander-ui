@@ -10,3 +10,31 @@ QString I2cRequest::getWriteSize() const {
     QString size_str = QString::number(size / 2);
     return size_str;
 }
+
+QDataStream& operator<<(QDataStream& out, const I2cRequest& request) {
+    out << request.request_id_                //
+        << static_cast<int>(request.i2c_id_)  //
+        << static_cast<int>(request.type_)    //
+        << request.name_                      //
+        << request.slave_addr_                //
+        << request.write_data_                //
+        << request.read_size_                 //
+        << request.status_;
+    return out;
+}
+
+QDataStream& operator>>(QDataStream& in, I2cRequest& request) {
+    int i2c_id;
+    int type;
+    in >> request.request_id_   //
+        >> i2c_id               //
+        >> type                 //
+        >> request.name_        //
+        >> request.slave_addr_  //
+        >> request.write_data_  //
+        >> request.read_size_   //
+        >> request.status_;
+    request.i2c_id_ = static_cast<I2cTypes::I2cId>(i2c_id);
+    request.type_ = static_cast<I2cTypes::I2cReqestType>(type);
+    return in;
+}
