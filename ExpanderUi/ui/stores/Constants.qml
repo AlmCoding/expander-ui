@@ -1,6 +1,11 @@
 import QtQuick
+import expander.utility
 
 Item {
+    property Utility utility: Utility {
+        id: utility
+    }
+
     readonly property color primaryColor: "lightblue"
 
     // For slave address allow only hex numbers no larger than 10 bits
@@ -12,7 +17,7 @@ Item {
     // For read size allow dec numbers
     readonly property var regExpReadSize: new  RegExp(/^(12[0-8]|1[01][0-9]|[1-9]?[0-9])$/)
 
-    readonly property string firmwareDirectory: "C:/Users/Alexander/Downloads/firmware_dir" // TODO: Change this to the correct path
+    readonly property string firmwareDirectory: utility.appDataPath() + "/firmware"
 
-    readonly property var listViewHighlightMoveDuration: 100
+    readonly property int listViewHighlightMoveDuration: 100
 }
