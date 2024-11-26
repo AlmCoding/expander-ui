@@ -1,4 +1,5 @@
 #include <QGuiApplication>
+#include <QIcon>
 #include <QQmlApplicationEngine>
 
 #include "plugins/containers/com/installertypes.h"
@@ -12,9 +13,11 @@
 #include "plugins/i2clogmodel.h"
 #include "plugins/i2crequestmodel.h"
 #include "plugins/utility.h"
+#include "version.h"
 
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
+    qSetMessagePattern("[%{type}] (%{file}:%{line}) - %{message}");
 
     qmlRegisterUncreatableMetaObject(InstallerTypes::staticMetaObject, "expander.containers.types", 1, 0,
                                      "InstallerTypes", "Error: InstallerTypes");
@@ -39,6 +42,10 @@ int main(int argc, char* argv[]) {
         &engine, &QQmlApplicationEngine::objectCreationFailed, &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
+
+    app.setWindowIcon(QIcon("ExpanderUi/ui/resources/images/icon.png"));
+    app.setApplicationVersion(
+        QString("V%1.%2.%3").arg(PROJECT_VERSION_MAJOR).arg(PROJECT_VERSION_MINOR).arg(PROJECT_VERSION_PATCH));
 
     return app.exec();
 }

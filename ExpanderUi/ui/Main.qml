@@ -7,7 +7,6 @@ import "views"
 import "stores"
 import "panels"
 
-
 Window {
     id: root
     Material.theme: Material.Light
@@ -16,7 +15,7 @@ Window {
     width: 1920 / 2
     height: 1080 * 3 / 4
     visible: true
-    title: qsTr("Interface Expander")
+    title: qsTr("Interface Expander - ") + Qt.application.version
 
     Constants {
         id: constants

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ExpanderUi VERSION 0.1 LANGUAGES CXX)
+project(ExpanderUi VERSION 0.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -10,6 +10,16 @@ qt_standard_project_setup()
 
 qt_add_executable(appExpanderUi
     main.cpp
+)
+
+# Generate a header file with version information
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/plugins/version.h.in"  # Input file
+    "${CMAKE_CURRENT_BINARY_DIR}/plugins/version.h"    # Output file
+    @ONLY
+)
+target_include_directories(appExpanderUi PRIVATE
+    "${CMAKE_CURRENT_BINARY_DIR}/plugins"
 )
 
 qt_add_qml_module(appExpanderUi
@@ -41,6 +51,7 @@ qt_add_qml_module(appExpanderUi
         ui/stores/RootStore.qml
         ui/stores/I2cStore.qml
     RESOURCES
+        ui/resources/images/icon.png
         ui/resources/images/edit_button.png
         ui/resources/images/play_100.png
         ui/resources/images/play_square_100.png

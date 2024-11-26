@@ -5,7 +5,6 @@ import QtQuick.Controls.Material
 
 import "../panels"
 
-
 Rectangle {
     anchors.fill: parent
     color: "lightgray"

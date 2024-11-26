@@ -5,7 +5,6 @@ import QtQuick.Controls.Material
 import expander.forms
 import expander.containers.types
 
-
 ColumnLayout {
     spacing: 5
     property var i2cConfigForm

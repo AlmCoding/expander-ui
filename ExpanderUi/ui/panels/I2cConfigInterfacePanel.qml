@@ -4,7 +4,6 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 import expander.containers.types
 
-
 Rectangle {
     color: "white"
 
