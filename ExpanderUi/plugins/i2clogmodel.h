@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include "plugins/containers/i2c/i2cnotification.h"
 #include "plugins/containers/i2c/i2crequest.h"
-#include "plugins/i2clog.h"
+#include "plugins/containers/i2c/i2clog.h"
 
 class I2cLogModel : public QAbstractListModel {
     Q_OBJECT

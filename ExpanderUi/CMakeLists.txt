@@ -62,7 +62,6 @@ qt_add_qml_module(appExpanderUi
 
     # plugins
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
-    SOURCES plugins/i2clog.h plugins/i2clog.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
     SOURCES plugins/utility.h plugins/utility.cpp
 
@@ -74,6 +73,7 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/containers/i2c/i2cconfigstatus.h plugins/containers/i2c/i2cconfigstatus.cpp
     SOURCES plugins/containers/i2c/i2crequeststatus.h plugins/containers/i2c/i2crequeststatus.cpp
     SOURCES plugins/containers/i2c/i2cnotification.h plugins/containers/i2c/i2cnotification.cpp
+    SOURCES plugins/containers/i2c/i2clog.h plugins/containers/i2c/i2clog.cpp
     SOURCES plugins/containers/ctrl/ctrltypes.h
     SOURCES plugins/containers/ctrl/ctrlrequest.h plugins/containers/ctrl/ctrlrequest.cpp
     SOURCES plugins/containers/ctrl/deviceinfo.h plugins/containers/ctrl/deviceinfo.cpp
