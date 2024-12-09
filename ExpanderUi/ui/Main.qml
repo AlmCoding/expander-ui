@@ -88,6 +88,7 @@ Window {
         anchors.centerIn: Overlay.overlay
         title: "Update Available"
         modal: true
+        closePolicy: Popup.NoAutoClose
         standardButtons: Dialog.Ok
 
         ColumnLayout {
@@ -110,13 +111,8 @@ Window {
         }
 
         onAccepted: {
-            console.log("onAccepted");
             updateDialog.close()
         }
-
-        // Component.onCompleted: {
-        //    updateDialog.open();
-        // }
 
         Connections {
             target: rootStore.updateManager
