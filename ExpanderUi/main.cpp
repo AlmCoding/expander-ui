@@ -12,6 +12,7 @@
 #include "plugins/forms/i2crequestform.h"
 #include "plugins/i2clogmodel.h"
 #include "plugins/i2crequestmodel.h"
+#include "plugins/updatemanager.h"
 #include "plugins/utility.h"
 #include "version.h"
 
@@ -24,7 +25,8 @@ int main(int argc, char* argv[]) {
     qmlRegisterUncreatableMetaObject(I2cTypes::staticMetaObject, "expander.containers.types", 1, 0, "I2cTypes",
                                      "Error: I2cTypes");
 
-    qmlRegisterType<Utility>("expander.utility", 1, 0, "Utility");
+    qmlRegisterType<Utility>("expander.Utility", 1, 0, "Utility");
+    qmlRegisterType<UpdateManager>("expander.UpdateManager", 1, 0, "UpdateManager");
     qmlRegisterType<I2cConfigForm>("expander.forms", 1, 0, "I2cConfigForm");
     qmlRegisterType<I2cRequestForm>("expander.forms", 1, 0, "I2cRequestForm");
 

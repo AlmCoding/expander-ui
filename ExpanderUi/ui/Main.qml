@@ -82,4 +82,47 @@ Window {
             Layout.preferredHeight: 30
         }
     }
+
+    Dialog {
+        id: updateDialog
+        anchors.centerIn: Overlay.overlay
+        title: "Update Available"
+        modal: true
+        standardButtons: Dialog.Ok
+
+        ColumnLayout {
+            spacing: 10
+            anchors.fill: parent
+
+            Text {
+                Layout.topMargin: 10
+                text: "A newer version of the software is available."
+                font.pixelSize: 12
+            }
+
+            Button {
+                text: "Open Download Page"
+                onClicked: {
+                    Qt.openUrlExternally("https://github.com/AlmCoding/expander-ui/releases");
+                    updateDialog.close();
+                }
+            }
+        }
+
+        onAccepted: {
+            console.log("onAccepted");
+            updateDialog.close()
+        }
+
+        // Component.onCompleted: {
+        //    updateDialog.open();
+        // }
+
+        Connections {
+            target: rootStore.updateManager
+            function onUpdateAvailableChanged() {
+                updateDialog.open();
+            }
+        }
+    }
 }

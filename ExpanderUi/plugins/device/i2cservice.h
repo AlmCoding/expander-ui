@@ -5,15 +5,16 @@
 #include <QObject>
 #include <QPair>
 #include <QTimer>
-#include "plugins/containers/i2c/i2ctypes.h"
 #include "plugins/containers/i2c/i2cconfig.h"
 #include "plugins/containers/i2c/i2cconfigstatus.h"
 #include "plugins/containers/i2c/i2cnotification.h"
 #include "plugins/containers/i2c/i2crequest.h"
 #include "plugins/containers/i2c/i2crequeststatus.h"
+#include "plugins/containers/i2c/i2ctypes.h"
 
 class I2cService : public QObject {
     Q_OBJECT
+
    public:
     explicit I2cService(QObject* parent = nullptr);
     ~I2cService();

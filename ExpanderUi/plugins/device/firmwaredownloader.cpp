@@ -1,10 +1,20 @@
 #include "firmwaredownloader.h"
+#include <QCoreApplication>
+#include <QDebug>
+#include <QDir>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QUrl>
 
 FirmwareDownloader::FirmwareDownloader(QObject* parent) : QObject{ parent } {
     network_manager_ = new QNetworkAccessManager(this);
 }
 
-void FirmwareDownloader::setFirmwareDirectory(const QString &directory) {
+void FirmwareDownloader::setFirmwareDirectory(const QString& directory) {
     if (firmware_directory_ == directory) {
         return;
     }
@@ -19,12 +29,31 @@ void FirmwareDownloader::setFirmwareDirectory(const QString &directory) {
     fetchReleases();
 }
 
+void FirmwareDownloader::fetchReleases() {
+    QString url{ "https://api.github.com/repos/AlmCoding/expander-mcu/releases" };
+    QNetworkRequest request{ QUrl(url) };
+    request.setRawHeader("Accept", "application/vnd.github.v3+json");
+
+    QNetworkReply* reply = network_manager_->get(request);
+    connect(reply, &QNetworkReply::finished, this, &FirmwareDownloader::releasesFetched);
+}
+
+void FirmwareDownloader::downloadAsset(const QString& url, const QString& localFilePath) {
+    QNetworkRequest request{ QUrl(url) };
+    request.setRawHeader("Accept", "application/octet-stream");
+
+    QNetworkReply* reply = network_manager_->get(request);
+    reply->setProperty("localFilePath", localFilePath);
+    connect(reply, &QNetworkReply::finished, this, &FirmwareDownloader::assetDownloaded);
+}
+
 void FirmwareDownloader::releasesFetched() {
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
     if (reply == nullptr) {
         qDebug() << "Fetch reply is null!";
         return;
     }
+    qDebug() << "Firmware releases fetched";
 
     if (reply->error() == QNetworkReply::NoError) {
         QJsonDocument doc = QJsonDocument::fromJson(reply->readAll());
@@ -82,22 +111,4 @@ void FirmwareDownloader::assetDownloaded() {
         qDebug() << "Error downloading asset:" << reply->errorString();
     }
     reply->deleteLater();
-}
-
-void FirmwareDownloader::fetchReleases() {
-    QString url = "https://api.github.com/repos/AlmCoding/expander-mcu/releases";
-    QNetworkRequest request{ QUrl(url) };
-    request.setRawHeader("Accept", "application/vnd.github.v3+json");
-
-    QNetworkReply* reply = network_manager_->get(request);
-    connect(reply, &QNetworkReply::finished, this, &FirmwareDownloader::releasesFetched);
-}
-
-void FirmwareDownloader::downloadAsset(const QString &url, const QString &localFilePath) {
-    QNetworkRequest request{ QUrl(url) };
-    request.setRawHeader("Accept", "application/octet-stream");
-
-    QNetworkReply* reply = network_manager_->get(request);
-    reply->setProperty("localFilePath", localFilePath);
-    connect(reply, &QNetworkReply::finished, this, &FirmwareDownloader::assetDownloaded);
 }

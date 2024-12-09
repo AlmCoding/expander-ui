@@ -64,6 +64,7 @@ qt_add_qml_module(appExpanderUi
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
     SOURCES plugins/utility.h plugins/utility.cpp
+    SOURCES plugins/updatemanager.h plugins/updatemanager.cpp
 
     # containers
     SOURCES plugins/containers/com/installertypes.h

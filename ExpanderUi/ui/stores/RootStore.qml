@@ -1,18 +1,17 @@
 import QtQuick
 import expander.models
+import expander.UpdateManager
 import expander.InterfaceExpander
 import expander.containers.types
 import expander.FirmwareDownloader
 
 Item {
-    property ComPortModel comPortModel: ComPortModel {
-        id: comPortModel
-    }
-
-    property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
-        id: firmwareFileModel
-        firmwareDirectory: constants.firmwareDirectory
-        installedFirmwareVersion: interfaceExpander.fwVersion
+    // Check for software updates
+    property UpdateManager updateManager: UpdateManager {
+        id: updateManager
+        // onUpdateAvailableChanged: { // connection moved to Main.qml
+        //    updateDialog.open();
+        // }
     }
 
     // Download firmware from internet
@@ -22,6 +21,16 @@ Item {
         onFirmwareDownloaded: function() {
             firmwareFileModel.refresh();
         }
+    }
+
+    property FirmwareFileModel firmwareFileModel: FirmwareFileModel {
+        id: firmwareFileModel
+        firmwareDirectory: constants.firmwareDirectory
+        installedFirmwareVersion: interfaceExpander.fwVersion
+    }
+
+    property ComPortModel comPortModel: ComPortModel {
+        id: comPortModel
     }
 
     property InterfaceExpander interfaceExpander: InterfaceExpander {

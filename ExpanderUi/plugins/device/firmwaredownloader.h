@@ -1,20 +1,12 @@
 #ifndef FIRMWAREDOWNLOADER_H
 #define FIRMWAREDOWNLOADER_H
 
-#include <QCoreApplication>
-#include <QDebug>
-#include <QDir>
-#include <QFile>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
 #include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QNetworkRequest>
-#include <QUrl>
+#include <QObject>
 
 class FirmwareDownloader : public QObject {
     Q_OBJECT
+
     Q_PROPERTY(
         QString firmwareDirectory READ getFirmwareDirectory WRITE setFirmwareDirectory NOTIFY firmwareDirectoryChanged)
 

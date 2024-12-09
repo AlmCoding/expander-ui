@@ -1,5 +1,5 @@
 import QtQuick
-import expander.utility
+import expander.Utility
 
 Item {
     property Utility utility: Utility {
