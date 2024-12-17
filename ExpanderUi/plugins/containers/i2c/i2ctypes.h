@@ -13,6 +13,7 @@ enum class I2cId {
 };
 enum class ClockFreq {
     KHz10 = 0,
+    KHz40,
     KHz100,
     KHz400,
     KHz1000,

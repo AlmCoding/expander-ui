@@ -185,6 +185,9 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
         case I2cTypes::ClockFreq::KHz10:
             i2c_msg.msg.config_request.clock_freq = 10e3;
             break;
+        case I2cTypes::ClockFreq::KHz40:
+            i2c_msg.msg.config_request.clock_freq = 40e3;
+            break;
         case I2cTypes::ClockFreq::KHz100:
             i2c_msg.msg.config_request.clock_freq = 100e3;
             break;

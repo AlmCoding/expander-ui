@@ -102,7 +102,7 @@ ColumnLayout {
         ComboBox {
             Layout.preferredWidth: 150
             Layout.preferredHeight: 40
-            model: ["1 MHz", "400 kHz", "100 kHz", "10 kHz"]
+            model: ["1 MHz", "400 kHz", "100 kHz", "40 kHz", "10 kHz"]
             onCurrentIndexChanged: function() {
                 switch (currentIndex) {
                 case 0: i2cConfigForm.clockFreq = I2cTypes.KHz1000;
@@ -111,7 +111,9 @@ ColumnLayout {
                     break;
                 case 2: i2cConfigForm.clockFreq = I2cTypes.KHz100;
                     break;
-                case 3: i2cConfigForm.clockFreq = I2cTypes.KHz10;
+                case 3: i2cConfigForm.clockFreq = I2cTypes.KHz40;
+                    break;
+                case 4: i2cConfigForm.clockFreq = I2cTypes.KHz10;
                     break;
                 }
                 rootStore.applyI2cConfig();
