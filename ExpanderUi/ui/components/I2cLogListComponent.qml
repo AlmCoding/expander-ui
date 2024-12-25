@@ -168,7 +168,7 @@ Item {
             Rectangle {
                 id: statusField
                 Layout.fillHeight: true
-                Layout.preferredWidth: 60
+                Layout.preferredWidth: 90
                 Layout.alignment: Qt.AlignLeft
                 radius: rootRectangle.radius
                 color: "lightyellow"

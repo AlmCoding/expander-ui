@@ -51,8 +51,8 @@ enum class StatusCode {
     Success,
     BadRequest,
     NoSpace,
-    SlaveNoAck,
-    SlaveEarlyNack,
+    SlaveBusy,
+    SlaveNack,
     InterfaceError,
 };
 
