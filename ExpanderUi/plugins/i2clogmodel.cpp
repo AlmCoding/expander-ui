@@ -70,14 +70,24 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
     QString interface_name{ magic_enum::enum_name(request.getI2cId()).data() };
     QString status_code{ magic_enum::enum_name(request.getStatus().getStatusCode()).data() };
 
+    QString write_data;
+    QString write_size{ "0" };
+
+    if (status_code == "Success") {
+        write_data = request.getWriteData();
+        write_size = request.getWriteSize();
+    } else if (status_code == "SlaveNack") {
+        // TODO: Add slave nack data
+    }
+
     I2cLog new_log{ QDateTime::currentDateTime().toString("hh:mm:ss.zzz"),
                     interface_name,
                     request.getType(),
                     request.getName(),
                     request.getSlaveAddr(),
-                    request.getWriteData(),
+                    write_data,
                     request.getStatus().getReadData(),
-                    request.getWriteSize(),
+                    write_size,
                     request.getStatus().getReadSize(),
                     status_code };
 

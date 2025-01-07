@@ -349,7 +349,7 @@ bool I2cProtoCom::byteArrayToHexString(const QByteArray& byte_array, QString& he
     hex_string.reserve(byte_array.length() * 2 + 1);
 
     for (int i = 0; i < byte_array.length(); i++) {
-        hex_string.append(QString("%1").arg(byte_array.at(i), 2, 16, QChar('0')));
+        hex_string.append(QString("%1").arg(static_cast<unsigned char>(byte_array.at(i)), 2, 16, QChar('0')));
         hex_string.append(' ');
     }
     return true;

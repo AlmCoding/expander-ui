@@ -20,18 +20,18 @@ Rectangle {
             topMargin: 10
             leftMargin: 10
         }
-        columns: 3
+        columns: 2
         rowSpacing: 10
 
-        Label {
-            // Layout.preferredWidth: labelWidth
-            text: "Port:"
-            font.pixelSize: 12
-            font.bold: true
-        }
+        // Label {
+        //     // Layout.preferredWidth: labelWidth
+        //     text: "Port:"
+        //     font.pixelSize: 12
+        //     font.bold: true
+        // }
 
         ComboBox {
-            // Layout.preferredWidth: 150
+            Layout.preferredWidth: 160
             Layout.preferredHeight: 40
             model: rootStore.comPortModel
             textRole: "display"

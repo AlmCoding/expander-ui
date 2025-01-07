@@ -76,7 +76,7 @@ Rectangle {
         }
 
         ComboBox {
-            // Layout.preferredWidth: 150
+            Layout.preferredWidth: 160
             Layout.preferredHeight: 40
             model: rootStore.firmwareFileModel
             textRole: "display"

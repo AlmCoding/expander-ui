@@ -16,11 +16,16 @@ QVariant ComPortModel::data(const QModelIndex& index, int role) const {
 
     const QSerialPortInfo& port = ports_.at(index.row());
 
+    auto result = QVariant{ port.portName() };
+    if (port.serialNumber().startsWith("EXP")) {
+        result = QVariant{ port.portName() + " (" + port.serialNumber() + ")" };
+    }
+
     switch (role) {
         case Qt::DisplayRole:
-            return QVariant{ port.portName() };
+            return result;
         case Qt::EditRole:
-            return QVariant{ port.portName() };
+            return result;
         default:
             return QVariant{};
     }
