@@ -2,9 +2,15 @@
 #define I2CREQUESTMODEL_H
 
 #include <QAbstractListModel>
+#include <QFont>
+#include <QFontMetrics>
 #include <QMimeData>
 #include <QString>
 #include "plugins/containers/i2c/i2crequest.h"
+
+constexpr int RequestNameMaxWidth = 180;
+constexpr int RequestDataMaxChars = 30;
+constexpr int RequestDataMaxWidth = 160;
 
 class I2cRequestModel : public QAbstractListModel {
     Q_OBJECT
@@ -67,10 +73,14 @@ class I2cRequestModel : public QAbstractListModel {
         { NameRole, "name" },           { TypeRole, "type" }, { SlaveAddrRole, "slaveAddr" },
         { WriteDataRole, "writeData" }, { SizeRole, "size" },
     };
+    QString truncateNameString(const QString& str) const;
+    QString truncateDataString(const QString& str) const;
 
     QList<I2cRequest> requests_;
     int selected_request_idx_ = 0;
     QString file_path_;
+
+    QFontMetrics font_metrics_{ QFont{ "Roboto", 12, QFont::Bold } };
 };
 
 #endif  // I2CREQUESTMODEL_H

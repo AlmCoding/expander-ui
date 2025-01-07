@@ -34,13 +34,13 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
 
     switch (role) {
         case NameRole:
-            return QVariant{ request.getName() };
+            return QVariant{ truncateNameString(request.getName()) };
         case TypeRole:
             return QVariant{ type_name };
         case SlaveAddrRole:
             return QVariant{ request.getSlaveAddr() };
         case WriteDataRole:
-            return QVariant{ request.getWriteData() };
+            return QVariant{ truncateDataString(request.getWriteData()) };
         case SizeRole:
             return QVariant{ request.getWriteSize() + "+" + request.getReadSize() };
         default:
@@ -296,4 +296,24 @@ void I2cRequestModel::clear() {
     QAbstractItemModel::beginResetModel();
     requests_.clear();
     QAbstractItemModel::endResetModel();
+}
+
+QString I2cRequestModel::truncateNameString(const QString& str) const {
+    QString elided_text = font_metrics_.elidedText(str, Qt::ElideRight, RequestNameMaxWidth);
+    return elided_text;
+}
+
+QString I2cRequestModel::truncateDataString(const QString& str) const {
+    QString truncated = str.left(RequestDataMaxChars);
+    while (font_metrics_.horizontalAdvance(truncated) > RequestDataMaxWidth) {
+        int excess_len = truncated.size() % 3;
+        if (excess_len == 0) {
+            excess_len = 3;
+        }
+        truncated.chop(excess_len);
+    }
+    if (truncated.size() < str.size()) {
+        truncated.append("...");
+    }
+    return truncated;
 }
