@@ -1,7 +1,8 @@
 #include "i2crequeststatus.h"
 
-I2cRequestStatus::I2cRequestStatus(int request_id, I2cTypes::StatusCode status_code, const QString& read_data)
-    : request_id_{ request_id }, status_code_{ status_code }, read_data_{ read_data } {}
+I2cRequestStatus::I2cRequestStatus(int request_id, I2cTypes::StatusCode status_code, int nack_idx,
+                                   const QString& read_data)
+    : request_id_{ request_id }, status_code_{ status_code }, nack_idx_{ nack_idx }, read_data_{ read_data } {}
 
 QString I2cRequestStatus::getReadSize() const {
     QString read_data = read_data_;
@@ -14,6 +15,7 @@ QDataStream& operator<<(QDataStream& out, const I2cRequestStatus& request) {
     out << request.request_id_                     //
         << static_cast<int>(request.i2c_id_)       //
         << static_cast<int>(request.status_code_)  //
+        << request.nack_idx_                       //
         << request.read_data_;                     //
     return out;
 }
@@ -24,6 +26,7 @@ QDataStream& operator>>(QDataStream& in, I2cRequestStatus& request) {
     in >> request.request_id_   //
         >> i2c_id               //
         >> status_code          //
+        >> request.nack_idx_    //
         >> request.read_data_;  //
     request.i2c_id_ = static_cast<I2cTypes::I2cId>(i2c_id);
     request.status_code_ = static_cast<I2cTypes::StatusCode>(status_code);

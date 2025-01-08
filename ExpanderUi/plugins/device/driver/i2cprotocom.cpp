@@ -62,6 +62,7 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cMasterStatus(const i2c_proto_I2cMsg&
     I2cTypes::I2cId interface_id = static_cast<I2cTypes::I2cId>(i2c_msg.i2c_id);
     int request_id = i2c_msg.msg.master_status.request_id;
     I2cTypes::StatusCode status_code = static_cast<I2cTypes::StatusCode>(i2c_msg.msg.master_status.status_code);
+    int nack_idx = i2c_msg.msg.master_status.nack_idx;
     QByteArray read_data{ reinterpret_cast<const char*>(i2c_msg.msg.master_status.read_data.bytes),
                           i2c_msg.msg.master_status.read_data.size };
 
@@ -74,12 +75,14 @@ I2cTypes::MessageType I2cProtoCom::decodeI2cMasterStatus(const i2c_proto_I2cMsg&
     request_status.setI2cId(interface_id);
     request_status.setRequestId(request_id);
     request_status.setStatusCode(status_code);
+    request_status.setNackIdx(nack_idx);
     request_status.setReadData(read_data_hex);
 
     qDebug("Received I2C master response!");
     qDebug("  I2c ID: %s", magic_enum::enum_name(interface_id).data());
     qDebug("  Request ID: %d", request_status.getRequestId());
     qDebug("  Status: %s", magic_enum::enum_name(request_status.getStatusCode()).data());
+    qDebug("  Nack idx: %d", nack_idx);
     qDebug("  Read data: %s", qPrintable(request_status.getReadData()));
     return I2cTypes::MessageType::MasterStatus;
 }

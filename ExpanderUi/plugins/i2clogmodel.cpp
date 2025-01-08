@@ -71,13 +71,32 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
     QString status_code{ magic_enum::enum_name(request.getStatus().getStatusCode()).data() };
 
     QString write_data;
-    QString write_size{ "0" };
+    QString write_size;
+    QString read_data;
+    QString read_size;
 
     if (status_code == "Success") {
         write_data = request.getWriteData();
         write_size = request.getWriteSize();
+        read_data = request.getStatus().getReadData();
+        read_size = request.getStatus().getReadSize();
+
     } else if (status_code == "SlaveNack") {
-        // TODO: Add slave nack data
+        write_data = request.getWriteData();
+        write_data.insert(request.getStatus().getNackIdx() * 2, "<del>");
+        write_data.append("</del>");
+        if (request.getStatus().getNackIdx() == 0) {
+            write_size = "0/" + request.getWriteSize();
+        } else {
+            write_size = QString::number(request.getStatus().getNackIdx() - 1) + "/" + request.getWriteSize();
+        }
+
+        read_data = request.getStatus().getReadData();
+        read_size = request.getStatus().getReadSize() + "/" + request.getReadSize();
+
+    } else if (status_code == "SlaveBusy") {
+        write_size = "0/" + request.getWriteSize();
+        read_size = "0/" + request.getReadSize();
     }
 
     I2cLog new_log{ QDateTime::currentDateTime().toString("hh:mm:ss.zzz"),
@@ -86,9 +105,9 @@ void I2cLogModel::appendNewLog(const I2cRequest& request) {
                     request.getName(),
                     request.getSlaveAddr(),
                     write_data,
-                    request.getStatus().getReadData(),
+                    read_data,
                     write_size,
-                    request.getStatus().getReadSize(),
+                    read_size,
                     status_code };
 
     QAbstractItemModel::beginInsertRows(QModelIndex(), logs_.size(), logs_.size());
