@@ -5,7 +5,7 @@ import QtQuick.Controls.Material
 
 Rectangle {
     id: footer
-    color: "#00BCD4"
+    color: constants.primaryColor
 
     RowLayout {
         id: rowLayout

@@ -21,7 +21,7 @@ Rectangle {
             id: spacingRect
             Layout.fillWidth: true
             Layout.preferredHeight: 5
-            color: "#00BCD4"
+            color: constants.primaryColor
         }
 
         I2cRequestListPanel {

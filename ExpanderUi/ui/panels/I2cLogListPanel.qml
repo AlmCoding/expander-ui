@@ -17,7 +17,7 @@ Rectangle {
             anchors.fill: parent
             model: rootStore.i2cStore.i2cLogModel // listModel
             delegate: I2cLogListComponent {}
-            highlight: Rectangle { color: "#00BCD4"; radius: 0 }
+            highlight: Rectangle { color: constants.primaryColor; radius: 0 }
             highlightMoveDuration: constants.listViewHighlightMoveDuration
             focus: true
             currentIndex: rootStore.i2cStore.i2cLogModel.selectedLogIdx

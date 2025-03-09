@@ -40,7 +40,7 @@ ColumnLayout {
                 id: requestList
                 anchors.fill: parent
                 model: visualModel
-                highlight: Rectangle { color: "#00BCD4"; radius: 0 }
+                highlight: Rectangle { color: constants.primaryColor; radius: 0 }
                 highlightMoveDuration: constants.listViewHighlightMoveDuration
                 focus: true
                 currentIndex: rootStore.i2cStore.i2cRequestModel.selectedRequestIdx

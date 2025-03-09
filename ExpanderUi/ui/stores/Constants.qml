@@ -6,7 +6,7 @@ Item {
         id: utility
     }
 
-    readonly property color primaryColor: "lightblue"
+    readonly property color primaryColor: "#00BCD4" //"teal"
 
     // For slave address allow only hex numbers no larger than 10 bits
     readonly property var regExpSlaveAddress: new RegExp(/^0x[0-3][0-9A-Fa-f]{2}$|^0x[0-9A-Fa-f]{2}$/)

@@ -10,7 +10,7 @@ import "panels"
 Window {
     id: root
     Material.theme: Material.Light
-    Material.accent: Material.Cyan
+    Material.accent: Material.Cyan // Teal
 
     width: 1920 / 2
     height: 1080 * 3 / 4
@@ -48,7 +48,7 @@ Window {
             id: background
             Layout.fillWidth: true
             Layout.preferredHeight: parent.height - tabBar.height - footer.height
-            color: "#00BCD4"
+            color: constants.primaryColor
             // color: "black"
 
             StackLayout {
