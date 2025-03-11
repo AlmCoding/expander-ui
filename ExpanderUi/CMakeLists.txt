@@ -52,7 +52,6 @@ qt_add_qml_module(appExpanderUi
         ui/stores/I2cStore.qml
     RESOURCES
         ui/resources/images/icon.png
-        ui/resources/images/edit_button.png
         ui/resources/images/play_100.png
         ui/resources/images/play_square_100.png
         ui/resources/images/play_round_90.png

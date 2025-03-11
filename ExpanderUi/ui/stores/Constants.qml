@@ -9,7 +9,7 @@ Item {
     readonly property color primaryColor: "#607D8B"
     readonly property color footerColor:  "#607D8B"
 
-    readonly property color i2c0Color: "#4CAF50"
+    readonly property color i2c0Color: "#00D482" //"#4CAF50"
     readonly property color i2c1Color: "#CDDC39"
     readonly property color masterColor: "lightgray"
     readonly property color slaveColor: "#FFC107"

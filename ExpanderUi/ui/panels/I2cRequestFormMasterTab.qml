@@ -83,6 +83,7 @@ ColumnLayout {
             Layout.preferredWidth: 100
             Layout.preferredHeight: 40
             text: rootStore.i2cStore.i2cRequestForm.writeSize
+            placeholderText: "DEC"
             enabled: false
         }
 
@@ -102,7 +103,7 @@ ColumnLayout {
             Layout.preferredWidth: 80
             Layout.preferredHeight: 40
             text: rootStore.i2cStore.i2cRequestForm.readSize
-            placeholderText: "DEC (42)"
+            placeholderText: "DEC"
             validator: RegularExpressionValidator {
                 // Allow only hex numbers no larger than 10 bits
                 regularExpression: constants.regExpReadSize

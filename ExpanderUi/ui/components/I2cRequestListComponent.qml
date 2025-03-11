@@ -165,7 +165,8 @@ Item {
                         anchors.fill: parent
                         fillMode: Image.PreserveAspectFit
                         anchors.margins: 4
-                        source: "/ExpanderUi/ui/resources/images/play_square_100.png"
+                        //source: "/ExpanderUi/ui/resources/images/play_square_100.png"
+                        source: "/ExpanderUi/ui/resources/images/play_round_90.png"
                     }
 
                     MouseArea {
