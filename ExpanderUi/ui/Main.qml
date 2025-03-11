@@ -10,7 +10,7 @@ import "panels"
 Window {
     id: root
     Material.theme: Material.Light
-    Material.accent: Material.Cyan // Teal
+    Material.accent: "#607D8B" //LightBlue // Cyan
 
     width: 1920 / 2
     height: 1080 * 3 / 4

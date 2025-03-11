@@ -55,11 +55,11 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
-                        color: "lightblue"
+                        color: (model.interface === "I2c0") ? constants.i2c0Color : constants.i2c1Color
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: "<b>" + model.interface + "</b>"
+                            text: (model.interface === "I2c0") ? "<b>I2c1</b>" :  "<b>I2c2</b>"
                         }
                     }
 
@@ -70,11 +70,11 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
-                        color: "lightyellow"
+                        color: (model.type === "MR") ? constants.masterColor : constants.slaveColor
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
-                            text: model.type
+                            text: "<b>" + model.type + "</b>"
                         }
                     }
                 }
@@ -171,7 +171,7 @@ Item {
                 Layout.preferredWidth: 90
                 Layout.alignment: Qt.AlignLeft
                 radius: rootRectangle.radius
-                color: "lightyellow"
+                color: constants.statusField
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter

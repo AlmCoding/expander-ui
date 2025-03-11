@@ -5,7 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Material
 
 Rectangle {
-    color: "#00BCD4"
+    color: constants.primaryColor
     property int formMargin: 5
 
     // Define action enum
