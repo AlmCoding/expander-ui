@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(ExpanderUi VERSION 1.0.0 LANGUAGES CXX)
+project(ExpanderUi VERSION 1.0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -12,7 +12,7 @@ if(WIN32)
     set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/ui/resources/images/icon.rc")
 endif()
 
-qt_add_executable(appExpanderUi
+qt_add_executable(IntExp
     main.cpp
     ${APP_ICON_RESOURCE_WINDOWS}
 )
@@ -23,11 +23,11 @@ configure_file(
     "${CMAKE_CURRENT_BINARY_DIR}/plugins/version.h"    # Output file
     @ONLY
 )
-target_include_directories(appExpanderUi PRIVATE
+target_include_directories(IntExp PRIVATE
     "${CMAKE_CURRENT_BINARY_DIR}/plugins"
 )
 
-qt_add_qml_module(appExpanderUi
+qt_add_qml_module(IntExp
     URI ExpanderUi
     VERSION 1.0
     QML_FILES
@@ -107,22 +107,22 @@ add_subdirectory(libraries/proto)
 add_subdirectory(libraries/enum)
 
 # Add CubeProgrammer_API.dll and include dir
-target_include_directories(appExpanderUi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/include)
-target_link_directories(appExpanderUi PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/lib)
+target_include_directories(IntExp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/include)
+target_link_directories(IntExp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/lib)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/lib/ DESTINATION .)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
-set_target_properties(appExpanderUi PROPERTIES
-#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.appExpanderUi
+set_target_properties(IntExp PROPERTIES
+#    MACOSX_BUNDLE_GUI_IDENTIFIER com.example.IntExp
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
 
-target_link_libraries(appExpanderUi
+target_link_libraries(IntExp
     PRIVATE
         Qt6::Quick
         Qt6::SerialPort
@@ -133,7 +133,7 @@ target_link_libraries(appExpanderUi
 )
 
 include(GNUInstallDirs)
-install(TARGETS appExpanderUi
+install(TARGETS IntExp
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
