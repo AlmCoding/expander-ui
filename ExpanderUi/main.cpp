@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
         Qt::QueuedConnection);
     engine.load(url);
 
-    app.setWindowIcon(QIcon("ExpanderUi/ui/resources/images/icon.png"));
+    app.setWindowIcon(QIcon("ExpanderUi/ui/resources/images/icon.ico"));
     app.setApplicationVersion(
         QString("V%1.%2.%3").arg(PROJECT_VERSION_MAJOR).arg(PROJECT_VERSION_MINOR).arg(PROJECT_VERSION_PATCH));
 

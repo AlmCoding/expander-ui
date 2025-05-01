@@ -8,8 +8,13 @@ find_package(Qt6 6.4 REQUIRED COMPONENTS Quick SerialPort)
 
 qt_standard_project_setup()
 
+if(WIN32)
+    set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/ui/resources/images/icon.rc")
+endif()
+
 qt_add_executable(appExpanderUi
     main.cpp
+    ${APP_ICON_RESOURCE_WINDOWS}
 )
 
 # Generate a header file with version information
@@ -51,7 +56,7 @@ qt_add_qml_module(appExpanderUi
         ui/stores/RootStore.qml
         ui/stores/I2cStore.qml
     RESOURCES
-        ui/resources/images/icon.png
+        ui/resources/images/icon.ico
         ui/resources/images/play_100.png
         ui/resources/images/play_square_100.png
         ui/resources/images/play_round_90.png
