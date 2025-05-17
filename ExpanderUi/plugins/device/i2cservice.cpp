@@ -163,7 +163,7 @@ void I2cService::checkTimeouts() {
             }
             qDebug() << "Timeout for request with request_id:" << request_id;
             iter = timeout_list_.erase(iter);
-            // TODO: emit timeout signal
+            emit requestTimeout();
         } else {
             ++iter;
         }

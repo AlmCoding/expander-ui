@@ -75,6 +75,7 @@ void DeviceManager::run() {
     connect(serial_port_, &QSerialPort::errorOccurred, this, [this](QSerialPort::SerialPortError error) {
         if (error != QSerialPort::SerialPortError::NoError) {
             qDebug() << "Serial port error: " << error;
+            emit statusMessageChanged("[ERROR] Device not reachable!");
             closePort();
         }
     });
@@ -89,7 +90,8 @@ void DeviceManager::run() {
                 if (serial_port_ != nullptr && serial_port_->isOpen() == true) {
                     serial_port_->write(data);
                 } else {
-                    emit statusMessageChanged("[ERR] Device not connected");
+                    qDebug() << "Device not connected!";
+                    emit statusMessageChanged("[ERROR] Device not connected!");
                 }
             });
 
@@ -102,6 +104,9 @@ void DeviceManager::run() {
 
     connect(firmware_installer_, &FirmwareInstaller::stateChanged, this,
             [this](InstallerTypes::State state) { emit installerStateChanged(state); });
+
+    connect(i2c_service_, &I2cService::requestTimeout, this,
+            [this]() { emit statusMessageChanged("[ERROR] Request timeout!"); });
 
     timer_ = new QTimer{ this };
     connect(timer_, &QTimer::timeout, this, &DeviceManager::triggerEcho);

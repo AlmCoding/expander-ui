@@ -4,6 +4,8 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     com_thread_ = new QThread{ this };
     device_manager_ = new DeviceManager{ nullptr };
     device_manager_->moveToThread(com_thread_);
+    status_timer_ = new QTimer{ this };
+    status_timer_->setSingleShot(true);
 
     connect(this, &InterfaceExpander::openPort, device_manager_, &DeviceManager::openPort);
     connect(this, &InterfaceExpander::closePort, device_manager_, &DeviceManager::closePort);
@@ -14,8 +16,14 @@ InterfaceExpander::InterfaceExpander(QObject* parent) : QObject{ parent } {
     connect(this, &InterfaceExpander::requestI2c, device_manager_, &DeviceManager::sendI2cRequest);
 
     connect(device_manager_, &DeviceManager::statusMessageChanged, this, [this](QString message) {
+        status_timer_->start(3000);
         status_message_ = message;
-        emit statusMessageChanged(message);
+        emit statusMessageChanged(status_message_);
+    });
+
+    connect(status_timer_, &QTimer::timeout, this, [this]() {
+        status_message_ = "";
+        emit statusMessageChanged(status_message_);
     });
 
     connect(device_manager_, &DeviceManager::openStateChanged, this, [this](bool open) {

@@ -6,6 +6,7 @@
 #include <QSerialPortInfo>
 #include <QString>
 #include <QThread>
+#include <QTimer>
 #include "plugins/containers/com/installertypes.h"
 #include "plugins/containers/i2c/i2cconfig.h"
 #include "plugins/containers/i2c/i2crequest.h"
@@ -81,6 +82,7 @@ class InterfaceExpander : public QObject {
     QString git_hash_{ "N/A" };
     InstallerTypes::State installer_state_ = InstallerTypes::State::Idle;
     QString status_message_;
+    QTimer* status_timer_ = nullptr;
 
     I2cLogModel* log_model_ = nullptr;
 };
