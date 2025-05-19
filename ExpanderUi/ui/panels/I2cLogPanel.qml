@@ -79,7 +79,7 @@ Rectangle {
         I2cRequestFormPanel {
             id: requestForm
             Layout.fillWidth: true
-            Layout.preferredHeight: 270
+            Layout.preferredHeight: 310 //270
             Layout.topMargin: formMargin
             visible: rootStore.i2cStore.i2cRequestForm.visible
         }

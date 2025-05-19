@@ -7,9 +7,19 @@ void I2cRequestForm::setVisible(bool visible) {
     emit visibleChanged(visible_);
 }
 
-void I2cRequestForm::setExternalUpdate(bool externalUpdate) {
-    external_update_ = externalUpdate;
+void I2cRequestForm::setExternalUpdate(bool external_update) {
+    external_update_ = external_update;
     emit externalUpdateChanged(external_update_);
+}
+
+void I2cRequestForm::setHexUpdate(bool hex_update) {
+    hex_update_ = hex_update;
+    emit hexUpdateChanged(hex_update_);
+}
+
+void I2cRequestForm::setAsciiUpdate(bool ascii_update) {
+    ascii_update_ = ascii_update;
+    emit asciiUpdateChanged(ascii_update_);
 }
 
 void I2cRequestForm::setType(I2cTypes::I2cReqestType type) {
@@ -44,12 +54,35 @@ void I2cRequestForm::setSlaveAddress(const QString& slave_addr) {
 }
 
 void I2cRequestForm::setWriteData(const QString& write_data) {
+    if (ascii_update_ == false) hex_update_ = true;
     write_data_ = write_data;
     emit writeDataChanged(write_data_);
+
+    if (hex_update_ == true) {
+        write_data_ascii_ = convertHexToAscii(write_data_);
+        emit writeDataAsciiChanged(write_data_ascii_);
+    }
 
     request_.setWriteData(write_data_);
     setWriteSize(request_.getWriteSize());
     if (external_update_ == false) emit requestChanged(request_);
+    hex_update_ = false;
+}
+
+void I2cRequestForm::setWriteDataAscii(const QString& write_data_ascii) {
+    if (hex_update_ == false) ascii_update_ = true;
+    write_data_ascii_ = write_data_ascii;
+    emit writeDataAsciiChanged(write_data_ascii_);
+
+    if (ascii_update_ == true) {
+        write_data_ = convertAsciiToHex(write_data_ascii_);
+        emit writeDataChanged(write_data_);
+    }
+
+    request_.setWriteData(write_data_);
+    setWriteSize(request_.getWriteSize());
+    if (external_update_ == false) emit requestChanged(request_);
+    ascii_update_ = false;
 }
 
 void I2cRequestForm::setWriteSize(const QString& write_size) {
@@ -68,12 +101,17 @@ void I2cRequestForm::setReadSize(const QString& read_size) {
 void I2cRequestForm::loadRequest(const I2cRequest& request) {
     request_ = request;
 
+    external_update_ = true;
+    //hex_update_ = true;
+    //ascii_update_ = true;
     setType(request.getType());
     setName(request.getName());
     setSlaveAddress(request.getSlaveAddr());
     setWriteData(request.getWriteData());
-    setWriteSize(request.getWriteSize());
     setReadSize(request.getReadSize());
+    external_update_ = false;
+    //hex_update_ = false;
+    //ascii_update_ = false;
 }
 
 void I2cRequestForm::clearRequest() {
@@ -83,4 +121,30 @@ void I2cRequestForm::clearRequest() {
     request.setReadSize(QString{ "0" });
     loadRequest(request);
     emit requestChanged(request_);
+}
+
+QString I2cRequestForm::convertHexToAscii(const QString& hex) {
+    QStringList hex_nums = hex.split(' ', Qt::SkipEmptyParts);
+    QByteArray ascii_bytes;
+
+    for (const QString& hex_num : hex_nums) {
+        bool ok;
+        int byte = hex_num.toInt(&ok, 16);
+        if (ok == true) {
+            ascii_bytes.append(static_cast<char>(byte));
+        } else {
+            qWarning("Invalid hex byte: %s", qUtf8Printable(hex_num));
+        }
+    }
+
+    return QString::fromLatin1(ascii_bytes);
+}
+
+QString I2cRequestForm::convertAsciiToHex(const QString& ascii) {
+    QString hex;
+    for (int i = 0; i < ascii.length(); ++i) {
+        hex.append(QString::number(ascii[i].unicode(), 16).rightJustified(2, '0'));
+        hex.append(' ');
+    }
+    return hex;
 }

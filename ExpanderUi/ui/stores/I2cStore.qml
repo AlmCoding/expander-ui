@@ -26,9 +26,7 @@ Item {
         id: i2cRequestModel
         onSelectedRequestIdxChanged: function(idx) {
             console.log("Selected idx: ", idx);
-            i2cRequestForm.externalUpdate = true; // Avoid binding loop
             i2cRequestForm.loadRequest(i2cRequestModel.getSelectedRequest());
-            i2cRequestForm.externalUpdate = false;
         }
     }
 
@@ -57,9 +55,7 @@ Item {
 
     function clearRequest() {
         console.log("Clear request: ", i2cRequestModel.selectedRequestIdx);
-        i2cRequestForm.externalUpdate = true; // Avoid binding loop
         i2cRequestForm.clearRequest();
-        i2cRequestForm.externalUpdate = false;
     }
 
     property I2cLogModel i2cLogModel: I2cLogModel {

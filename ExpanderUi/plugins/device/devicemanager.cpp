@@ -178,6 +178,7 @@ void DeviceManager::sendI2cRequest(I2cRequest request) {
     QByteArray message{ 128, 0 };
     if (i2c_service_->createI2cRequestMsg(request, message) == false) {
         qDebug() << "Failed to create I2C request message!";
+        emit statusMessageChanged("[ERROR] Invalid request configuration!");
         return;
     }
 

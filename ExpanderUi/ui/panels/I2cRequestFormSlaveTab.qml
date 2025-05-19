@@ -64,6 +64,7 @@ ColumnLayout {
         TextField {
             Layout.fillWidth: true
             Layout.preferredHeight: 40
+            font.family: "Courier"
             text: rootStore.i2cStore.i2cRequestForm.writeData
             placeholderText: "HEX (aa bb cc)"
             validator: RegularExpressionValidator {
@@ -72,6 +73,7 @@ ColumnLayout {
             }
             onTextChanged: function() {
                 if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
+                        rootStore.i2cStore.i2cRequestForm.asciiUpdate === false &&
                         rootStore.i2cStore.i2cRequestForm.type === I2cTypes.SlaveConfig) {
                     rootStore.i2cStore.i2cRequestForm.writeData = text
                 }
@@ -90,6 +92,34 @@ ColumnLayout {
             text: "Bytes"
             font.pixelSize: 12
             font.bold: true
+        }
+
+        Rectangle {
+        }
+
+        TextField {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+            font.family: "Courier"
+            text: rootStore.i2cStore.i2cRequestForm.writeDataAscii
+            placeholderText: "ASCII (x Y z)"
+            //validator: RegularExpressionValidator {
+            //    // Allow only hex numbers
+            //    regularExpression: constants.regExpWriteData
+            //}
+            onTextChanged: function() {
+                if (rootStore.i2cStore.i2cRequestForm.externalUpdate === false &&
+                        rootStore.i2cStore.i2cRequestForm.hexUpdate === false &&
+                        rootStore.i2cStore.i2cRequestForm.type === I2cTypes.SlaveConfig) {
+                    rootStore.i2cStore.i2cRequestForm.writeDataAscii = text
+                }
+            }
+        }
+
+        Rectangle {
+        }
+
+        Rectangle {
         }
 
         Label {
