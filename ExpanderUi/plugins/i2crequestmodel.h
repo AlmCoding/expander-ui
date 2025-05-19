@@ -9,8 +9,8 @@
 #include "plugins/containers/i2c/i2crequest.h"
 
 constexpr int RequestNameMaxWidth = 180;
-constexpr int RequestDataMaxChars = 30;
-constexpr int RequestDataMaxWidth = 160;
+constexpr int RequestDataMaxChars = 32;
+constexpr int RequestDataMaxWidth = 180;
 
 class I2cRequestModel : public QAbstractListModel {
     Q_OBJECT

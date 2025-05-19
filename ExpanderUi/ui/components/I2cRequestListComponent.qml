@@ -104,7 +104,9 @@ Item {
                             Rectangle {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 30
-                                // color: "red"
+                                Layout.margins: 3
+                                radius: contentRectangle.radius
+                                color: (model.type === "MR") ? constants.masterColor : constants.slaveColor
                                 Text {
                                     anchors.centerIn: parent
                                     text: "<b>" + model.type + "</b>"
@@ -113,6 +115,7 @@ Item {
                             Rectangle {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 60
+                                Layout.margins: 3
                                 // color: "blue"
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
@@ -129,12 +132,12 @@ Item {
 
                             Rectangle {
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: 176 // 80
-                                radius: 5
-                                // color: "red"
+                                Layout.preferredWidth: 176
+                                Layout.margins: 3
+                                //color: "lightblue"
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
-                                    leftPadding: 8
+                                    leftPadding: 5
                                     text: "<b>Write:</b> " + model.writeData
                                     // text: ((model.type === "MR") ? "<b>Write:</b> " : "<b>Write:</b> ") + model.writeData
                                 }
@@ -143,7 +146,8 @@ Item {
                             Rectangle {
                                 Layout.fillHeight: true
                                 Layout.preferredWidth: 60
-                                // color: "blue"
+                                Layout.margins: 3
+                                //color: "lightblue"
                                 Text {
                                     anchors.verticalCenter: parent.verticalCenter
                                     text: "<b>Size:</b> " + model.size
