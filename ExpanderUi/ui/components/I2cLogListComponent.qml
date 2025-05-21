@@ -37,7 +37,7 @@ Item {
 
                     Rectangle {
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 140 - 6
+                        Layout.preferredWidth: 140
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: "lightgray"
@@ -51,7 +51,7 @@ Item {
                     Rectangle {
                         id: interfaceNum
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 40 - 6
+                        Layout.preferredWidth: 40 - 3
                         Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
@@ -66,7 +66,7 @@ Item {
                     Rectangle {
                         id: logType
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 40 - 6
+                        Layout.preferredWidth: 40 - 3
                         Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
@@ -90,8 +90,9 @@ Item {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 140
                         Layout.alignment: Qt.AlignLeft
-                        color: "white"
+                        Layout.margins: 3
                         radius: rootRectangle.radius
+                        color: "white"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
@@ -102,11 +103,12 @@ Item {
                     Rectangle {
                         Layout.fillHeight: true
                         Layout.preferredWidth: 80
+                        Layout.alignment: Qt.AlignLeft
+                        Layout.margins: 3
                         color: "white"
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            // text: "<b>Slave:</b> " + model.slaveAddr
+                            leftPadding: 5
                             text: (model.type === "MR") ? ("<b>Slave:</b> " + model.slaveAddr) : ""
                         }
                     }
@@ -171,7 +173,7 @@ Item {
                 Layout.preferredWidth: 90
                 Layout.alignment: Qt.AlignLeft
                 radius: rootRectangle.radius
-                color: constants.statusField
+                color: (model.status === "Success") ? constants.statusFieldSuccess : constants.statusFieldWarning
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter

@@ -103,7 +103,7 @@ ColumnLayout {
             Layout.preferredHeight: 40
             font.family: "Courier"
             text: rootStore.i2cStore.i2cRequestForm.writeDataAscii
-            placeholderText: "ASCII (x Y z)"
+            placeholderText: "ASCII (xYz)"
             //validator: RegularExpressionValidator {
             //    // Allow only hex numbers
             //    regularExpression: constants.regExpWriteData

@@ -13,7 +13,8 @@ Item {
     readonly property color i2c1Color: "#CDDC39"
     readonly property color masterColor: "lightgray"
     readonly property color slaveColor: "#FFC107"
-    readonly property color statusField: "#B0BEC5"
+    readonly property color statusFieldSuccess: "#B0BEC5"
+    readonly property color statusFieldWarning: "#FFC107"
 
     // For slave address allow only hex numbers no larger than 10 bits
     readonly property var regExpSlaveAddress: new RegExp(/^0x[0-3][0-9A-Fa-f]{2}$|^0x[0-9A-Fa-f]{2}$/)
