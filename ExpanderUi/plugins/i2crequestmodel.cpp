@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QVariant>
 #include "plugins/containers/i2c/i2ctypes.h"
+#include "utility.h"
 
 I2cRequestModel::I2cRequestModel(QObject* parent) : QAbstractListModel{ parent } {}
 
@@ -40,7 +41,8 @@ QVariant I2cRequestModel::data(const QModelIndex& index, int role) const {
         case SlaveAddrRole:
             return QVariant{ request.getSlaveAddr() };
         case WriteDataRole:
-            return QVariant{ truncateDataString(request.getWriteData()) };
+            // return QVariant{ truncateDataString(request.getWriteData()) };
+            return QVariant{ truncateDataString(Utility::convertHexToAscii(request.getWriteData())) };
         case SizeRole:
             return QVariant{ request.getWriteSize() + "+" + request.getReadSize() };
         default:

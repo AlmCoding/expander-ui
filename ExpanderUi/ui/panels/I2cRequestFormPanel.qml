@@ -26,9 +26,13 @@ Rectangle {
             }
 
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: qsTr("Master Request")
             }
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: qsTr("Slave Config")
             }
         }

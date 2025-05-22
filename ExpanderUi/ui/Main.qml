@@ -34,12 +34,18 @@ Window {
             Layout.fillWidth: true
 
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: qsTr("I2C")
             }
             // TabButton {
-            //     text: qsTr("SPI")
+            //     //font.bold: true
+            //     font.pointSize: constants.tabButtonTextSize
+            //     text: qsTr("<b>SPI</b>")
             // }
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: qsTr("Settings")
             }
         }

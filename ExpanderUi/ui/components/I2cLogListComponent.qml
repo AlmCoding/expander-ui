@@ -157,12 +157,30 @@ Item {
 
                     Rectangle {
                         Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        color: "white"
+                        Layout.preferredWidth: 75
+                        //color: "lightblue"
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Write (" + writeSize + "):</b> " + model.writeData
+                            text: "<b>Write (" + writeSize + "):</b>"
+                        }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.margins: 3
+                        radius: rootRectangle.radius
+                        color: "#f6f6f6"
+                        clip: true
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 5
+                            font.family: "Courier"
+                            text: model.writeData
+                            wrapMode: Text.Wrap
+                            clip: true
                         }
                     }
                 }
@@ -175,12 +193,30 @@ Item {
 
                     Rectangle {
                         Layout.fillHeight: true
+                        Layout.preferredWidth: 75
+                        //color: "lightblue"
+
+                        // Text {
+                        //     anchors.verticalCenter: parent.verticalCenter
+                        //     text: "<b>ASCII:</b>"
+                        // }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
                         Layout.fillWidth: true
-                        color: "white"
+                        Layout.margins: 3
+                        radius: rootRectangle.radius
+                        color: "#f6f6f6"
+                        clip: true
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Write (" + writeSize + "):</b> " + model.writeDataAscii
+                            leftPadding: 5
+                            font.family: "Courier"
+                            text: model.writeDataAscii
+                            wrapMode: Text.Wrap
+                            clip: true
                         }
                     }
                 }
@@ -193,12 +229,31 @@ Item {
 
                     Rectangle {
                         Layout.fillHeight: true
-                        Layout.fillWidth: true
-                        color: "white"
+                        Layout.preferredWidth: 75
+                        //color: "lightblue"
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Read (" + readSize + "):</b> " + model.readData
+                            text: "<b>Read (" + readSize + "):</b>"
+                        }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        Layout.margins: 3
+                        radius: rootRectangle.radius
+                        color: "#f6f6f6"
+                        clip: true
+                        visible: model.readData !== ""
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 5
+                            font.family: "Courier"
+                            text: model.readData
+                            wrapMode: Text.Wrap
+                            clip: true
                         }
                     }
                 }
@@ -211,12 +266,31 @@ Item {
 
                     Rectangle {
                         Layout.fillHeight: true
+                        Layout.preferredWidth: 75
+                        //color: "lightblue"
+
+                        // Text {
+                        //     anchors.verticalCenter: parent.verticalCenter
+                        //     text: "<b>ASCII:</b>"
+                        // }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
                         Layout.fillWidth: true
-                        color: "white"
+                        Layout.margins: 3
+                        radius: rootRectangle.radius
+                        color: "#f6f6f6"
+                        clip: true
+                        visible: model.readData !== ""
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
-                            text: "<b>Read (" + readSize + "):</b> " + model.readDataAscii
+                            leftPadding: 5
+                            font.family: "Courier"
+                            text: model.readDataAscii
+                            wrapMode: Text.Wrap
+                            clip: true
                         }
                     }
                 }

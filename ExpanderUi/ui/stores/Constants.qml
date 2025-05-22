@@ -17,6 +17,8 @@ Item {
     readonly property color statusFieldSuccess: "#B0BEC5"
     readonly property color statusFieldWarning: "#FFC107"
 
+    readonly property int tabButtonTextSize: 10
+
     // For slave address allow only hex numbers no larger than 10 bits
     readonly property var regExpSlaveAddress: new RegExp(/^0x[0-3][0-9A-Fa-f]{2}$|^0x[0-9A-Fa-f]{2}$/)
 

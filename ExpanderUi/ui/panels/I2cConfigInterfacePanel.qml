@@ -50,9 +50,13 @@ Rectangle {
             }
 
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: "I2C (1)"
             }
             TabButton {
+                //font.bold: true
+                font.pointSize: constants.tabButtonTextSize
                 text: "I2C (2)"
             }
         }
