@@ -24,6 +24,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
+                Layout.preferredWidth: 77
                 checked: i2cConfigForm.memAddrWidth === I2cTypes.OneByte
                 text: "1 Byte"
                 onClicked: function() {
@@ -50,6 +51,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
+                Layout.preferredWidth: 77
                 checked: i2cConfigForm.slaveAddrWidth === I2cTypes.SevenBit
                 text: "7 Bit"
                 onClicked: function() {

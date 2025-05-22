@@ -10,7 +10,7 @@ Item {
         id: i2cConfigForm0
         i2cId: I2cTypes.I2c0
         slaveAddr: "0x001"
-        memAddrWidth: I2cTypes.OneByte
+        memAddrWidth: I2cTypes.TwoByte
         slaveAddrWidth: I2cTypes.SevenBit
     }
 
@@ -18,7 +18,7 @@ Item {
         id: i2cConfigForm1
         i2cId: I2cTypes.I2c1
         slaveAddr: "0x002"
-        memAddrWidth: I2cTypes.OneByte
+        memAddrWidth: I2cTypes.TwoByte
         slaveAddrWidth: I2cTypes.SevenBit
     }
 
