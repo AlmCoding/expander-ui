@@ -7,6 +7,7 @@
 #include <QVariant>
 #include "magic_enum.hpp"
 #include "plugins/containers/i2c/i2ctypes.h"
+#include "utility.h"
 
 I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } { qDebug() << "I2cLogModel object: " << this; }
 
@@ -41,13 +42,17 @@ QVariant I2cLogModel::data(const QModelIndex& index, int role) const {
         case TypeRole:
             return QVariant{ type_name };
         case NameRole:
-            return QVariant{ log.getName() };
+            return QVariant{ truncateNameString(log.getName()) };
         case SlaveAddrRole:
             return QVariant{ log.getSlaveAddr() };
         case WriteDataRole:
             return QVariant{ log.getWriteData() };
+        case WriteDataAsciiRole:
+            return QVariant{ Utility::convertHexToAscii(log.getWriteData()) };
         case ReadDataRole:
             return QVariant{ log.getReadData() };
+        case ReadDataAsciiRole:
+            return QVariant{ Utility::convertHexToAscii(log.getReadData()) };
         case WriteSizeRole:
             return QVariant{ log.getWriteSize() };
         case ReadSizeRole:
@@ -212,4 +217,9 @@ void I2cLogModel::clear() {
     QAbstractItemModel::beginResetModel();
     logs_.clear();
     QAbstractItemModel::endResetModel();
+}
+
+QString I2cLogModel::truncateNameString(const QString& str) const {
+    QString truncated = font_metrics_.elidedText(str, Qt::ElideRight, LogEntryNameMaxWidth);
+    return truncated;
 }

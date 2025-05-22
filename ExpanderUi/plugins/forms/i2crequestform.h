@@ -67,8 +67,6 @@ class I2cRequestForm : public QObject {
     void requestChanged(I2cRequest request);
 
    private:
-    QString convertHexToAscii(const QString& hex);
-    QString convertAsciiToHex(const QString& ascii);
     bool visible_ = false;
     bool external_update_ = true;  // Init with true to avoid binding loop
     bool hex_update_ = false;

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QStandardPaths>
+#include <QString>
 
 class Utility : public QObject {
     Q_OBJECT
@@ -13,7 +14,8 @@ class Utility : public QObject {
         return QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
     }
 
-   signals:
+    static QString convertHexToAscii(const QString& hex_string);
+    static QString convertAsciiToHex(const QString& ascii_string);
 };
 
 #endif  // UTILITY_H

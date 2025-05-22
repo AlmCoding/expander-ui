@@ -299,8 +299,8 @@ void I2cRequestModel::clear() {
 }
 
 QString I2cRequestModel::truncateNameString(const QString& str) const {
-    QString elided_text = font_metrics_.elidedText(str, Qt::ElideRight, RequestNameMaxWidth);
-    return elided_text;
+    QString truncated = font_metrics_.elidedText(str, Qt::ElideRight, RequestNameMaxWidth);
+    return truncated;
 }
 
 QString I2cRequestModel::truncateDataString(const QString& str) const {

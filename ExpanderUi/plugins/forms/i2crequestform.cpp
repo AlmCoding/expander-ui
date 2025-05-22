@@ -1,4 +1,5 @@
 #include "i2crequestform.h"
+#include "../utility.h"
 
 I2cRequestForm::I2cRequestForm(QObject* parent) : QObject{ parent } {}
 
@@ -59,7 +60,7 @@ void I2cRequestForm::setWriteData(const QString& write_data) {
     emit writeDataChanged(write_data_);
 
     if (hex_update_ == true) {
-        write_data_ascii_ = convertHexToAscii(write_data_);
+        write_data_ascii_ = Utility::convertHexToAscii(write_data_);
         emit writeDataAsciiChanged(write_data_ascii_);
     }
 
@@ -75,7 +76,7 @@ void I2cRequestForm::setWriteDataAscii(const QString& write_data_ascii) {
     emit writeDataAsciiChanged(write_data_ascii_);
 
     if (ascii_update_ == true) {
-        write_data_ = convertAsciiToHex(write_data_ascii_);
+        write_data_ = Utility::convertAsciiToHex(write_data_ascii_);
         emit writeDataChanged(write_data_);
     }
 
@@ -102,16 +103,12 @@ void I2cRequestForm::loadRequest(const I2cRequest& request) {
     request_ = request;
 
     external_update_ = true;
-    //hex_update_ = true;
-    //ascii_update_ = true;
     setType(request.getType());
     setName(request.getName());
     setSlaveAddress(request.getSlaveAddr());
     setWriteData(request.getWriteData());
     setReadSize(request.getReadSize());
     external_update_ = false;
-    //hex_update_ = false;
-    //ascii_update_ = false;
 }
 
 void I2cRequestForm::clearRequest() {
@@ -121,30 +118,4 @@ void I2cRequestForm::clearRequest() {
     request.setReadSize(QString{ "0" });
     loadRequest(request);
     emit requestChanged(request_);
-}
-
-QString I2cRequestForm::convertHexToAscii(const QString& hex) {
-    QStringList hex_nums = hex.split(' ', Qt::SkipEmptyParts);
-    QByteArray ascii_bytes;
-
-    for (const QString& hex_num : hex_nums) {
-        bool ok;
-        int byte = hex_num.toInt(&ok, 16);
-        if (ok == true) {
-            ascii_bytes.append(static_cast<char>(byte));
-        } else {
-            qWarning("Invalid hex byte: %s", qUtf8Printable(hex_num));
-        }
-    }
-
-    return QString::fromLatin1(ascii_bytes);
-}
-
-QString I2cRequestForm::convertAsciiToHex(const QString& ascii) {
-    QString hex;
-    for (int i = 0; i < ascii.length(); ++i) {
-        hex.append(QString::number(ascii[i].unicode(), 16).rightJustified(2, '0'));
-        hex.append(' ');
-    }
-    return hex;
 }

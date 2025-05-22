@@ -6,7 +6,7 @@ import QtQuick.Controls.Material
 Item {
     id: root
     width: logList.width
-    height: 60
+    height: 120
 
     Rectangle {
         id: rootRectangle
@@ -26,18 +26,18 @@ Item {
             ColumnLayout {
                 id: firstColumn
                 Layout.fillHeight: true
-                Layout.preferredWidth: secondRow.width
+                Layout.preferredWidth: 120 // secondRow.width
                 spacing: 0
 
                 RowLayout {
                     id: firstRow
                     Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
+                    Layout.preferredHeight: parent.height / 4
                     spacing: 0
 
                     Rectangle {
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 140
+                        Layout.fillWidth: true
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: "lightgray"
@@ -47,12 +47,20 @@ Item {
                             text: "<b>" + model.name + "</b>"
                         }
                     }
+                }
+
+                RowLayout {
+                    id: secondRow
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 4
+                    spacing: 0
 
                     Rectangle {
                         id: interfaceNum
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 40 - 3
-                        Layout.alignment: Qt.AlignLeft
+                        Layout.fillWidth: true
+                        //Layout.preferredWidth: 40
+                        //Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: (model.interface === "I2c0") ? constants.i2c0Color : constants.i2c1Color
@@ -66,8 +74,9 @@ Item {
                     Rectangle {
                         id: logType
                         Layout.fillHeight: true
-                        Layout.preferredWidth: 40 - 3
-                        Layout.alignment: Qt.AlignLeft
+                        Layout.fillWidth: true
+                        //Layout.preferredWidth: 40
+                        //Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: (model.type === "MR") ? constants.masterColor : constants.slaveColor
@@ -80,27 +89,13 @@ Item {
                 }
 
                 RowLayout {
-                    id: secondRow
+                    id: thirdRow
                     Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
+                    Layout.preferredHeight: parent.height / 4
                     spacing: 0
 
                     Rectangle {
-                        id: timeStamp
-                        Layout.fillHeight: true
-                        Layout.preferredWidth: 140
-                        Layout.alignment: Qt.AlignLeft
-                        Layout.margins: 3
-                        radius: rootRectangle.radius
-                        color: "white"
-                        Text {
-                            anchors.verticalCenter: parent.verticalCenter
-                            leftPadding: 5
-                            text: model.time
-                        }
-                    }
-
-                    Rectangle {
+                        id: slaveAddr
                         Layout.fillHeight: true
                         Layout.preferredWidth: 80
                         Layout.alignment: Qt.AlignLeft
@@ -110,6 +105,30 @@ Item {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
                             text: (model.type === "MR") ? ("<b>Slave:</b> " + model.slaveAddr) : ""
+                        }
+                    }
+
+                }
+
+                RowLayout {
+                    id: fourthRow
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 4
+                    spacing: 0
+
+                    Rectangle {
+                        id: timeStamp
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        //Layout.preferredWidth: 140
+                        Layout.alignment: Qt.AlignLeft
+                        Layout.margins: 3
+                        radius: rootRectangle.radius
+                        color: "white"
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 5
+                            text: model.time
                         }
                     }
                 }
@@ -133,7 +152,7 @@ Item {
                 RowLayout {
                     id: writeRow
                     Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
+                    Layout.preferredHeight: parent.height / 4
                     spacing: 0
 
                     Rectangle {
@@ -149,9 +168,27 @@ Item {
                 }
 
                 RowLayout {
+                    id: writeRowAscii
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 4
+                    spacing: 0
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "white"
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "<b>Write (" + writeSize + "):</b> " + model.writeDataAscii
+                        }
+                    }
+                }
+
+                RowLayout {
                     id: readRow
                     Layout.fillWidth: true
-                    Layout.preferredHeight: parent.height / 2
+                    Layout.preferredHeight: parent.height / 4
                     spacing: 0
 
                     Rectangle {
@@ -162,6 +199,24 @@ Item {
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             text: "<b>Read (" + readSize + "):</b> " + model.readData
+                        }
+                    }
+                }
+
+                RowLayout {
+                    id: readRowAscii
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: parent.height / 4
+                    spacing: 0
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "white"
+
+                        Text {
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "<b>Read (" + readSize + "):</b> " + model.readDataAscii
                         }
                     }
                 }

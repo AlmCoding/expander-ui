@@ -2,9 +2,13 @@
 #define I2CLOGMODEL_H
 
 #include <QAbstractListModel>
+#include <QFont>
+#include <QFontMetrics>
+#include "plugins/containers/i2c/i2clog.h"
 #include "plugins/containers/i2c/i2cnotification.h"
 #include "plugins/containers/i2c/i2crequest.h"
-#include "plugins/containers/i2c/i2clog.h"
+
+constexpr int LogEntryNameMaxWidth = 150;
 
 class I2cLogModel : public QAbstractListModel {
     Q_OBJECT
@@ -40,20 +44,33 @@ class I2cLogModel : public QAbstractListModel {
         NameRole,
         SlaveAddrRole,
         WriteDataRole,
+        WriteDataAsciiRole,
         ReadDataRole,
+        ReadDataAsciiRole,
         WriteSizeRole,
         ReadSizeRole,
         SatusRole,
     };
     const QHash<int, QByteArray> role_names_{
-        { TimeRole, "time" },         { InterfaceRole, "interface" }, { TypeRole, "type" },
-        { NameRole, "name" },         { SlaveAddrRole, "slaveAddr" }, { WriteDataRole, "writeData" },
-        { ReadDataRole, "readData" }, { WriteSizeRole, "writeSize" }, { ReadSizeRole, "readSize" },
+        { TimeRole, "time" },
+        { InterfaceRole, "interface" },
+        { TypeRole, "type" },
+        { NameRole, "name" },
+        { SlaveAddrRole, "slaveAddr" },
+        { WriteDataRole, "writeData" },
+        { WriteDataAsciiRole, "writeDataAscii" },
+        { ReadDataRole, "readData" },
+        { ReadDataAsciiRole, "readDataAscii" },
+        { WriteSizeRole, "writeSize" },
+        { ReadSizeRole, "readSize" },
         { SatusRole, "status" },
     };
+    QString truncateNameString(const QString& str) const;
 
     QList<I2cLog> logs_;
     int selected_log_idx_ = 0;
+
+    QFontMetrics font_metrics_{ QFont{ "Roboto", 12, QFont::Bold } };
 };
 
 #endif  // I2CLOGMODEL_H
