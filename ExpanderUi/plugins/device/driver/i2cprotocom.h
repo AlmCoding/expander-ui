@@ -20,7 +20,8 @@ class I2cProtoCom : public QObject {
 
     static bool encodeI2cConfig(const I2cConfig& config, int sequence_number, QByteArray& message);
     static bool encodeI2cMasterRequest(const I2cRequest& request, int sequence_number, QByteArray& message);
-    static bool encodeI2cSlaveRequest(const I2cRequest& request, int sequence_number, QByteArray& message);
+    static bool encodeI2cSlaveRequest(const I2cConfig& config, const I2cRequest& request, int sequence_number,
+                                      QByteArray& message);
 
    private:
     static I2cTypes::MessageType decodeI2cConfigStatus(const i2c_proto_I2cMsg& i2c_msg, I2cConfigStatus& config_status);

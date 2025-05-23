@@ -45,6 +45,8 @@ class I2cService : public QObject {
     int sequence_number1_ = 0;
     int request_id_ = 0;
 
+    I2cConfig config0_;
+    I2cConfig config1_;
     QMap<int, I2cConfig> config_map_;
     QMap<int, I2cRequest> request_map_;
     QList<TimeoutEntry> timeout_list_;

@@ -95,8 +95,10 @@ bool I2cService::handleRequestStatus(I2cRequestStatus& request_status, I2cReques
 bool I2cService::createI2cConfigMsg(I2cConfig& config, QByteArray& message) {
     int sequence_number = 0;
     if (config.getI2cId() == I2cTypes::I2cId::I2c0) {
+        config0_ = config;
         sequence_number = sequence_number0_++;
     } else if (config.getI2cId() == I2cTypes::I2cId::I2c1) {
+        config1_ = config;
         sequence_number = sequence_number1_++;
     } else {
         qDebug("Invalid I2cId!");
@@ -116,10 +118,13 @@ bool I2cService::createI2cConfigMsg(I2cConfig& config, QByteArray& message) {
 
 bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
     int sequence_number = 0;
+    I2cConfig* config;
     auto i2c_id = request.getI2cId();
     if (i2c_id == I2cTypes::I2cId::I2c0) {
+        config = &config0_;
         sequence_number = sequence_number0_++;
     } else if (i2c_id == I2cTypes::I2cId::I2c1) {
+        config = &config1_;
         sequence_number = sequence_number1_++;
     } else {
         qDebug("Invalid I2cId!");
@@ -133,7 +138,7 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
             return false;
         }
     } else if (request.getType() == I2cTypes::I2cReqestType::SlaveConfig) {
-        if (I2cProtoCom::encodeI2cSlaveRequest(request, sequence_number, message) == false) {
+        if (I2cProtoCom::encodeI2cSlaveRequest(*config, request, sequence_number, message) == false) {
             qDebug() << "Failed to create I2cSlave request message!";
             return false;
         }

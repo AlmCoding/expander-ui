@@ -279,7 +279,8 @@ bool I2cProtoCom::encodeI2cMasterRequest(const I2cRequest& request, int sequence
     return true;
 }
 
-bool I2cProtoCom::encodeI2cSlaveRequest(const I2cRequest& request, int sequence_number, QByteArray& message) {
+bool I2cProtoCom::encodeI2cSlaveRequest(const I2cConfig& config, const I2cRequest& request, int sequence_number,
+                                        QByteArray& message) {
     bool success = false;
     /* Allocate space for the decoded message. */
     i2c_proto_I2cMsg i2c_msg = i2c_proto_I2cMsg_init_zero;
@@ -305,19 +306,38 @@ bool I2cProtoCom::encodeI2cSlaveRequest(const I2cRequest& request, int sequence_
         qDebug("Invalid write data!");
         return false;
     }
-    QByteArray addr_bytes = write_data.left(2);
-    write_data.remove(0, 2);
+    if (write_data.size() < 2 ||
+        (write_data.size() < 3 && config.getMemAddrWidth() == I2cTypes::MemAddrWidth::TwoByte)) {
+        qDebug("Write data is too small!");
+        return false;
+    }
+
+    int address = 0;
+    QByteArray addr_bytes;
+    if (config.getMemAddrWidth() == I2cTypes::MemAddrWidth::OneByte) {
+        addr_bytes = write_data.left(1);
+        address = static_cast<uint8_t>(addr_bytes[0]);
+        write_data.remove(0, 1);
+
+    } else if (config.getMemAddrWidth() == I2cTypes::MemAddrWidth::TwoByte) {
+        addr_bytes = write_data.left(2);
+        uint8_t byte0 = static_cast<uint8_t>(addr_bytes[0]);
+        uint8_t byte1 = static_cast<uint8_t>(addr_bytes[1]);
+        address = (byte0 << 8) | byte1;
+        write_data.remove(0, 2);
+
+    } else {
+        return false;
+    }
 
     i2c_msg.msg.slave_request.write_data.size = write_data.size();
     std::memcpy(i2c_msg.msg.slave_request.write_data.bytes, write_data.data(), write_data.size());
 
     i2c_msg.msg.slave_request.read_size = request.getReadSize().toInt();
 
-    uint8_t byte1 = static_cast<uint8_t>(addr_bytes[0]);
-    uint8_t byte2 = static_cast<uint8_t>(addr_bytes[1]);
-    int address = (byte1 << 8) | byte2;
     i2c_msg.msg.slave_request.write_addr = address;
     i2c_msg.msg.slave_request.read_addr = address;
+    qDebug("Address: 0x%02X", address);
 
     /* Now we are ready to encode the message! */
     if (pb_encode(&stream, i2c_proto_I2cMsg_fields, &i2c_msg) == false) {
