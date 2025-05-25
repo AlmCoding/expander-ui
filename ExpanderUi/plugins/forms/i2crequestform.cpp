@@ -1,5 +1,5 @@
 #include "i2crequestform.h"
-#include "../utility.h"
+#include "plugins/utility.h"
 
 I2cRequestForm::I2cRequestForm(QObject* parent) : QObject{ parent } {}
 

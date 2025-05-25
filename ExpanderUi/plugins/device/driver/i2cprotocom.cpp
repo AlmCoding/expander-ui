@@ -4,6 +4,7 @@
 #include "pb_common.h"
 #include "pb_decode.h"
 #include "pb_encode.h"
+#include "plugins/utility.h"
 #include "proto_c/i2c.pb.h"
 
 I2cProtoCom::I2cProtoCom(QObject* parent) : QObject{ parent } {}
@@ -173,13 +174,9 @@ bool I2cProtoCom::encodeI2cConfig(const I2cConfig& config, int sequence_number, 
     i2c_msg.which_msg = i2c_proto_I2cMsg_config_request_tag;
     i2c_msg.msg.config_request.request_id = config.getRequestId();
 
-    QString slave_addr{ config.getSlaveAddr() };
-    if (slave_addr.startsWith("0x", Qt::CaseInsensitive)) {
-        slave_addr = slave_addr.mid(2);
-    }
-    bool ok = false;
-    i2c_msg.msg.config_request.slave_addr = slave_addr.toUInt(&ok, 16);
-    if (ok == false) {
+    int slave_addr = Utility::convertSlaveAddrToInt(config.getSlaveAddr());
+    i2c_msg.msg.config_request.slave_addr = slave_addr;
+    if (slave_addr < 0) {
         qDebug("Invalid slave address!");
         return false;
     }
@@ -245,13 +242,9 @@ bool I2cProtoCom::encodeI2cMasterRequest(const I2cRequest& request, int sequence
     i2c_msg.which_msg = i2c_proto_I2cMsg_master_request_tag;
     i2c_msg.msg.master_request.request_id = request.getRequestId();
 
-    QString slave_addr{ request.getSlaveAddr() };
-    if (slave_addr.startsWith("0x", Qt::CaseInsensitive)) {
-        slave_addr = slave_addr.mid(2);
-    }
-    bool ok = false;
-    i2c_msg.msg.master_request.slave_addr = slave_addr.toUInt(&ok, 16);
-    if (ok == false) {
+    int slave_addr = Utility::convertSlaveAddrToInt(request.getSlaveAddr());
+    i2c_msg.msg.master_request.slave_addr = slave_addr;
+    if (slave_addr < 0) {
         qDebug("Invalid slave address!");
         return false;
     }

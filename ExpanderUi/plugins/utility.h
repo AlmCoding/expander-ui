@@ -16,6 +16,7 @@ class Utility : public QObject {
 
     static QString convertHexToAscii(const QString& hex_string);
     static QString convertAsciiToHex(const QString& ascii_string);
+    static int convertSlaveAddrToInt(const QString& slave_addr);
 };
 
 #endif  // UTILITY_H

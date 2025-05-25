@@ -173,6 +173,7 @@ Item {
                         radius: rootRectangle.radius
                         color: "#f6f6f6"
                         clip: true
+                        visible: model.writeData !== ""
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
@@ -209,6 +210,7 @@ Item {
                         radius: rootRectangle.radius
                         color: "#f6f6f6"
                         clip: true
+                        visible: model.writeData !== ""
 
                         Text {
                             anchors.verticalCenter: parent.verticalCenter

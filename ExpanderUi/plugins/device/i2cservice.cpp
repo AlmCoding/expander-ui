@@ -2,6 +2,7 @@
 #include <QDateTime>
 #include <QDebug>
 #include "plugins/device/driver/i2cprotocom.h"
+#include "plugins/utility.h"
 
 I2cService::I2cService(QObject* parent) : QObject{ parent } {
     timer_.setInterval(TimeoutCheckPeriodMs);
@@ -133,6 +134,12 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
     request.setRequestId(request_id_++);
 
     if (request.getType() == I2cTypes::I2cReqestType::MasterAction) {
+        // Check for slave address collision
+        if (Utility::convertSlaveAddrToInt(request.getSlaveAddr()) ==
+            Utility::convertSlaveAddrToInt(config->getSlaveAddr())) {
+            emit statusMessage("[ERROR] Slave address in request collides with own address!");
+        }
+
         if (I2cProtoCom::encodeI2cMasterRequest(request, sequence_number, message) == false) {
             qDebug() << "Failed to create I2cMaster request message!";
             return false;
@@ -166,9 +173,9 @@ void I2cService::checkTimeouts() {
             } else {
                 assert(false);
             }
-            qDebug() << "Timeout for request with request_id:" << request_id;
             iter = timeout_list_.erase(iter);
-            emit requestTimeout();
+            qDebug() << "Timeout for request with request_id:" << request_id;
+            emit statusMessage("[ERROR] Request timeout!");
         } else {
             ++iter;
         }

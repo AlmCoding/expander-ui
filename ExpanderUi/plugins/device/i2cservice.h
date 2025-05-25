@@ -26,7 +26,7 @@ class I2cService : public QObject {
     bool createI2cRequestMsg(I2cRequest& request, QByteArray& message);
 
    signals:
-    void requestTimeout();
+    void statusMessage(QString message);
 
    private:
     constexpr static int TimeoutMs = 2000;

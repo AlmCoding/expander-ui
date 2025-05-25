@@ -105,8 +105,8 @@ void DeviceManager::run() {
     connect(firmware_installer_, &FirmwareInstaller::stateChanged, this,
             [this](InstallerTypes::State state) { emit installerStateChanged(state); });
 
-    connect(i2c_service_, &I2cService::requestTimeout, this,
-            [this]() { emit statusMessageChanged("[ERROR] Request timeout!"); });
+    connect(i2c_service_, &I2cService::statusMessage, this,
+            [this](QString message) { emit statusMessageChanged(message); });
 
     timer_ = new QTimer{ this };
     connect(timer_, &QTimer::timeout, this, &DeviceManager::triggerEcho);

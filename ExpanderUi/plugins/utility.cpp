@@ -87,3 +87,17 @@ QString Utility::convertAsciiToHex(const QString& ascii_string) {
 
     return hex_list.join(' ');
 }
+
+int Utility::convertSlaveAddrToInt(const QString& slave_addr) {
+    QString addr = slave_addr;
+    if (addr.startsWith("0x", Qt::CaseInsensitive)) {
+        addr = addr.mid(2);
+    }
+    bool ok;
+    int value = addr.toInt(&ok, 16);
+    if (!ok) {
+        qWarning() << "Invalid hex value:" << addr;
+        return -1;  // Return an invalid value
+    }
+    return value;
+}
