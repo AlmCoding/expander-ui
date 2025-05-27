@@ -21,6 +21,9 @@ Rectangle {
             highlightMoveDuration: constants.listViewHighlightMoveDuration
             focus: true
             currentIndex: rootStore.i2cStore.i2cLogModel.selectedLogIdx
+            onCountChanged: {
+                Qt.callLater(() => positionViewAtEnd());
+            }
         }
     }
 }
