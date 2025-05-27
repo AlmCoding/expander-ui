@@ -17,7 +17,6 @@ Item {
         drag.axis: Drag.YAxis
 
         onPressed: function() {
-            // console.log("onPressed: " + model.index);
             rootStore.i2cStore.i2cRequestModel.selectedRequestIdx = model.index;
             rootStore.i2cStore.i2cRequestForm.visible = false;
             held = true;

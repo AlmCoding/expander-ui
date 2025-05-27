@@ -113,4 +113,8 @@ Rectangle {
         fileMode: FileDialog.SaveFile
         nameFilters: ["Text files (*.txt)", "All files (*)"] // Set filters for file types
     }
+
+    I2cLogDetailsPanel {
+        id: logDetails
+    }
 }

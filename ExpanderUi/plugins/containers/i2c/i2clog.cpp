@@ -11,4 +11,7 @@ I2cLog::I2cLog(QString time, QString interface_name, I2cTypes::I2cReqestType typ
       read_data_(read_data),
       write_size_(write_size),
       read_size_(read_size),
-      status_(status) {}
+      status_(status) {
+    write_data_ascii_ = Utility::convertHexToAscii(write_data);
+    read_data_ascii_ = Utility::convertHexToAscii(read_data);
+}

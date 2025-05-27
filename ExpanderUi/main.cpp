@@ -10,6 +10,7 @@
 #include "plugins/device/interfaceexpander.h"
 #include "plugins/forms/i2cconfigform.h"
 #include "plugins/forms/i2crequestform.h"
+#include "plugins/i2clogdetails.h"
 #include "plugins/i2clogmodel.h"
 #include "plugins/i2crequestmodel.h"
 #include "plugins/updatemanager.h"
@@ -27,6 +28,7 @@ int main(int argc, char* argv[]) {
 
     qmlRegisterType<Utility>("expander.Utility", 1, 0, "Utility");
     qmlRegisterType<UpdateManager>("expander.UpdateManager", 1, 0, "UpdateManager");
+    qmlRegisterType<I2cLogDetails>("expander.I2cLogDetails", 1, 0, "I2cLogDetails");
     qmlRegisterType<I2cConfigForm>("expander.forms", 1, 0, "I2cConfigForm");
     qmlRegisterType<I2cRequestForm>("expander.forms", 1, 0, "I2cRequestForm");
 

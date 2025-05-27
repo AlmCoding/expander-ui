@@ -7,7 +7,7 @@
 #include <QVariant>
 #include "magic_enum.hpp"
 #include "plugins/containers/i2c/i2ctypes.h"
-#include "utility.h"
+// #include "utility.h"
 
 I2cLogModel::I2cLogModel(QObject* parent) : QAbstractListModel{ parent } { qDebug() << "I2cLogModel object: " << this; }
 
@@ -48,11 +48,11 @@ QVariant I2cLogModel::data(const QModelIndex& index, int role) const {
         case WriteDataRole:
             return QVariant{ log.getWriteData() };
         case WriteDataAsciiRole:
-            return QVariant{ Utility::convertHexToAscii(log.getWriteData()) };
+            return QVariant{ log.getWriteDataAscii() };
         case ReadDataRole:
             return QVariant{ log.getReadData() };
         case ReadDataAsciiRole:
-            return QVariant{ Utility::convertHexToAscii(log.getReadData()) };
+            return QVariant{ log.getReadDataAscii() };
         case WriteSizeRole:
             return QVariant{ log.getWriteSize() };
         case ReadSizeRole:

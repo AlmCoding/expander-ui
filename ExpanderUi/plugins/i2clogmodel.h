@@ -29,6 +29,8 @@ class I2cLogModel : public QAbstractListModel {
     void appendNewLog(const I2cRequest& request);
     void appendNewLog(const I2cNotification& notification);
 
+    I2cLog getSelectedLog() const { return logs_.at(selected_log_idx_); }
+
     void saveLogsToFile(const QString& file_path);
     void loadLogsFromFile(const QString& file_path);
     void clear();

@@ -45,6 +45,7 @@ qt_add_qml_module(IntExp
         ui/panels/I2cRequestFormMasterTab.qml
         ui/panels/I2cRequestFormSlaveTab.qml
         ui/panels/I2cLogListPanel.qml
+        ui/panels/I2cLogDetailsPanel.qml
         ui/panels/ConnectionPanel.qml
         ui/panels/DeviceInfoPanel.qml
 
@@ -67,8 +68,9 @@ qt_add_qml_module(IntExp
     # plugins
     SOURCES plugins/i2crequestmodel.h plugins/i2crequestmodel.cpp
     SOURCES plugins/i2clogmodel.h plugins/i2clogmodel.cpp
-    SOURCES plugins/utility.h plugins/utility.cpp
+    SOURCES plugins/i2clogdetails.h plugins/i2clogdetails.cpp
     SOURCES plugins/updatemanager.h plugins/updatemanager.cpp
+    SOURCES plugins/utility.h plugins/utility.cpp
 
     # containers
     SOURCES plugins/containers/com/installertypes.h

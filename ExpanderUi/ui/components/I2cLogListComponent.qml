@@ -8,6 +8,13 @@ Item {
     width: logList.width
     height: 120
 
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            rootStore.i2cStore.i2cLogModel.selectedLogIdx = index
+        }
+    }
+
     Rectangle {
         id: rootRectangle
         anchors.fill: parent
@@ -41,6 +48,7 @@ Item {
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: "lightgray"
+
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
@@ -64,6 +72,7 @@ Item {
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: (model.interface === "I2c0") ? constants.i2c0Color : constants.i2c1Color
+
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -80,6 +89,7 @@ Item {
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: (model.type === "MR") ? constants.masterColor : constants.slaveColor
+
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.horizontalCenter: parent.horizontalCenter
@@ -101,6 +111,7 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         Layout.margins: 3
                         color: "white"
+
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
@@ -125,6 +136,7 @@ Item {
                         Layout.margins: 3
                         radius: rootRectangle.radius
                         color: "white"
+
                         Text {
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 5
@@ -310,14 +322,15 @@ Item {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: model.status
                 }
-            }
-        }
-    }
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            logList.currentIndex = index;
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rootStore.i2cStore.i2cLogModel.selectedLogIdx = index
+                        rootStore.i2cStore.i2cLogDetails.visible = true;
+                    }
+                }
+            }
         }
     }
 }

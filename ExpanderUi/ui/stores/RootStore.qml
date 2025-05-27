@@ -9,9 +9,6 @@ Item {
     // Check for software updates
     property UpdateManager updateManager: UpdateManager {
         id: updateManager
-        // onUpdateAvailableChanged: { // connection moved to Main.qml
-        //    updateDialog.open();
-        // }
     }
 
     // Download firmware from internet

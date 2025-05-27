@@ -2,6 +2,7 @@ import QtQuick
 import expander.forms
 import expander.models
 import expander.containers.types
+import expander.I2cLogDetails
 
 Item {
     property var selectedInterface: I2cTypes.I2c0;
@@ -25,7 +26,7 @@ Item {
     property I2cRequestModel i2cRequestModel: I2cRequestModel {
         id: i2cRequestModel
         onSelectedRequestIdxChanged: function(idx) {
-            console.log("Selected idx: ", idx);
+            console.log("Selected request idx: ", idx);
             i2cRequestForm.loadRequest(i2cRequestModel.getSelectedRequest());
         }
     }
@@ -60,5 +61,13 @@ Item {
 
     property I2cLogModel i2cLogModel: I2cLogModel {
         id: i2cLogModel
+        onSelectedLogIdxChanged: function(idx) {
+            console.log("Selected log idx: ", idx);
+            i2cLogDetails.loadLog(i2cLogModel.getSelectedLog());
+        }
+    }
+
+    property I2cLogDetails i2cLogDetails: I2cLogDetails {
+        id: i2cLogDetails
     }
 }
