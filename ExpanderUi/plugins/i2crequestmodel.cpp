@@ -97,89 +97,89 @@ bool I2cRequestModel::removeRows(int row, int count, const QModelIndex& parent) 
         return false;
     }
 
-    QAbstractItemModel::beginRemoveRows(parent, row, row + count - 1);
-    for (int i = 0; i < count; i++) {
-        requests_.removeAt(row);
-    }
-    QAbstractItemModel::endRemoveRows();
+ QAbstractItemModel::beginRemoveRows(parent, row, row + count - 1);
+ for (int i = 0; i < count; i++) {
+     requests_.removeAt(row);
+ }
+ QAbstractItemModel::endRemoveRows();
 
-    return true;
+ return true;
 }
 
 bool I2cRequestModel::insertRows(int row, int count, const QModelIndex& parent) {
-    if (row < 0 || row > requests_.size() || count < 1) {
-        return false;
-    }
+ if (row < 0 || row > requests_.size() || count < 1) {
+     return false;
+ }
 
-    QAbstractItemModel::beginInsertRows(parent, row, row + count - 1);
-    for (int i = 0; i < count; i++) {
-        requests_.insert(row, I2cRequest{});
-    }
-    QAbstractItemModel::endInsertRows();
+ QAbstractItemModel::beginInsertRows(parent, row, row + count - 1);
+ for (int i = 0; i < count; i++) {
+     requests_.insert(row, I2cRequest{});
+ }
+ QAbstractItemModel::endInsertRows();
 
-    return true;
+ return true;
 }
 
 QMimeData* I2cRequestModel::mimeData(const QModelIndexList& indexes) const {
-    QMimeData* mime_data = new QMimeData{};
-    QByteArray encoded_data;
+ QMimeData* mime_data = new QMimeData{};
+ QByteArray encoded_data;
 
-    QDataStream stream{ &encoded_data, QIODevice::WriteOnly };
-    for (const QModelIndex& index : indexes) {
-        if (index.isValid() == true) {
-            stream << index.row();
-        }
-    }
+ QDataStream stream{ &encoded_data, QIODevice::WriteOnly };
+ for (const QModelIndex& index : indexes) {
+     if (index.isValid() == true) {
+         stream << index.row();
+     }
+ }
 
-    mime_data->setData("application/i2crequest", encoded_data);
-    return mime_data;
+ mime_data->setData("application/i2crequest", encoded_data);
+ return mime_data;
 }
 
 bool I2cRequestModel::canDropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
-                                      const QModelIndex& parent) const {
-    Q_UNUSED(row);
-    Q_UNUSED(column);
-    Q_UNUSED(parent);
+                                   const QModelIndex& parent) const {
+ Q_UNUSED(row);
+ Q_UNUSED(column);
+ Q_UNUSED(parent);
 
-    if (action == Qt::IgnoreAction) {
-        return true;
-    } else if (data->hasFormat("application/i2crequest") == false) {
-        return false;
-    }
+ if (action == Qt::IgnoreAction) {
+     return true;
+ } else if (data->hasFormat("application/i2crequest") == false) {
+     return false;
+ }
 
-    return true;
+ return true;
 }
 
 bool I2cRequestModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
-                                   const QModelIndex& parent) {
-    Q_UNUSED(column);
-    Q_UNUSED(parent);
+                                const QModelIndex& parent) {
+ Q_UNUSED(column);
+ Q_UNUSED(parent);
 
-    if (action == Qt::IgnoreAction) {
-        return true;
-    } else if (data->hasFormat("application/i2crequest") == false) {
-        return false;
-    }
+ if (action == Qt::IgnoreAction) {
+     return true;
+ } else if (data->hasFormat("application/i2crequest") == false) {
+     return false;
+ }
 
-    QByteArray encoded_data = data->data("application/i2crequest");
-    QDataStream stream(&encoded_data, QIODevice::ReadOnly);
-    QList<I2cRequest> requests;
-    I2cRequest request;
+ QByteArray encoded_data = data->data("application/i2crequest");
+ QDataStream stream(&encoded_data, QIODevice::ReadOnly);
+ QList<I2cRequest> requests;
+ I2cRequest request;
 
-    while (stream.atEnd() == false) {
-        stream >> request;  // Deserialize Request object
-        requests.append(request);
-    }
+ while (stream.atEnd() == false) {
+     stream >> request;  // Deserialize Request object
+     requests.append(request);
+ }
 
-    QAbstractItemModel::beginInsertRows(parent, row, row + requests.count() - 1);
-    // Insert the deserialized requests into your internal list
-    for (const I2cRequest& request : requests) {
-        requests_.insert(row, request);  // Assuming requests_ is a QList<I2cRequest>
-        row++;                           // Increment row for the next insertion
-    }
-    QAbstractItemModel::endInsertRows();
+ QAbstractItemModel::beginInsertRows(parent, row, row + requests.count() - 1);
+ // Insert the deserialized requests into your internal list
+ for (const I2cRequest& request : requests) {
+     requests_.insert(row, request);  // Assuming requests_ is a QList<I2cRequest>
+     row++;                           // Increment row for the next insertion
+ }
+ QAbstractItemModel::endInsertRows();
 
-    return true;
+ return true;
 }
 */
 
@@ -209,6 +209,10 @@ void I2cRequestModel::deleteRequest(int request_idx) {
 
     if (selected_request_idx_ > 0 && selected_request_idx_ >= requests_.size()) {
         selected_request_idx_ = requests_.size() - 1;
+    }
+
+    // Emit change to update request form with request data who replaces deleted request
+    if (requests_.size() > 0) {
         emit selectedRequestIdxChanged(selected_request_idx_);
     }
 }
