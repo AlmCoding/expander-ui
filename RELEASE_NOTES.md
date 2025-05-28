@@ -1,5 +1,37 @@
 # RELEASE_NOTES.md
 
+## Version 1.0.2 - Support ASCII Input Format
+
+### Overview
+Enhanced request form configuration now supports **both ASCII and hexadecimal** data input formats, with real-time conversion between them.
+
+### Features
+- **Dual-Format Support**  
+  - Input data in **ASCII** (plain text) or **hexadecimal** format
+  - Automatic real-time conversion between formats
+- **Improved Usability**  
+  - Clear visual indicators for active input format
+  - Format validation to prevent input errors
+
+### Changes
+- Fixed stability bugs in data parsing engine
+- Optimized form rendering performance
+
+### Known Issues
+- None
+
+### Future Work
+- **SPI Interface Mode** (In Development)
+- Expanded format support (binary/Unicode)
+- Enhanced input validation logs
+
+### Getting Started
+1. Install the update package
+2. Launch the configuration tool
+3. In Request Forms:
+   - Select ASCII/Hex format using new toggle
+   - Observe real-time conversion
+
 ## Version 1.0.0 - Update Notification Added
 
 ### Overview

@@ -4,6 +4,8 @@ Welcome to the official repository of the **Interface Expander Control GUI**!
 This UI application allows you to interact with your Interface Expander device, 
 providing a user-friendly interface for configuring and controlling the device.
 
+You can find the device and more information on [Tindie](https://www.tindie.com/products/almcoding/usb-to-i2c-converter-with-gui/) :blush:
+
 ## Features
 
 ### Current Functionality
@@ -12,8 +14,7 @@ providing a user-friendly interface for configuring and controlling the device.
     - Configure I2C slave memory data
     - Receive slave access notificaitons
 
-### Upcoming Functionality (Will added in a future update)
-- Python library for easy device control
+### Upcoming Functionality (will added in a future release)
 - **USB to SPI**: Seamlessly control two SPI masters/slaves
 
 ![UI Screenshot](Docu/img/ui_screenshot_basic.png)
@@ -23,11 +24,11 @@ providing a user-friendly interface for configuring and controlling the device.
 
 ### Prerequisites
 To use this application, you will need:
-- A USB Interface Expander device.
+- A [USB Interface Expander](https://www.tindie.com/products/almcoding/usb-to-i2c-converter-with-gui/) device.
 - A computer running Windows or Linux.
 
 ![UI Screenshot](Docu/img/expander2_narrow.png)
-*Picture of interface expander device*
+*Picture of USB Interface Expander*
 
 ### Installation
 1. Download the latest release from the [Releases](https://github.com/AlmCoding/expander-ui/releases) page.
