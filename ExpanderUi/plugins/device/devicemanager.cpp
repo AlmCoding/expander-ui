@@ -161,7 +161,7 @@ void DeviceManager::sendI2cConfig(I2cConfig config) {
     qDebug() << "sendI2cConfig in DeviceManager thread";
 
     // Build message
-    QByteArray message{ 128, 0 };
+    QByteArray message{ 256, 0 };
     if (i2c_service_->createI2cConfigMsg(config, message) == false) {
         qDebug() << "Failed to create I2C config message!";
         return;
@@ -175,7 +175,7 @@ void DeviceManager::sendI2cRequest(I2cRequest request) {
     qDebug() << "sendI2cRequest in DeviceManager thread";
 
     // Build message
-    QByteArray message{ 128, 0 };
+    QByteArray message{ 256, 0 };
     if (i2c_service_->createI2cRequestMsg(request, message) == false) {
         qDebug() << "Failed to create I2C request message!";
         emit statusMessageChanged("[ERROR] Invalid request configuration!");
