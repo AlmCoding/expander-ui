@@ -21,8 +21,7 @@ QString Utility::convertHexToAscii(const QString& hex_string) {
                 result += QChar(value);
             } else {
                 // Non-printable characters are represented as \xx
-                result += '\\';
-                result += QString::asprintf("%02X", value);  // Convert to two-digit hex
+                result += '\\' + hex;
             }
         } else {
             qWarning() << "Invalid hex value:" << hex;
@@ -100,4 +99,14 @@ int Utility::convertSlaveAddrToInt(const QString& slave_addr) {
         return -1;  // Return an invalid value
     }
     return value;
+}
+
+QString Utility::countHexBytes(const QString& hex_string) {
+    int count = countHexBytesInt(hex_string);
+    return QString::number(count);
+}
+
+int Utility::countHexBytesInt(const QString& hex_string) {
+    QStringList hex_list = hex_string.split(' ', Qt::SkipEmptyParts);
+    return hex_list.size();
 }

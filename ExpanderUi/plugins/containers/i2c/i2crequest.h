@@ -4,6 +4,7 @@
 #include <QString>
 #include "plugins/containers/i2c/i2crequeststatus.h"
 #include "plugins/containers/i2c/i2ctypes.h"
+#include "plugins/utility.h"
 
 class I2cRequest {
    public:
@@ -16,7 +17,10 @@ class I2cRequest {
     void setName(QString name) { name_ = name; }
     void setType(I2cTypes::I2cReqestType type) { type_ = type; }
     void setSlaveAddr(QString slave_addr) { slave_addr_ = slave_addr; }
-    void setWriteData(QString write_data) { write_data_ = write_data; }
+    void setWriteData(QString write_data) {
+        write_data_ = write_data;
+        write_size_ = Utility::countHexBytes(write_data_);
+    }
     void setReadSize(QString read_size) { read_size_ = read_size; }
     void setStatus(I2cRequestStatus& status) { status_ = status; }
 
@@ -26,7 +30,7 @@ class I2cRequest {
     QString getName() const { return name_; }
     QString getSlaveAddr() const { return slave_addr_; }
     QString getWriteData() const { return write_data_; }
-    QString getWriteSize() const;
+    QString getWriteSize() const { return write_size_; }
     QString getReadSize() const { return read_size_; }
     I2cRequestStatus getStatus() const { return status_; }
 
@@ -40,6 +44,7 @@ class I2cRequest {
     QString name_;
     QString slave_addr_;
     QString write_data_;
+    QString write_size_;
     QString read_size_;
 
     I2cRequestStatus status_;

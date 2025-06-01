@@ -115,6 +115,7 @@ void I2cRequestForm::clearRequest() {
     I2cRequest request{};
     request.setType(request_.getType());
     request.setName(request_.getName());
+    request.setSlaveAddr(request_.getSlaveAddr());
     request.setReadSize(QString{ "0" });
     loadRequest(request);
     emit requestChanged(request_);

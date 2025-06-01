@@ -133,20 +133,34 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
     }
     request.setRequestId(request_id_++);
 
+    // Check for invalid write and read size
+    if (request.getWriteSize().toUInt() == 0 && request.getReadSize().toUInt() == 0) {
+        emit statusMessage("[ERROR] Invalid write and read size!");
+        return false;
+    }
+
     if (request.getType() == I2cTypes::I2cReqestType::MasterAction) {
+        // Check for invalid slave address
+        if (Utility::convertSlaveAddrToInt(request.getSlaveAddr()) == -1) {
+            emit statusMessage("[ERROR] Invalid slave address!");
+            return false;
+        }
         // Check for slave address collision
         if (Utility::convertSlaveAddrToInt(request.getSlaveAddr()) ==
             Utility::convertSlaveAddrToInt(config->getSlaveAddr())) {
             emit statusMessage("[ERROR] Slave address in request collides with own address!");
+            return false;
         }
 
         if (I2cProtoCom::encodeI2cMasterRequest(request, sequence_number, message) == false) {
             qDebug() << "Failed to create I2cMaster request message!";
+            emit statusMessage("[ERROR] Invalid request configuration!");
             return false;
         }
     } else if (request.getType() == I2cTypes::I2cReqestType::SlaveConfig) {
         if (I2cProtoCom::encodeI2cSlaveRequest(*config, request, sequence_number, message) == false) {
             qDebug() << "Failed to create I2cSlave request message!";
+            emit statusMessage("[ERROR] Invalid request configuration!");
             return false;
         }
     } else {

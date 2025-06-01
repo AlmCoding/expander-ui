@@ -4,13 +4,6 @@ I2cRequest::I2cRequest(I2cTypes::I2cReqestType type, QString name, QString slave
                        QString read_size)
     : type_{ type }, name_{ name }, slave_addr_{ slave_addr }, write_data_{ write_data }, read_size_{ read_size } {}
 
-QString I2cRequest::getWriteSize() const {
-    QString write_data = write_data_;
-    int size = write_data.remove(' ').length();
-    QString size_str = QString::number(size / 2);
-    return size_str;
-}
-
 QDataStream& operator<<(QDataStream& out, const I2cRequest& request) {
     out << request.request_id_                //
         << static_cast<int>(request.i2c_id_)  //
