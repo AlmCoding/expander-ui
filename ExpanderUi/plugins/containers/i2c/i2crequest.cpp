@@ -2,7 +2,9 @@
 
 I2cRequest::I2cRequest(I2cTypes::I2cReqestType type, QString name, QString slave_addr, QString write_data,
                        QString read_size)
-    : type_{ type }, name_{ name }, slave_addr_{ slave_addr }, write_data_{ write_data }, read_size_{ read_size } {}
+    : type_{ type }, name_{ name }, slave_addr_{ slave_addr }, write_data_{ write_data }, read_size_{ read_size } {
+    write_size_ = Utility::countHexBytes(write_data_);
+}
 
 QDataStream& operator<<(QDataStream& out, const I2cRequest& request) {
     out << request.request_id_                //

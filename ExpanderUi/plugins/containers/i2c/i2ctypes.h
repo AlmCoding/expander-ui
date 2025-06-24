@@ -6,6 +6,8 @@
 namespace I2cTypes {
 Q_NAMESPACE
 
+constexpr int MaxWriteSize = 128;  // Maximum write size in bytes
+
 enum class I2cId {
     I2c0 = 0,
     I2c1,

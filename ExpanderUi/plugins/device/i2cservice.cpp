@@ -139,6 +139,17 @@ bool I2cService::createI2cRequestMsg(I2cRequest& request, QByteArray& message) {
         return false;
     }
 
+    int max_write_size = I2cTypes::MaxWriteSize;
+    if (request.getType() == I2cTypes::I2cReqestType::SlaveConfig) {
+        max_write_size = (config->getMemAddrWidth() == I2cTypes::MemAddrWidth::OneByte) ? I2cTypes::MaxWriteSize + 1
+                                                                                        : I2cTypes::MaxWriteSize + 2;
+    }
+    // Check for write size limit
+    if (request.getWriteSize().toUInt() > max_write_size) {
+        emit statusMessage("[ERROR] Write size exceeds limit!");
+        return false;
+    }
+
     if (request.getType() == I2cTypes::I2cReqestType::MasterAction) {
         // Check for invalid slave address
         if (Utility::convertSlaveAddrToInt(request.getSlaveAddr()) == -1) {
