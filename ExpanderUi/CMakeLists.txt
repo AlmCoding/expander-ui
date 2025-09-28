@@ -4,7 +4,7 @@ project(ExpanderUi VERSION 1.0.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.4 REQUIRED COMPONENTS Quick SerialPort)
+find_package(Qt6 6.4...6.10 REQUIRED COMPONENTS Quick SerialPort)
 
 qt_standard_project_setup()
 
@@ -108,10 +108,16 @@ add_subdirectory(libraries/tf)
 add_subdirectory(libraries/proto)
 add_subdirectory(libraries/enum)
 
-# Add CubeProgrammer_API.dll and include dir
-target_include_directories(IntExp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/include)
-target_link_directories(IntExp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/lib)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/lib/ DESTINATION .)
+if(WIN32)
+    set(CUBE_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/win32")
+elseif(UNIX)
+    set(CUBE_LIB_DIR "${CMAKE_CURRENT_SOURCE_DIR}/libraries/cube/unix")
+endif()
+
+# Add CubeProgrammer_API.dll/so and include dir
+target_include_directories(IntExp PRIVATE ${CUBE_LIB_DIR}/include)
+target_link_directories(IntExp PRIVATE ${CUBE_LIB_DIR}/lib)
+file(COPY ${CUBE_LIB_DIR}/lib/ DESTINATION .)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

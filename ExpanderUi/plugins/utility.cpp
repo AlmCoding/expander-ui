@@ -74,12 +74,14 @@ QString Utility::convertAsciiToHex(const QString& ascii_string) {
                 i += 2;
             } else {
                 // Invalid escape sequence, treat as normal character
-                hex_list << QString("%1").arg(ascii_string[i].unicode(), 2, 16, QChar('0'));
+                // hex_list << QString("%1").arg(ascii_string[i].unicode(), 2, 16, QChar('0'));
+                hex_list << QString("%1").arg(static_cast<int>(ascii_string[i].unicode()), 2, 16, QChar('0'));
                 i += 2;
             }
         } else {
             // Normal character
-            hex_list << QString("%1").arg(ascii_string[i].unicode(), 2, 16, QChar('0'));
+            // hex_list << QString("%1").arg(ascii_string[i].unicode(), 2, 16, QChar('0'));
+            hex_list << QString("%1").arg(static_cast<int>(ascii_string[i].unicode()), 2, 16, QChar('0'));
             i++;
         }
     }
