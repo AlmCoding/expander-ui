@@ -13,7 +13,7 @@ class FirmwareFileModel : public QAbstractListModel {
         QString firmwareDirectory READ getFirmwareDirectory WRITE setFirmwareDirectory NOTIFY firmwareDirectoryChanged)
     Q_PROPERTY(int selectedFileIdx READ getSelectedFileIdx WRITE setSelectedFileIdx NOTIFY selectedFileIdxChanged)
     Q_PROPERTY(int fileCount READ getFileCount NOTIFY fileCountChanged)
-    Q_PROPERTY(QString installedFirmwareVersion WRITE setInstalledFirmwareVersion)
+    Q_PROPERTY(QString installedFirmwareVersion READ getInstalledFirmwareVersion WRITE setInstalledFirmwareVersion)
     Q_PROPERTY(bool newerVersionSelected READ getNewerVersionSelected NOTIFY newerVersionSelectedChanged)
 
    public:
@@ -32,6 +32,7 @@ class FirmwareFileModel : public QAbstractListModel {
     void setSelectedFileIdx(int idx);
     void setInstalledFirmwareVersion(const QString& version);
     QString getSelectedFile() const;
+    QString getInstalledFirmwareVersion() const;
     void refresh();
 
    signals:

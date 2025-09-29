@@ -59,6 +59,10 @@ QString FirmwareFileModel::getSelectedFile() const {
     return QString{};
 }
 
+QString FirmwareFileModel::getInstalledFirmwareVersion() const {
+    return installed_firmware_version_;
+}
+
 void FirmwareFileModel::refresh() {
     if (QDir().exists(firmware_directory_) == false) {
         qDebug() << "Firmware directory does not (yet) exist: " << firmware_directory_;
