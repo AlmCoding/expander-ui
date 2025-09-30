@@ -41,7 +41,7 @@ int main(int argc, char* argv[]) {
     qmlRegisterType<InterfaceExpander>("expander.InterfaceExpander", 1, 0, "InterfaceExpander");
 
     QQmlApplicationEngine engine;
-    const QUrl url(u"qrc:/ExpanderUi/ui/Main.qml"_qs);
+    const QUrl url("qrc:/ExpanderUi/ui/Main.qml");
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreationFailed, &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);

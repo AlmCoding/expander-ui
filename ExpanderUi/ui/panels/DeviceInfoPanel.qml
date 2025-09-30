@@ -61,7 +61,7 @@ Rectangle {
 
         Button {
             id: installButton
-            Layout.preferredWidth: 160
+            Layout.preferredWidth: 180
             text: rootStore.firmwareFileModel.newerVersionSelected === true ? "Upgrade Firmware" : "Install Firmware"
             Material.background: rootStore.firmwareFileModel.newerVersionSelected === true ? Material.Pink : Material.Foreground
 

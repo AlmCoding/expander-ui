@@ -8,7 +8,7 @@ import expander.containers.types
 ColumnLayout {
     spacing: 5
     property var i2cConfigForm
-    readonly property int labelWidth: 130
+    readonly property int labelWidth: 120
 
     GridLayout {
         Layout.fillWidth: true
@@ -17,14 +17,14 @@ ColumnLayout {
 
         Label {
             Layout.preferredWidth: labelWidth
-            text: "Memory Address Width"
+            text: "Memory Addr. Width"
             font.pixelSize: 12
             font.bold: true
         }
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 77
+                Layout.preferredWidth: 87
                 checked: i2cConfigForm.memAddrWidth === I2cTypes.OneByte
                 text: "1 Byte"
                 onClicked: function() {
@@ -51,7 +51,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 77
+                Layout.preferredWidth: 87
                 checked: i2cConfigForm.slaveAddrWidth === I2cTypes.SevenBit
                 text: "7 Bit"
                 onClicked: function() {

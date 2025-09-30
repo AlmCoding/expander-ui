@@ -31,7 +31,7 @@ Rectangle {
         // }
 
         ComboBox {
-            Layout.preferredWidth: 160
+            Layout.preferredWidth: 180
             Layout.preferredHeight: 40
             model: rootStore.comPortModel
             textRole: "display"
