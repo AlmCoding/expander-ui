@@ -1,0 +1,12 @@
+#!/bin/sh
+# AppRun launcher for IntExp AppImage
+
+HERE="$(dirname "$(readlink -f "$0")")"
+
+# Add local libs and plugins to search paths
+export LD_LIBRARY_PATH="$HERE/lib:$LD_LIBRARY_PATH"
+export QT_PLUGIN_PATH="$HERE/plugins"
+
+# Run your main executable
+exec "$HERE/IntExp" "$@"
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>IntExp</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>LGPL-3.0</project_license>
+	<name>InterfaceExpander</name>
+	<summary>GUI to control USB-to-I2C interface device</summary>
+	<description>
+		<p>InterfaceExpander is a GUI designed to interface with the AlmDevices USB-to-I²C Converter. It allows users to control and monitor I²C communication through an intuitive GUI, enabling both master and slave operations. The application facilitates the testing and development of systems using custom I²C protocols, providing a seamless bridge between USB and I²C devices.
+
+</p>
+	</description>
+	<launchable type="desktop-id">IntExp.desktop</launchable>
+	<url type="homepage">https://github.com/AlmCoding/expander-ui</url>
+	<screenshots>
+		<screenshot type="default">
+			<image>https://github.com/AlmCoding/expander-ui/raw/main/Docu/img/ui_screenshot_basic.png</image>
+		</screenshot>
+	</screenshots>
+	<provides>
+		<id>IntExp.desktop</id>
+	</provides>
+</component>

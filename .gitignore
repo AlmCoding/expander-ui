@@ -6,3 +6,5 @@ build-ExpanderUi-Desktop*/
 ExpanderUi/CMakeLists.txt.user
 
 ExpanderUi/build/
+
+.idea/
