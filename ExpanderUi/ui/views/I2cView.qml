@@ -11,7 +11,7 @@ RowLayout {
     I2cConfigPanel {
         id: configPanel
         Layout.fillHeight: true
-        Layout.preferredWidth: 320
+        Layout.preferredWidth: 330
     }
 
     I2cLogPanel {

@@ -8,7 +8,7 @@ import expander.containers.types
 ColumnLayout {
     spacing: 5
     property var i2cConfigForm
-    readonly property int labelWidth: 120
+    readonly property int labelWidth: 122
 
     GridLayout {
         Layout.fillWidth: true
@@ -24,7 +24,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 87
+                Layout.preferredWidth: 90
                 checked: i2cConfigForm.memAddrWidth === I2cTypes.OneByte
                 text: "1 Byte"
                 onClicked: function() {
@@ -51,7 +51,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 87
+                Layout.preferredWidth: 90
                 checked: i2cConfigForm.slaveAddrWidth === I2cTypes.SevenBit
                 text: "7 Bit"
                 onClicked: function() {
@@ -77,8 +77,9 @@ ColumnLayout {
         }
 
         TextField {
-            Layout.preferredWidth: 150
+            Layout.fillWidth: true
             Layout.preferredHeight: 40
+            Layout.rightMargin: 10
             text: i2cConfigForm.slaveAddr
             placeholderText: "HEX (0x001)"
             validator: RegularExpressionValidator {
@@ -102,8 +103,9 @@ ColumnLayout {
         }
 
         ComboBox {
-            Layout.preferredWidth: 150
+            Layout.fillWidth: true
             Layout.preferredHeight: 40
+            Layout.rightMargin: 10
             model: ["1 MHz", "400 kHz", "100 kHz", "40 kHz", "10 kHz"]
             onCurrentIndexChanged: function() {
                 switch (currentIndex) {
