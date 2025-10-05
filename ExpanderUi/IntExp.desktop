@@ -3,6 +3,7 @@ Type=Application
 Name=InterfaceExpander
 Exec=IntExp
 Icon=IntExp
+StartupWMClass=IntExp
 Categories=Development;Utility;
 Comment=USB Interface Expander GUI
 Terminal=false

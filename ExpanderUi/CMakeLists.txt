@@ -10,12 +10,14 @@ find_package(Qt6 6.4...6.10 REQUIRED COMPONENTS Quick SerialPort)
 qt_standard_project_setup()
 
 if(WIN32)
-    set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/ui/resources/images/icon.rc")
+    set(APP_ICON_RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/ui/resources/images/icons.rc")
+else()
+    set(APP_ICON_RESOURCES "${CMAKE_CURRENT_SOURCE_DIR}/ui/resources/images/icons.qrc")
 endif()
 
 qt_add_executable(IntExp
     main.cpp
-    ${APP_ICON_RESOURCE_WINDOWS}
+    ${APP_ICON_RESOURCES}
 )
 
 # Generate a header file with version information
@@ -59,6 +61,8 @@ qt_add_qml_module(IntExp
         ui/stores/I2cStore.qml
     RESOURCES
         ui/resources/images/icon.ico
+        ui/resources/images/icon.svg
+        ui/resources/images/icon.png
         ui/resources/images/play_100.png
         ui/resources/images/play_square_100.png
         ui/resources/images/play_round_90.png
