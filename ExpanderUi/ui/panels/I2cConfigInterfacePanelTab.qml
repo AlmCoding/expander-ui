@@ -8,7 +8,8 @@ import expander.containers.types
 ColumnLayout {
     spacing: 5
     property var i2cConfigForm
-    readonly property int labelWidth: 122
+    readonly property int labelWidth: Qt.platform.os === "windows" ? 130 : 122
+    readonly property int radioWidth: Qt.platform.os === "windows" ? 80 : 90
 
     GridLayout {
         Layout.fillWidth: true
@@ -24,7 +25,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 90
+                Layout.preferredWidth: radioWidth
                 checked: i2cConfigForm.memAddrWidth === I2cTypes.OneByte
                 text: "1 Byte"
                 onClicked: function() {
@@ -51,7 +52,7 @@ ColumnLayout {
 
         RowLayout {
             RadioButton {
-                Layout.preferredWidth: 90
+                Layout.preferredWidth: radioWidth
                 checked: i2cConfigForm.slaveAddrWidth === I2cTypes.SevenBit
                 text: "7 Bit"
                 onClicked: function() {

@@ -11,7 +11,7 @@ RowLayout {
     I2cConfigPanel {
         id: configPanel
         Layout.fillHeight: true
-        Layout.preferredWidth: 330
+        Layout.preferredWidth:  Qt.platform.os === "windows" ? 325 : 340
     }
 
     I2cLogPanel {

@@ -1,6 +1,7 @@
 #ifndef I2CREQUESTMODEL_H
 #define I2CREQUESTMODEL_H
 
+#include <qicon.h>
 #include <QAbstractListModel>
 #include <QFont>
 #include <QFontMetrics>
@@ -8,9 +9,15 @@
 #include <QString>
 #include "plugins/containers/i2c/i2crequest.h"
 
+#if defined(Q_OS_WIN)
 constexpr int RequestNameMaxWidth = 180;
 constexpr int RequestDataMaxChars = 32;
 constexpr int RequestDataMaxWidth = 180;
+#elif defined(Q_OS_UNIX)
+constexpr int RequestNameMaxWidth = 145;
+constexpr int RequestDataMaxChars = 25;
+constexpr int RequestDataMaxWidth = 145;
+#endif
 
 class I2cRequestModel : public QAbstractListModel {
     Q_OBJECT
