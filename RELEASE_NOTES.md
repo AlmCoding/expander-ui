@@ -1,5 +1,21 @@
 # RELEASE_NOTES.md
 
+## Version 1.0.3 - Linux Support & UI Refinements
+
+### Overview
+This release introduces **Linux compatibility** and a refreshed layout for a smoother configuration experience across platforms.
+
+### Features
+- **Linux Platform Support**  
+  - Fully functional on modern Linux distributions  
+  - Consistent behavior with Windows/Linux versions
+
+### Changes
+  - Refined component spacing and alignment  
+
+### Known Issues
+- None
+
 ## Version 1.0.2 - Support ASCII Input Format
 
 ### Overview

@@ -28,10 +28,11 @@ if ! getent group plugdev > /dev/null; then
     groupadd plugdev
 fi
 
-# Add current user to plugdev
+# Add current user to plugdev and dialout
 CURRENT_USER=$(logname)
 usermod -aG plugdev "$CURRENT_USER"
-echo "👤 Added $CURRENT_USER to plugdev group"
+usermod -aG dialout "$CURRENT_USER"
+echo "👤 Added $CURRENT_USER to plugdev and dailout group"
 
 echo ""
 echo "ℹ️ You may need to reboot or log out/in for group changes to take effect."
