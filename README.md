@@ -5,7 +5,7 @@ This intuitive application provides a seamless way to interact with your Interfa
 
 You can find the device and more information on [Tindie](https://www.tindie.com/products/almcoding/usb-to-i2c-converter-with-gui/) :blush:
 
-## Features
+## 🧩 Features
 
 ### Current Functionality
 - **USB to I2C**: Seamlessly control two I2C masters and slaves
@@ -16,22 +16,20 @@ You can find the device and more information on [Tindie](https://www.tindie.com/
 ### Upcoming Functionality (will be added in the future)
 - **USB to SPI**: Seamlessly control two SPI masters/slaves  
 
-
-
 ![UI Screenshot](Docu/img/ui_screenshot_basic.png)
 *Screenshot of the GUI Application*
 
-## Getting Started
+## 🚀 Getting Started
 
-### Prerequisites
+### ✅ Prerequisites
 To use this application, you will need:
 - A [USB Interface Expander](https://www.tindie.com/products/almcoding/usb-to-i2c-converter-with-gui/) device.
 - A computer running Windows or Linux.
 
-![UI Screenshot](Docu/img/expander2_narrow.png)
+![USB Interface Expander](Docu/img/expander2_narrow.png)
 *Picture of USB Interface Expander*
 
-### Installation
+### 📦 Installation
 1. Download the latest release from the [Releases](https://github.com/AlmCoding/expander-ui/releases) page.
 2. On Linux:
     - Run the **linux_setup.sh** script to ensure proper serial port access rights.
@@ -50,12 +48,12 @@ To use this application, you will need:
         ```
 3. Run the application
 
-### Usage
+### ▶️ Usage
 1. Connect your USB Interface Expander to your computer using a USB-C cable.
 2. Launch the control application.
 3. Use the intuitive interface to configure and interact with your device.
 
-## Support
+## 🤝 Support
 For any issues or feature requests, please open a ticket in the [Issues](https://github.com/AlmCoding/expander-ui/issues) section.
 
 **Thank you for choosing the Interface Expander! Your feedback and suggestions are appriciated.**
